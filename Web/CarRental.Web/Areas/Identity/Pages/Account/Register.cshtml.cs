@@ -4,7 +4,7 @@
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
 
-    using CarRental.Data.Models;
+    using CarRental.Models;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;

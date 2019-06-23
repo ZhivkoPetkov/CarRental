@@ -2,9 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
-
-    using CarRental.Data.Models;
-
+    using CarRental.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;

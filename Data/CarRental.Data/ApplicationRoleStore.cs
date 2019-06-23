@@ -2,7 +2,7 @@
 {
     using System.Security.Claims;
 
-    using CarRental.Data.Models;
+    using CarRental.Models;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

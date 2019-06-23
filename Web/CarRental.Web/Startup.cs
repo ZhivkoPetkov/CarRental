@@ -5,7 +5,7 @@
     using CarRental.Data;
     using CarRental.Data.Common;
     using CarRental.Data.Common.Repositories;
-    using CarRental.Data.Models;
+    using CarRental.Models;
     using CarRental.Data.Repositories;
     using CarRental.Data.Seeding;
     using CarRental.Services.Data;
@@ -49,7 +49,7 @@
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequiredLength = 6;
+                    options.Password.RequiredLength = 4;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddUserStore<ApplicationUserStore>()

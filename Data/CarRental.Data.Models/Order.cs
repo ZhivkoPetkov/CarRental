@@ -7,9 +7,9 @@ namespace CarRental.Data.Models
     {
         public string Id { get; set; }
 
-        public int VehicleId { get; set; }
+        public int CarId { get; set; }
 
-        public Vehicle Vehicle { get; set; }
+        public Car Car { get; set; }
 
         public string ApplicationUserId { get; set; }
 

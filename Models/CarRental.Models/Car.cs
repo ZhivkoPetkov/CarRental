@@ -1,12 +1,12 @@
-﻿using CarRental.Data.Models.Enums;
+﻿using CarRental.Models.Enums;
 using System.Collections.Generic;
 
-namespace CarRental.Data.Models
+namespace CarRental.Models
 {
-    public class Vehicle
+    public class Car
     {
 
-        public Vehicle()
+        public Car()
         {
             this.Reviews = new HashSet<Review>();
         }

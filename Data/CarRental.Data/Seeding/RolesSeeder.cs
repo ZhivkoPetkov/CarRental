@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
 
     using CarRental.Common;
-    using CarRental.Data.Models;
+    using CarRental.Models;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;

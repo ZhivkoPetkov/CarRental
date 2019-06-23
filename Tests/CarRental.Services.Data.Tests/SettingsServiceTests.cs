@@ -6,7 +6,7 @@
 
     using CarRental.Data;
     using CarRental.Data.Common.Repositories;
-    using CarRental.Data.Models;
+    using CarRental.Models;
     using CarRental.Data.Repositories;
 
     using Microsoft.EntityFrameworkCore;

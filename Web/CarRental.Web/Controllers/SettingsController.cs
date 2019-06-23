@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
 
     using CarRental.Data.Common.Repositories;
-    using CarRental.Data.Models;
+    using CarRental.Models;
     using CarRental.Services.Mapping;
     using CarRental.Web.ViewModels.Settings;
 

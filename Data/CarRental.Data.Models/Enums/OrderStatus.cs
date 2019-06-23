@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarRental.Data.Models.Enums
+﻿namespace CarRental.Data.Models.Enums
 {
-    class OrderStatus
+    public enum OrderStatus
     {
+        Active = 1,
+        Finieshed = 2,
+        Canceled = 3
     }
 }

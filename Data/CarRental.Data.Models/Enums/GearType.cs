@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarRental.Data.Models.Enums
+﻿namespace CarRental.Data.Models.Enums
 {
     public enum GearType
     {

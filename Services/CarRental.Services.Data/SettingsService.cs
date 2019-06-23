@@ -1,9 +1,8 @@
 ﻿namespace CarRental.Services.Data
 {
-    using System.Linq;
-
     using CarRental.Data.Common.Repositories;
-    using CarRental.Data.Models;
+    using CarRental.Models;
+    using System.Linq;
 
     public class SettingsService : ISettingsService
     {

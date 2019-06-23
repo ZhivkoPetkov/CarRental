@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarRental.Data.Models
+﻿namespace CarRental.Data.Models
 {
-    class Location
+    public class Location
     {
+        public string Id { get; set; }
+
+        public string Name { get; set; }
     }
 }

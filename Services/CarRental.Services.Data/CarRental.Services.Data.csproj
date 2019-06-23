@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\CarRental.Data.Common\CarRental.Data.Common.csproj" />
-    <ProjectReference Include="..\..\Data\CarRental.Data.Models\CarRental.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Models\CarRental.Models\CarRental.Models.csproj" />
   </ItemGroup>
 
 </Project>

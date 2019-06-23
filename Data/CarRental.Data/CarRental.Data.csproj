@@ -37,8 +37,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CarRental.Common\CarRental.Common.csproj" />
+    <ProjectReference Include="..\..\Models\CarRental.Models\CarRental.Models.csproj" />
     <ProjectReference Include="..\CarRental.Data.Common\CarRental.Data.Common.csproj" />
-    <ProjectReference Include="..\CarRental.Data.Models\CarRental.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

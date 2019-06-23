@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\CarRental.Data.Models\CarRental.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Models\CarRental.Models\CarRental.Models.csproj" />
     <ProjectReference Include="..\..\Services\CarRental.Services.Mapping\CarRental.Services.Mapping.csproj" />
   </ItemGroup>
 

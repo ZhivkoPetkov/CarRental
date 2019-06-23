@@ -1,6 +1,6 @@
 ﻿namespace CarRental.Web.ViewModels.Settings
 {
-    using CarRental.Data.Models;
+    using CarRental.Models;
     using CarRental.Services.Mapping;
 
     using AutoMapper;

@@ -1,16 +1,14 @@
 ﻿namespace CarRental.Data
 {
+    using CarRental.Data.Common.Models;
+    using CarRental.Models;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-
-    using CarRental.Data.Common.Models;
-    using CarRental.Data.Models;
-
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -76,26 +74,26 @@
 
         private static void ConfigureUserIdentityRelations(ModelBuilder builder)
         {
-            builder.Entity<ApplicationUser>()
-                .HasMany(e => e.Claims)
-                .WithOne()
-                .HasForeignKey(e => e.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.Entity<ApplicationUser>()
+            //    .HasMany(e => e.Claims)
+            //    .WithOne()
+            //    .HasForeignKey(e => e.UserId)
+            //    .IsRequired()
+            //    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<ApplicationUser>()
-                .HasMany(e => e.Logins)
-                .WithOne()
-                .HasForeignKey(e => e.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.Entity<ApplicationUser>()
+            //    .HasMany(e => e.Logins)
+            //    .WithOne()
+            //    .HasForeignKey(e => e.UserId)
+            //    .IsRequired()
+            //    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<ApplicationUser>()
-                .HasMany(e => e.Roles)
-                .WithOne()
-                .HasForeignKey(e => e.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.Entity<ApplicationUser>()
+            //    .HasMany(e => e.Roles)
+            //    .WithOne()
+            //    .HasForeignKey(e => e.UserId)
+            //    .IsRequired()
+            //    .OnDelete(DeleteBehavior.Restrict);
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
