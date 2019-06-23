@@ -14,6 +14,7 @@ namespace CarRental.Data.Models
         {        
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Orders = new HashSet<Order>();
+            this.Vouchers = new HashSet<Voucher>();
         }
 
         // Audit info
@@ -27,6 +28,8 @@ namespace CarRental.Data.Models
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
+
+        public virtual ICollection<Voucher> Vouchers { get; set; }
 
     }
 }

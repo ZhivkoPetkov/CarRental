@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarRental.Data.Models.Enums;
+using System;
 
 namespace CarRental.Data.Models
 {
@@ -22,5 +23,8 @@ namespace CarRental.Data.Models
 
         public OrderStatus Status { get; set; }
 
+        public int? VoucherId { get; set; }
+
+        public Voucher Voucher { get; set; }
     }
 }
