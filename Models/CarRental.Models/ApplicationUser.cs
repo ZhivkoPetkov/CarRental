@@ -14,13 +14,11 @@ namespace CarRental.Models
             this.Orders = new HashSet<Order>();
             this.Vouchers = new HashSet<Voucher>();
         }
-
-        // Audit info
+      
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
 
-        // Deletable entity
         public bool IsDeleted { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
