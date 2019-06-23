@@ -1,0 +1,26 @@
+﻿using System;
+
+namespace CarRental.Data.Models
+{
+    public class Order
+    {
+        public string Id { get; set; }
+
+        public int VehicleId { get; set; }
+
+        public Vehicle Vehicle { get; set; }
+
+        public string ApplicationUserId { get; set; }
+
+        public ApplicationUser User { get; set; }
+
+        public decimal Price { get; set; }
+
+        public DateTime RentStart { get; set; }
+
+        public DateTime RentEnd { get; set; }
+
+        public OrderStatus Status { get; set; }
+
+    }
+}
