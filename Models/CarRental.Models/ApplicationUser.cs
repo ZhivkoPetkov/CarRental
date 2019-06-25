@@ -14,7 +14,10 @@ namespace CarRental.Models
             this.Orders = new HashSet<Order>();
             this.Vouchers = new HashSet<Voucher>();
         }
-      
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
