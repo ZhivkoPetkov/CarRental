@@ -10,7 +10,7 @@
     public class ApplicationUserStore : UserStore<
         ApplicationUser,
         ApplicationRole,
-        ApplicationDbContext,
+        CarRentalDbContext,
         string,
         IdentityUserClaim<string>,
         IdentityUserRole<string>,
@@ -18,7 +18,7 @@
         IdentityUserToken<string>,
         IdentityRoleClaim<string>>
     {
-        public ApplicationUserStore(ApplicationDbContext context, IdentityErrorDescriber describer = null)
+        public ApplicationUserStore(CarRentalDbContext context, IdentityErrorDescriber describer = null)
             : base(context, describer)
         {
         }

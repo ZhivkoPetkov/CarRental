@@ -38,7 +38,6 @@
     <ProjectReference Include="..\..\Services\CarRental.Services.Data\CarRental.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\CarRental.Services.Mapping\CarRental.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\CarRental.Services.Messaging\CarRental.Services.Messaging.csproj" />
-    <ProjectReference Include="..\..\Services\CarRental.Services\CarRental.Services.csproj" />
   </ItemGroup>
 
 </Project>

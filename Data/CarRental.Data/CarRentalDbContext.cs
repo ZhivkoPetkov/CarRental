@@ -10,19 +10,24 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+    public class CarRentalDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         private static readonly MethodInfo SetIsDeletedQueryFilterMethod =
-            typeof(ApplicationDbContext).GetMethod(
+            typeof(CarRentalDbContext).GetMethod(
                 nameof(SetIsDeletedQueryFilter),
                 BindingFlags.NonPublic | BindingFlags.Static);
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public CarRentalDbContext(DbContextOptions<CarRentalDbContext> options)
             : base(options)
         {
         }
 
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<Car> Cars { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Voucher> Vouchers { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

@@ -12,7 +12,7 @@
     using CarRental.Services.Mapping;
     using CarRental.Services.Messaging;
     using CarRental.Web.ViewModels;
-
+    using AutoMapper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -24,6 +24,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using CarRental.Web.MappingConfiguration;
 
     public class Startup
     {
@@ -39,7 +40,7 @@
         {
             // Framework services
             // TODO: Add pooling when this bug is fixed: https://github.com/aspnet/EntityFrameworkCore/issues/9741
-            services.AddDbContext<ApplicationDbContext>(
+            services.AddDbContext<CarRentalDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
             services
@@ -51,7 +52,7 @@
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequiredLength = 4;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<CarRentalDbContext>()
                 .AddUserStore<ApplicationUserStore>()
                 .AddRoleStore<ApplicationRoleStore>()
                 .AddDefaultTokenProviders()
@@ -84,6 +85,11 @@
                     options.ConsentCookie.Name = ".AspNetCore.ConsentCookie";
                 });
 
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<CarRentalConfiguration>();
+            });
+
             services.AddSingleton(this.configuration);
 
             // Identity stores
@@ -109,14 +115,14 @@
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<CarRentalDbContext>();
 
                 if (env.IsDevelopment())
                 {
                     dbContext.Database.Migrate();
                 }
 
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                new CarRentalDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
             if (env.IsDevelopment())
