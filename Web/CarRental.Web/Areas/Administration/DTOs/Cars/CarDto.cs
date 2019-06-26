@@ -1,4 +1,5 @@
 ﻿using CarRental.Models.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace CarRental.Web.Areas.Administration.DTOs.Cars
 {
@@ -10,7 +11,7 @@ namespace CarRental.Web.Areas.Administration.DTOs.Cars
 
         public int Year { get; set; }
 
-        public string Image { get; set; }
+        public IFormFile Image { get; set; }
 
         public GearType GearType { get; set; }
 

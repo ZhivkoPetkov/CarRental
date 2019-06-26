@@ -4,6 +4,7 @@ using CarRental.Models.Enums;
 using CarRental.Services.Contracts;
 using CarRental.Web.Areas.Administration.DTOs.Cars;
 using CarRental.Web.Areas.Administration.ViewModels.Cars;
+using CloudinaryDotNet;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -15,12 +16,16 @@ namespace CarRental.Web.Areas.Administration.Controllers
         private readonly ILocationsService locationsService;
         private readonly IMapper mapper;
         private readonly ICarsService carsService;
+        private readonly Cloudinary cloudinary;
+        private readonly IImagesService imagesService;
 
-        public CarsController(ILocationsService locationsService, IMapper mapper, ICarsService carsService)
+        public CarsController(ILocationsService locationsService, IMapper mapper, ICarsService carsService, Cloudinary cloudinary, IImagesService imagesService)
         {
             this.locationsService = locationsService;
             this.mapper = mapper;
             this.carsService = carsService;
+            this.cloudinary = cloudinary;
+            this.imagesService = imagesService;
         }
 
         public IActionResult Add()
@@ -34,7 +39,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.View();
+                return this.BadRequest();
             }
 
             var carDto = new CarDto
@@ -42,13 +47,14 @@ namespace CarRental.Web.Areas.Administration.Controllers
                 Model = inputModel.Model,
                 Description = inputModel.Description,
                 Year = inputModel.Year,
-                Image = inputModel.Image,
                 PricePerDay = inputModel.PricePerDay,
                 GearType = Enum.Parse<GearType>(inputModel.GearType),
                 LocationId = this.locationsService.GetIdByName(inputModel.Location)
             };
 
             var car = this.mapper.Map<Car>(carDto);
+            car.Image = await this.imagesService.UploadImage(this.cloudinary, inputModel.ImageFile, inputModel.Model);
+
             this.carsService.AddCar(car);
 
             return Redirect("/");

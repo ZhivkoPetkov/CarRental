@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Web.Areas.Administration.ViewModels.Cars
@@ -28,8 +29,7 @@ namespace CarRental.Web.Areas.Administration.ViewModels.Cars
         public int Year { get; set; }
 
         [Required]
-        [Display(Name = "Image")]
-        public string Image { get; set; }
+        public IFormFile ImageFile { get; set; }
 
         [Required]
         [Display(Name = "GearType")]

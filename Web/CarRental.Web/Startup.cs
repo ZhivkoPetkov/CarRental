@@ -28,6 +28,8 @@
     using CarRental.Web.Middlewares;
     using CarRental.Services.Contracts;
     using CarRental.Services;
+    using CarRental.Common;
+    using CloudinaryDotNet;
 
     public class Startup
     {
@@ -88,6 +90,12 @@
                     options.ConsentCookie.Name = ".AspNetCore.ConsentCookie";
                 });
 
+            //Config Cloud Storage
+            var cloudinaryAccount = new CloudinaryDotNet.Account(GlobalConstants.CloudifyName, GlobalConstants.CloudifyAPI, GlobalConstants.CloudifyKey);
+            var cloudinary = new Cloudinary(cloudinaryAccount);
+            services.AddSingleton(cloudinary);
+
+            //Config AutoMapper
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<CarRentalConfiguration>();
@@ -100,6 +108,7 @@
             services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
             services.AddTransient<ILocationsService, LocationsService>();
             services.AddTransient<ICarsService, CarsService>();
+            services.AddTransient<IImagesService, ImagesService>();
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));

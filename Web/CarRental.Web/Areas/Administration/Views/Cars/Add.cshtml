@@ -4,67 +4,67 @@
     ViewData["Title"] = "Add car to database";
 }
 
-    <div class="row col-md-12">
-        <div class="col-md-10">
-            <form asp-controller="Cars" asp-action="Add" method="POST">
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Model"></label>
-                    <input asp-for="Model" class="form-control" />
-                    <span asp-validation-for="Model" class="text-danger"></span>
-                </div>
+<div class="row col-md-12">
+    <div class="col-md-10">
+        <form asp-controller="Cars" asp-action="Add" method="POST" enctype="multipart/form-data">
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Model"></label>
+                <input asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
 
-                <div class="form-group">
-                    <label asp-for="Year"></label>
-                    <input asp-for="Year" class="form-control" />
-                    <span asp-validation-for="Year" class="text-danger"></span>
-                </div>
+            <div class="form-group">
+                <label asp-for="Year"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
 
-                <div class="form-group">
-                    <label asp-for="Description"></label>
-                    <input asp-for="Description" class="form-control" />
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
 
-                <div class="form-group">
-                    <label asp-for="Image"></label>
-                    <input asp-for="Image" class="form-control" />
-                    <span asp-validation-for="Image" class="text-danger"></span>
-                </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" type="file" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
 
-                <div class="form-group">
-                    <label asp-for="GearType">Gear Type</label> 
-                    <select class="custom-select" asp-for="GearType">
-                        <option selected="">Choose a gear type for the car</option>
+            <div class="form-group">
+                <label asp-for="GearType">Gear Type</label>
+                <select class="custom-select" asp-for="GearType">
+                    <option selected="">Choose a gear type for the car</option>
 
-                        <option value="Manual">Manual Type</option>
-                        <option value="Automatic">Automatic Type</option>
-                    </select>
-                </div>
+                    <option value="Manual">Manual Type</option>
+                    <option value="Automatic">Automatic Type</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label asp-for="PricePerDay">Price per day</label>
-                    <input asp-for="PricePerDay" class="form-control" />
-                    <span asp-validation-for="PricePerDay" class="text-danger"></span>
-                </div>
+            <div class="form-group">
+                <label asp-for="PricePerDay">Price per day</label>
+                <input asp-for="PricePerDay" class="form-control" />
+                <span asp-validation-for="PricePerDay" class="text-danger"></span>
+            </div>
 
-                <div class="form-group">
-                    <label asp-for="Location">Starting location for the car</label>
-                    <select class="custom-select" asp-for="Location">
-                        <option selected="">Choose a location for the car</option>
-                        @foreach (var location in Model.Locations)
-                        {
-                            <option value="@location" >@location</option>
-                        }
-                    </select>
-                </div>
+            <div class="form-group">
+                <label asp-for="Location">Starting location for the car</label>
+                <select class="custom-select" asp-for="Location">
+                    <option selected="">Choose a location for the car</option>
+                    @foreach (var location in Model.Locations)
+                    {
+                        <option value="@location">@location</option>
+                    }
+                </select>
+            </div>
 
-                <button type="submit" class="btn btn-primary">Add Car</button>
-            </form>
-        </div>
+            <button type="submit" class="btn btn-primary">Add Car</button>
+        </form>
     </div>
+</div>
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
