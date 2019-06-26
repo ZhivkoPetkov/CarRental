@@ -22,16 +22,23 @@ namespace CarRental.Web.Areas.Administration.Controllers
             return View();
         }
 
+
+
         [HttpPost]
-        public IActionResult Add(AddLocationViewModel model)
+        public IActionResult Add(AddLocationViewModel inputModel)
         {
             if (!ModelState.IsValid)
             {
                 return Content("Invalid data");
             }
 
-            var location = mapper.Map<Location>(model);
-            this.locationsService.CreateLocation(location);
+            var location = mapper.Map<Location>(inputModel);
+            var result = this.locationsService.CreateLocation(location);
+
+            if (!result)
+            {
+                return Content("Invalid data, duplicate name");
+            }
 
             return View();
         }
