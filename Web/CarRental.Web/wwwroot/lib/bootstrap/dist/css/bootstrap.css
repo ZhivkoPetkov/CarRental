@@ -4179,6 +4179,11 @@ input[type="button"].btn-block {
   white-space: nowrap;
 }
 
+logo-background {
+   background-image: url(//logo.PNG);
+   background-color: forestgreen;
+}
+
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
 }
