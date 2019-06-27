@@ -1,10 +1,53 @@
-﻿@{
+﻿@model CarRental.Web.ViewModels.Home.SearchCarsViewModel
+
+@{
     this.ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to CarRental!</h1>
-    Zhivko Petkov Project
 
+<form style="background-color: cornflowerblue" class="col-md-6 card">
+    <div class="form-row" style="margin-top: 3%">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Pickup" class="text-white"></label>
+            <input asp-for="Pickup" class="form-control" />
+            <span asp-validation-for="Pickup" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="Return" class="text-white"></label>
+            <input asp-for="Return" class="form-control" />
+            <span asp-validation-for="Return" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="PickupPlace" class="text-white">Starting location for the car</label>
+            <select class="custom-select" asp-for="PickupPlace">
+                <option selected="">Choose a pick up place</option>
+                @foreach (var location in Model.Locations)
+                {
+                    <option value="@location">@location</option>
+                }
+            </select>
+        </div>
 
-</div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="ReturnPlace" class="text-white">Starting location for the car</label>
+            <select class="custom-select" asp-for="ReturnPlace">
+                <option selected="">Choose a location for return</option>
+                @foreach (var location in Model.Locations)
+                {
+                    <option value="@location">@location</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+            <label class="form-check-label" for="invalidCheck2">
+                I have a driving linence.
+            </label>
+        </div>
+    </div>
+    <button class="btn btn-warning" type="submit" style="margin-bottom:3%">Check for car</button>
+</form>
