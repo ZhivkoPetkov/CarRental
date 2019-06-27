@@ -1,7 +1,10 @@
-﻿namespace CarRental.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CarRental.Models
 {
     public class Review
     {
+        [Key]
         public string Id { get; set; }
 
         public int CarId { get; set; }

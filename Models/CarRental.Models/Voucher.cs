@@ -1,5 +1,6 @@
 ﻿using CarRental.Models.Enums;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Models
 {
@@ -11,6 +12,7 @@ namespace CarRental.Models
             this.Status = VoucherStatus.Active;
         }
 
+        [Key]
         public int Id { get; set; }
 
         public string VoucherCode { get; set; }

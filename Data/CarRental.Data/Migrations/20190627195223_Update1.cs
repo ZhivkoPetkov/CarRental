@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarRental.Data.Migrations
 {
-    public partial class UpdatedModels : Migration
+    public partial class Update1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,7 +60,8 @@ namespace CarRental.Data.Migrations
                 name: "Locations",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -234,7 +235,7 @@ namespace CarRental.Data.Migrations
                     GearType = table.Column<int>(nullable: false),
                     PricePerDay = table.Column<decimal>(nullable: false),
                     IsRented = table.Column<bool>(nullable: false),
-                    LocationId = table.Column<string>(nullable: true)
+                    LocationId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

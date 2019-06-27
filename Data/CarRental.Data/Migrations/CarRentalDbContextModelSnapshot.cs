@@ -128,7 +128,7 @@ namespace CarRental.Data.Migrations
 
                     b.Property<bool>("IsRented");
 
-                    b.Property<string>("LocationId");
+                    b.Property<int>("LocationId");
 
                     b.Property<string>("Model");
 
@@ -145,8 +145,9 @@ namespace CarRental.Data.Migrations
 
             modelBuilder.Entity("CarRental.Models.Location", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name");
 
@@ -347,7 +348,8 @@ namespace CarRental.Data.Migrations
                 {
                     b.HasOne("CarRental.Models.Location", "Location")
                         .WithMany()
-                        .HasForeignKey("LocationId");
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("CarRental.Models.Order", b =>

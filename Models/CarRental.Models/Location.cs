@@ -1,8 +1,11 @@
-﻿namespace CarRental.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CarRental.Models
 {
     public class Location
     {
-        public string Id { get; set; }
+        [Key]
+        public int Id { get; set; }
 
         public string Name { get; set; }
     }

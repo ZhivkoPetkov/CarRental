@@ -9,6 +9,6 @@ namespace CarRental.Services.Contracts
 
         ICollection<string> GetAllLocationNames();
 
-        string GetIdByName(string name);
+        int GetIdByName(string name);
     }
 }

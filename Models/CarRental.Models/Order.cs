@@ -1,11 +1,13 @@
 ﻿using CarRental.Models;
 using CarRental.Models.Enums;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Models
 {
     public class Order
     {
+        [Key]
         public string Id { get; set; }
 
         public int CarId { get; set; }

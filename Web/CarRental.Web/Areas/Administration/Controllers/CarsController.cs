@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using CarRental.Models;
-using CarRental.Models.Enums;
 using CarRental.Services.Contracts;
-using CarRental.Web.Areas.Administration.DTOs.Cars;
 using CarRental.Web.Areas.Administration.ViewModels.Cars;
 using CloudinaryDotNet;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace CarRental.Web.Areas.Administration.Controllers
@@ -39,20 +36,10 @@ namespace CarRental.Web.Areas.Administration.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.BadRequest();
+                return this.View(inputModel);
             }
 
-            var carDto = new CarDto
-            {
-                Model = inputModel.Model,
-                Description = inputModel.Description,
-                Year = inputModel.Year,
-                PricePerDay = inputModel.PricePerDay,
-                GearType = Enum.Parse<GearType>(inputModel.GearType),
-                LocationId = this.locationsService.GetIdByName(inputModel.Location)
-            };
-
-            var car = this.mapper.Map<Car>(carDto);
+            var car = this.mapper.Map<Car>(inputModel);
             car.Image = await this.imagesService.UploadImage(this.cloudinary, inputModel.ImageFile, inputModel.Model);
 
             this.carsService.AddCar(car);

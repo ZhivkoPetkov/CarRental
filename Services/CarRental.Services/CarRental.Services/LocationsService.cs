@@ -36,7 +36,7 @@ namespace CarRental.Services
                 ToList();
         }
 
-        public string GetIdByName(string name)
+        public int GetIdByName(string name)
         {
             return this.dbContext.
                 Locations.

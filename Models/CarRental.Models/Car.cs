@@ -1,5 +1,6 @@
 ﻿using CarRental.Models.Enums;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Models
 {
@@ -9,8 +10,10 @@ namespace CarRental.Models
         public Car()
         {
             this.Reviews = new HashSet<Review>();
+            this.IsRented = false;
         }
 
+        [Key]
         public int Id { get; set; }
 
         public string Model { get; set; }
@@ -27,7 +30,7 @@ namespace CarRental.Models
 
         public bool IsRented { get; set; }
 
-        public string LocationId { get; set; }
+        public int LocationId { get; set; }
         public Location Location { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
