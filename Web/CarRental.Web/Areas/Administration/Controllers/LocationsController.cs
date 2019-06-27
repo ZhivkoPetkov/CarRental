@@ -2,6 +2,7 @@
 using CarRental.Models;
 using CarRental.Services.Contracts;
 using CarRental.Web.Areas.Administration.ViewModels.Locations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Areas.Administration.Controllers
@@ -25,6 +26,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddLocationViewModel inputModel)
         {
             if (!ModelState.IsValid)

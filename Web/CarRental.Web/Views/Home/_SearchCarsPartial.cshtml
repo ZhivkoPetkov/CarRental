@@ -1,0 +1,45 @@
+﻿@model CarRental.Web.ViewModels.Home.SearchCarsViewModel
+
+    <div class="col-md-6 card" style="background-color: deepskyblue">
+        <form  asp-controller="Cars" asp-action="SearchAll" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-row" style="margin-top: 3%">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Pickup" class="text-white"></label>
+                    <input asp-for="Pickup" class="form-control" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Return" class="text-white"></label>
+                    <input asp-for="Return" class="form-control" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="PickupPlace" class="text-white">Starting location for the car</label>
+                    <select class="custom-select" asp-for="PickupPlace">
+                        <option selected="">Choose a pick up place</option>
+                        @foreach (var location in Model.Locations)
+                        {
+                            <option value="@location">@location</option>
+                        }
+                    </select>
+                    <span asp-validation-for="PickupPlace"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ReturnPlace" class="text-white">Starting location for the car</label>
+                    <select class="custom-select" asp-for="ReturnPlace">
+                        <option selected="">Choose a location for return</option>
+                        @foreach (var location in Model.Locations)
+                        {
+                            <option value="@location">@location</option>
+                        }
+                    </select>
+                    <span asp-validation-for="ReturnPlace"
+                          class="text-danger"></span>
+                </div>
+            </div>
+            <button class="btn btn-warning" type="submit" style="margin-bottom:3%">Check for car</button>
+        </form>
+    </div>
