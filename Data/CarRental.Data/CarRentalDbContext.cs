@@ -29,6 +29,8 @@
         public DbSet<Order> Orders { get; set; }
         public DbSet<Voucher> Vouchers { get; set; }
 
+        public DbSet<CarRentDays> CarRentDays { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -52,6 +54,12 @@
         {
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
+
+
+            builder.Entity<Car>().
+                HasMany(x => x.RentDays).
+                WithOne(x => x.Car).
+                HasForeignKey(k => k.CarId);
 
             ConfigureUserIdentityRelations(builder);
 

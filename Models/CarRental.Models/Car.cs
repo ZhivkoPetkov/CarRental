@@ -10,6 +10,7 @@ namespace CarRental.Models
         public Car()
         {
             this.Reviews = new HashSet<Review>();
+            this.RentDays = new HashSet<CarRentDays>();
             this.IsRented = false;
         }
 
@@ -34,5 +35,7 @@ namespace CarRental.Models
         public Location Location { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
+
+        public ICollection<CarRentDays> RentDays { get; set; }
     }
 }

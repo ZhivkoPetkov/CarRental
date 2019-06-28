@@ -46,4 +46,10 @@
     <Folder Include="Views\Locations\" />
     <Folder Include="Views\Vouchers\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\Images\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
