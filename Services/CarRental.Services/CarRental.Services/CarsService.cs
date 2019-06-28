@@ -4,10 +4,7 @@ using CarRental.Services.Contracts;
 using CloudinaryDotNet;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarRental.Services
 {
@@ -39,7 +36,7 @@ namespace CarRental.Services
 
             return this.dbContext.
                 Cars.
-                Where(x => x.RentDays.Any(d => dates.Contains(d.RentDate))).
+                Where(x => x.RentDays.Any(d => dates.Contains(d.RentDate)) == false).
                 ToList();
         }
     }

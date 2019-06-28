@@ -55,7 +55,6 @@
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
-
             builder.Entity<Car>().
                 HasMany(x => x.RentDays).
                 WithOne(x => x.Car).
@@ -87,9 +86,7 @@
 
         private static void ConfigureUserIdentityRelations(ModelBuilder builder)
         {
-         
 
-            
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
