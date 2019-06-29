@@ -28,8 +28,22 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" style="font-size: 140%" asp-area="" asp-controller="Home" asp-action="Index"><b>Home</b></a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" style="font-size: 140%" asp-area="" asp-controller="Cars" asp-action="All"><b>Our Cars</b></a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" style="font-size: 140%" asp-area="" asp-controller="Orders" asp-action="MyOrders"><b>My Orders</b></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" style="font-size: 140%" asp-area="" asp-controller="Vouchers" asp-action="MyVouchers"><b>My Vouchers</b></a>
+                            </li>
+                        }
+
+
                         @*TODO: Add more links!*@
                     </ul>
                 </div>

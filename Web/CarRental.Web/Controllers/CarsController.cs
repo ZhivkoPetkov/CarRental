@@ -19,6 +19,7 @@ namespace CarRental.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                this.TempData["error"] = "Invalid serach parameters";
                 return RedirectToAction("Index", "Home", model);
             }
 
@@ -35,16 +36,15 @@ namespace CarRental.Web.Controllers
             return this.View(viewModel);
         }
 
-        [HttpPost]
         public IActionResult All()
         {
-            return this.View();
+            var cars = this.carsService.GetAllCars();
+            return this.View(cars);
         }
  
         public IActionResult Details(int id)
         {
             var car = this.carsService.FindCar(id);
-
             return this.View(car);
         }
     }

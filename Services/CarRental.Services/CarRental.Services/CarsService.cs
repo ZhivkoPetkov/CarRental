@@ -39,6 +39,26 @@ namespace CarRental.Services
             return result;
         }
 
+        public ICollection<ListCarDto> GetAllCars()
+        {
+            var cars = this.dbContext.
+                Cars.
+                Include(x => x.Location).
+                Select(x => new ListCarDto
+                {
+                    Id = x.Id,
+                    Image = x.Image,
+                    Description = x.Description,
+                    GearType = x.GearType,
+                    Location = x.Location.Name,
+                    PricePerDay = x.PricePerDay,
+                    Model = x.Model,
+                    Year = x.Year,
+                }).
+                ToList();
+            return cars;
+        }
+
         public ICollection<ListCarDto> GetAvailableCars(DateTime start, DateTime end, string location)
         {
             var dates = new List<DateTime>();

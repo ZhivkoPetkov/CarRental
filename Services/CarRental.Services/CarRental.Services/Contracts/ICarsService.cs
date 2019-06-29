@@ -10,6 +10,7 @@ namespace CarRental.Services.Contracts
         bool AddCar(Car car);
 
         ICollection<ListCarDto> GetAvailableCars(DateTime start, DateTime end, string location);
+        ICollection<ListCarDto> GetAllCars();
 
         CarDetailsDto FindCar(int id);
     }
