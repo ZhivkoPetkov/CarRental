@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
     <PackageReference Include="CloudinaryDotNet" Version="1.8.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Data\CarRental.Data\CarRental.Data.csproj" />
+    <ProjectReference Include="..\..\..\Models\CarRental.DTOs\CarRental.DTOs.csproj" />
   </ItemGroup>
 
 </Project>

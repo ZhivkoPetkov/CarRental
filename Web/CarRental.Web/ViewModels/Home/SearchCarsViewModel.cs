@@ -36,13 +36,6 @@ namespace CarRental.Web.ViewModels.Home
         [Display(Name = "Return Place")]
         public string ReturnPlace{ get; set; }
 
-
-        [Required]
-        [DataType(DataType.Text)]
-        [MinLength(10, ErrorMessage = "Test is success")]
-        public string Testing { get; set; }
-
-
         public ICollection<string> Locations { get; set; } = new HashSet<string>();
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

@@ -1,0 +1,48 @@
+﻿@model AvailableCarsViewModel
+@{
+    ViewData["Title"] = "Available cars";
+}
+
+<h1>Available cars for the period @Model.Start.Date.ToShortDateString() - @Model.End.Date.ToShortDateString()</h1>
+
+<hr class="border-warning" />
+
+@if (Model.Cars.Count == 0)
+{
+    <h1>Sorry, we dont have any available car in this location.</h1>
+}
+else
+{
+    var counter = 0;
+
+    @: <div class="row justify-content-between">
+        @foreach (var item in Model.Cars)
+        {
+            counter++;
+            <div class="card mb-2 col-md-5 border-info ">
+                <h3 class="card-header" style="background-color:transparent">@item.Model</h3>
+                <img style="height: 100%; width: 100%; display: block;" src="@item.Image" alt="@item.Model">
+                <div class="card-body">
+                    <p class="card-text">@item.Description</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Year: @item.Year</li>
+                    <li class="list-group-item">Gear Type: @item.GearType.ToString()</li>
+                    <li class="list-group-item">Price pey day: $@item.PricePerDay</li>
+                </ul>
+                <div class="justify-content-center mx-2 mb-2 m-2">
+                    @{ 
+                        decimal price = (decimal)Model.Days * item.PricePerDay;
+                    }
+                    <button type="button" class="btn btn-warning w-100 ">Rent this car for $@price</button>
+                </div>
+
+            </div>
+
+if (counter % 2 == 0)
+            {
+                @Html.Raw("</div>")
+                @Html.Raw("<div class=\"row\">")
+            }
+        }
+    }

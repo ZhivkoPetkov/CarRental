@@ -1,4 +1,5 @@
-﻿using CarRental.Models;
+﻿using CarRental.DTOs.Cars;
+using CarRental.Models;
 using System;
 using System.Collections.Generic;
 
@@ -8,6 +9,6 @@ namespace CarRental.Services.Contracts
     {
         bool AddCar(Car car);
 
-        ICollection<Car> GetAvailableCars(DateTime start, DateTime end);
+        ICollection<ListCarDto> GetAvailableCars(DateTime start, DateTime end, string location);
     }
 }

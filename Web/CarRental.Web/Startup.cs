@@ -30,6 +30,7 @@
     using CarRental.Services;
     using CarRental.Common;
     using CloudinaryDotNet;
+    using AutoMapper.EquivalencyExpression;
 
     public class Startup
     {
@@ -99,6 +100,7 @@
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<CarRentalConfiguration>();
+                cfg.AddCollectionMappers();
             });
 
             services.AddSingleton(this.configuration);

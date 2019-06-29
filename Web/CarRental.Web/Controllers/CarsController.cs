@@ -1,4 +1,5 @@
 ﻿using CarRental.Services.Contracts;
+using CarRental.Web.ViewModels.Cars;
 using CarRental.Web.ViewModels.Home;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,17 @@ namespace CarRental.Web.Controllers
                 return RedirectToAction("Index", "Home", model);
             }
 
-            return Content("Searched");
+            var cars = this.carsService.GetAvailableCars(model.Pickup, model.Return, model.PickupPlace);
+
+            var viewModel = new AvailableCarsViewModel
+            {
+                Cars = cars,
+                Start = model.Pickup,
+                End = model.Return,
+                Days = (model.Return.Date - model.Pickup.Date).TotalDays
+            };
+
+            return this.View(viewModel);
         }
 
         [HttpPost]
