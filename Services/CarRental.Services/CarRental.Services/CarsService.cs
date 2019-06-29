@@ -31,6 +31,14 @@ namespace CarRental.Services
             return true;
         }
 
+        public CarDetailsDto FindCar(int id)
+        {
+            var car = this.dbContext.Cars.Find(id);
+            var result = this.mapper.Map<CarDetailsDto>(car);
+
+            return result;
+        }
+
         public ICollection<ListCarDto> GetAvailableCars(DateTime start, DateTime end, string location)
         {
             var dates = new List<DateTime>();

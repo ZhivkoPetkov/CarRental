@@ -40,5 +40,12 @@ namespace CarRental.Web.Controllers
         {
             return this.View();
         }
+ 
+        public IActionResult Details(int id)
+        {
+            var car = this.carsService.FindCar(id);
+
+            return this.View(car);
+        }
     }
 }

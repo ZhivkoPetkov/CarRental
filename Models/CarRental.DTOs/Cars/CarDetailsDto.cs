@@ -1,19 +1,16 @@
-﻿using CarRental.Models.Enums;
+﻿using CarRental.Models;
+using CarRental.Models.Enums;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace CarRental.Models
+namespace CarRental.DTOs.Cars
 {
-    public class Car
+   public class CarDetailsDto
     {
-        public Car()
+        public CarDetailsDto()
         {
-            this.Reviews = new HashSet<Review>();
-            this.RentDays = new HashSet<CarRentDays>();
+            this.Reviews = new HashSet<Review>(); 
             this.IsRented = false;
         }
-
-        [Key]
         public int Id { get; set; }
 
         public string Model { get; set; }
@@ -35,6 +32,5 @@ namespace CarRental.Models
 
         public ICollection<Review> Reviews { get; set; }
 
-        public ICollection<CarRentDays> RentDays { get; set; }
     }
 }

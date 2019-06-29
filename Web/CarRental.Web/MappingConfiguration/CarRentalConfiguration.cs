@@ -13,6 +13,8 @@ namespace CarRental.Web.MappingConfiguration
             this.CreateMap<AddLocationViewModel, Location>();
             this.CreateMap<AddCarViewModel, Car>();
             this.CreateMap<ListCarDto, Car>();
+            this.CreateMap<CarDetailsDto, Car>().
+                ReverseMap();
         }
     }
 }

@@ -1,0 +1,64 @@
+﻿
+@model CarDetailsDto
+@{
+    ViewData["Title"] = Model.Model + " Details";
+}
+
+<div class="container">
+    <h1 class="my-4">
+        @Model.Model Details
+    </h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <img class="img-fluid" src="@Model.Image" alt="">
+        </div>
+        <div class="col-md-4">
+            <h3 class="my-3">Model Description</h3>
+            <p>@Model.Description</p>
+            <h3 class="my-3">Model Video</h3>
+            <div>
+                <img src="~/Images/Pictograms/gear.jpg" height="20%" width="20%" /> <h6>@Model.GearType.ToString()</h6>
+            </div>
+            <div>
+                <img src="~/Images/Pictograms/feedback.png" height="20%" width="20%" /> <h6> @Model.Reviews.Count() Feedbacks Given </h6>
+            </div>
+           
+        </div>
+
+    </div>
+    <!-- /.row -->
+    <!-- Related Projects Row -->
+    <h3 class="my-4">Reviews from our users</h3>
+
+    <div class="row">
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
