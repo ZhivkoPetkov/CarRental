@@ -15,32 +15,42 @@
 else
 {
     var counter = 0;
-
-    @: <div class="row justify-content-around">
-    @foreach (var item in Model)
-    {
-        counter++;
-
-        <div class="card mb-2 col-md-3 border-info ">
-            <span class="badge badge-warning">@item.Year</span>
-            <h3 class="card-header" style="background-color:transparent">@item.Model</h3>
-            <img style="height: 100%; width: 100%; display: block;" src="@item.Image" alt="@item.Model">
-            <div class="card-body">
-                <p class="card-text">@item.Description</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Gear Type: @item.GearType.ToString()</li>
-                <li class="list-group-item">Price pey day: $@item.PricePerDay</li>
-                <li class="list-group-item">
-                    <a href="/Cars/Details/@item.Id">Details Page</a>
-                </li>
-            </ul>
+<center>
+    <div class="justify-content-between">
+        <h6 class="text-primary">Sort by:</h6>
+        <div class="mx-2 mb-2">
+            <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentDescending">Times rented descending</a>
+            <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="RatingDescending">Rating descending</a>
+            <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentAscending">Times rented ascending</a>
+            <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="LastAdded">Last added</a>
         </div>
-
-        if (counter % 3 == 0)
+    </div>
+</center>
+    @: <div class="row justify-content-around">
+        @foreach (var item in Model)
         {
-            @Html.Raw("</div>")
-            @Html.Raw("<div class=\"row justify-content-around\">")
+            counter++;
+
+            <div class="card mb-2 col-md-3 border-info ">
+                <span class="badge badge-warning">@item.Year</span>
+                <h3 class="card-header" style="background-color:transparent">@item.Model</h3>
+                <img style="height: 100%; width: 100%; display: block;" src="@item.Image" alt="@item.Model">
+                <div class="card-body">
+                    <p class="card-text">@item.Description.Substring(0,165) ...</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Gear Type: @item.GearType.ToString()</li>
+                    <li class="list-group-item">Price pey day: $@item.PricePerDay</li>
+                    <li class="list-group-item">
+                        <a href="/Cars/Details/@item.Id">Details Page</a>
+                    </li>
+                </ul>
+            </div>
+
+            if (counter % 3 == 0)
+            {
+                @Html.Raw("</div>")
+                @Html.Raw("<div class=\"row justify-content-around\">")
+            }
         }
     }
-}

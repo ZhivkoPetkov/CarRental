@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CarRental.Common;
 using CarRental.Data;
 using CarRental.DTOs.Cars;
 using CarRental.Models;
@@ -39,7 +40,7 @@ namespace CarRental.Services
             return result;
         }
 
-        public ICollection<ListCarDto> GetAllCars()
+        public ICollection<ListCarDto> GetAllCars(string orderby)
         {
             var cars = this.dbContext.
                 Cars.
@@ -54,8 +55,28 @@ namespace CarRental.Services
                     PricePerDay = x.PricePerDay,
                     Model = x.Model,
                     Year = x.Year,
+                    RentDays = x.RentDays,
+                    Reviews = x.Reviews
                 }).
                 ToList();
+
+            if (orderby == GlobalConstants.OrderCarsByRentsAscending)
+            {
+                return cars.OrderBy(x => x.RentDays.Count).ToList();
+            }
+            else if (orderby == GlobalConstants.OrderCarsByRentsDescending)
+            {
+                return cars.OrderByDescending(x => x.RentDays.Count).ToList();
+            }
+            else if (orderby == GlobalConstants.OrderCarsByRatingDescending)
+            {
+                return cars.OrderByDescending(x => x.Reviews.Select(p => p.Rating).DefaultIfEmpty(0).Average()).ToList();
+            }
+            else if (orderby == GlobalConstants.OrderCarsByLastAdded)
+            {
+                cars.Reverse();
+            }
+
             return cars;
         }
 

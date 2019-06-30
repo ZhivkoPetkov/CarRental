@@ -70,6 +70,12 @@
                HasForeignKey(k => k.ApplicationUserId).
                OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Car>().
+             HasMany(x => x.RentDays).
+             WithOne(x => x.Car).
+             HasForeignKey(k => k.CarId).
+             OnDelete(DeleteBehavior.Restrict);
+
             ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);

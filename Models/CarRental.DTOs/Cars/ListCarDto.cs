@@ -28,6 +28,9 @@ namespace CarRental.DTOs.Cars
         public DateTime End { get; set; }
         public int Days { get; set; }
 
+        public virtual ICollection<Review> Reviews { get; set; } 
+
+        public virtual ICollection<CarRentDays> RentDays { get; set; }
 
     }
 }

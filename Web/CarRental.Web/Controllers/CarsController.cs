@@ -37,9 +37,9 @@ namespace CarRental.Web.Controllers
             return this.View(viewModel);
         }
 
-        public IActionResult All()
+        public IActionResult All(string orderBy = "timeAdded")
         {
-            var cars = this.carsService.GetAllCars();
+            var cars = this.carsService.GetAllCars(orderBy);
             return this.View(cars);
         }
  

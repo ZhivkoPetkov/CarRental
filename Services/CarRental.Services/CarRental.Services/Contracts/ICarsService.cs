@@ -10,7 +10,7 @@ namespace CarRental.Services.Contracts
         bool AddCar(Car car);
 
         ICollection<ListCarDto> GetAvailableCars(DateTime start, DateTime end, string location);
-        ICollection<ListCarDto> GetAllCars();
+        ICollection<ListCarDto> GetAllCars(string orderBy);
 
         bool RentCar(DateTime start, DateTime end, int cardId);
 
