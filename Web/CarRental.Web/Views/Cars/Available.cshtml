@@ -16,36 +16,54 @@ else
     var counter = 0;
 
     @: <div class="row justify-content-between">
-        @foreach (var item in Model.Cars)
-        {
-            counter++;
-            <div class="card mb-2 col-md-5 border-info ">
-                <h3 class="card-header" style="background-color:transparent">@item.Model</h3>
-                <img style="height: 100%; width: 100%; display: block;" src="@item.Image" alt="@item.Model">
-                <div class="card-body">
-                    <p class="card-text">@item.Description</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Year: @item.Year</li>
-                    <li class="list-group-item">Gear Type: @item.GearType.ToString()</li>
-                    <li class="list-group-item">Price pey day: $@item.PricePerDay</li>
-                    <li class="list-group-item">
-                        <a href="/Cars/Details/@item.Id">Details Page</a>
-                    </li>
-                </ul>
-                <div class="justify-content-center mx-2 mb-2 m-2">
-                    @{ 
-                        decimal price = (decimal)Model.Days * item.PricePerDay;
-                    }
-                    <button type="button" class="btn btn-warning w-100 ">Rent this car for $@price</button>
-                </div>
+    @foreach (var item in Model.Cars)
+    {
+        counter++;
+        <div class="card mb-2 col-md-5 border-info ">
+            <h3 class="card-header" style="background-color:transparent">@item.Model</h3>
+            <img style="height: 100%; width: 100%; display: block;" src="@item.Image" alt="@item.Model">
+            <div class="card-body">
+                <p class="card-text">@item.Description</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Year: @item.Year</li>
+                <li class="list-group-item">Gear Type: @item.GearType.ToString()</li>
+                <li class="list-group-item">Price pey day: $@item.PricePerDay</li>
+                <li class="list-group-item">
+                    <a href="/Cars/Details/@item.Id">Details Page</a>
+                </li>
+            </ul>
+            <div class="justify-content-center mx-2 mb-2 m-2">
+                @{
+                    decimal price = (decimal)Model.Days * item.PricePerDay;
+                }
+
+                <form asp-controller="Orders" asp-action="Preview" method="POST">
+                    <input type="hidden" value="@item.Id" name="Id" />
+                    <input type="hidden" value="@item.Model" name="Model" />
+                    <input type="hidden" value="@item.PricePerDay" name="PricePerDay" />
+                    <input type="hidden" value="@Model.Days" name="Days" />
+                    <input type="hidden" value="@Model.Start" name="RentStart" />
+                    <input type="hidden" value="@Model.End" name="RentEnd" />
+                    <input type="hidden" value="@item.Image" name="Image" />
+                    <input type="hidden" value="@Model.PickUpPlace" name="PickUpPlace" />
+                    <input type="hidden" value="@Model.ReturnPlace" name="ReturnPlace" />
+                    <button type="submit" class="btn btn-warning w-100 ">Rent this car for $@price</button>
+                </form>
 
             </div>
-
-if (counter % 2 == 0)
-            {
-                @Html.Raw("</div>")
-                @Html.Raw("<div class=\"row\">")
-            }
+        </div>
+        if (counter % 2 == 0)
+        {
+            @Html.Raw("</div>")
+            @Html.Raw("<div class=\"row\">")
         }
     }
+}
+
+
+
+
+
+   
+

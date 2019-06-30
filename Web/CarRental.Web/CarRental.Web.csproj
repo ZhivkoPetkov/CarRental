@@ -43,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ViewModels\Orders\" />
     <Folder Include="Views\Locations\" />
     <Folder Include="Views\Vouchers\" />
   </ItemGroup>

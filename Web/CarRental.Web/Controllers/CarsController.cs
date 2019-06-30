@@ -19,7 +19,6 @@ namespace CarRental.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                this.TempData["error"] = "Invalid serach parameters";
                 return RedirectToAction("Index", "Home", model);
             }
 
@@ -30,7 +29,9 @@ namespace CarRental.Web.Controllers
                 Cars = cars,
                 Start = model.Pickup,
                 End = model.Return,
-                Days = (model.Return.Date - model.Pickup.Date).TotalDays
+                Days = (model.Return.Date - model.Pickup.Date).TotalDays,
+                PickUpPlace = model.PickupPlace,
+                ReturnPlace = model.ReturnPlace
             };
 
             return this.View(viewModel);

@@ -11,5 +11,8 @@ namespace CarRental.Web.ViewModels.Cars
         public double Days { get; set; }
 
         public ICollection<ListCarDto> Cars { get; set; }
+
+        public string PickUpPlace { get; set; }
+        public string ReturnPlace { get; set; }
     }
 }
