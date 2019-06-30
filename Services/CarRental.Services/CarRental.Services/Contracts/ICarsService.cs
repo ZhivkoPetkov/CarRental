@@ -12,6 +12,8 @@ namespace CarRental.Services.Contracts
         ICollection<ListCarDto> GetAvailableCars(DateTime start, DateTime end, string location);
         ICollection<ListCarDto> GetAllCars();
 
+        bool RentCar(DateTime start, DateTime end, int cardId);
+
         CarDetailsDto FindCar(int id);
     }
 }

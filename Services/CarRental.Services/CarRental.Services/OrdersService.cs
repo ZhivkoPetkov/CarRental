@@ -18,15 +18,17 @@ namespace CarRental.Services
         private readonly IUsersService usersService;
         private readonly IMapper mapper;
         private readonly ILocationsService locationsService;
+        private readonly ICarsService carsService;
 
         public OrdersService(CarRentalDbContext dbContext, UserManager<ApplicationUser> userManager, 
-                        IUsersService usersService, IMapper mapper, ILocationsService locationsService)
+                        IUsersService usersService, IMapper mapper, ILocationsService locationsService, ICarsService carsService)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
             this.usersService = usersService;
             this.mapper = mapper;
             this.locationsService = locationsService;
+            this.carsService = carsService;
         }
 
         public ICollection<OrderDto> GetAllOrdersForUser(string email)
@@ -59,6 +61,8 @@ namespace CarRental.Services
 
             this.dbContext.Orders.Add(order);
             this.dbContext.SaveChanges();
+
+            var rentCar = this.carsService.RentCar(startRent, endRent, carId);
 
             return true;
         }

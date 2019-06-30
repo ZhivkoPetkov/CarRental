@@ -89,5 +89,22 @@ namespace CarRental.Services
                 ToList();
             return cars;
         }
+
+        public bool RentCar(DateTime start, DateTime end, int cardId)
+        {
+            var dates = new List<CarRentDays>();
+            for (var dt = start; dt <= end; dt = dt.AddDays(1))
+            {
+                dates.Add(new CarRentDays
+                {
+                    CarId = cardId,
+                    RentDate = dt
+                });
+            }
+
+            this.dbContext.CarRentDays.AddRange(dates);
+            this.dbContext.SaveChanges();
+            return true;
+        }
     }
 }
