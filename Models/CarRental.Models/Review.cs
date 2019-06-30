@@ -9,11 +9,11 @@ namespace CarRental.Models
 
         public int CarId { get; set; }
 
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
 
         public string ApplicationUserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public int Rating { get; set; }
 

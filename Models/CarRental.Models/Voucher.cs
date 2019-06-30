@@ -19,7 +19,7 @@ namespace CarRental.Models
 
         public string ApplicationUserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public int Discount { get; set; }
 

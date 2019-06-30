@@ -1,22 +1,22 @@
 ﻿using CarRental.Models;
 using CarRental.Models.Enums;
 using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Text;
 
-namespace CarRental.Models
+namespace CarRental.DTOs.Orders
 {
-    public class Order
+   public class OrderDto
     {
-        [Key]
         public string Id { get; set; }
 
         public int CarId { get; set; }
 
-        public virtual Car Car { get; set; }
+        public Car Car { get; set; }
 
         public string ApplicationUserId { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public ApplicationUser User { get; set; }
 
         public decimal Price { get; set; }
 
@@ -26,10 +26,6 @@ namespace CarRental.Models
 
         public OrderStatus Status { get; set; }
 
-        public int? VoucherId { get; set; }
-
-        public virtual Voucher Voucher { get; set; }
-
         public int PickUpLocationId { get; set; }
 
         public virtual Location PickUpLocation { get; set; }
@@ -37,5 +33,6 @@ namespace CarRental.Models
         public int ReturnLocationId { get; set; }
 
         public virtual Location ReturnLocation { get; set; }
+
     }
 }

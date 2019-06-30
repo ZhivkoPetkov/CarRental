@@ -1,17 +1,39 @@
-﻿using CarRental.Services.Contracts;
+﻿using AutoMapper;
+using CarRental.Services.Contracts;
 using CarRental.Web.InputModels.Orders;
+using CarRental.Web.ViewModels.Orders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace CarRental.Web.Controllers
 {
     public class OrdersController : BaseController
     {
         private readonly IOrdersService ordersService;
+        private readonly IMapper mapper;
 
-        public OrdersController(IOrdersService ordersService)
+        public OrdersController(IOrdersService ordersService, IMapper mapper)
         {
             this.ordersService = ordersService;
+            this.mapper = mapper;
+        }
+       
+        [Authorize]
+        public IActionResult MyOrders()
+        {
+            var userEmail = this.User.Identity.Name;
+
+           var orders = this.ordersService.GetAllOrdersForUser(userEmail);
+
+            if (orders.Count == 0)
+            {
+                this.View();
+            }
+
+            var viewModels = this.mapper.Map<List<MyOrdersViewModel>>(orders);
+
+            return this.View(viewModels);
         }
 
         [HttpPost]
@@ -43,7 +65,7 @@ namespace CarRental.Web.Controllers
                 return Redirect("/");
             }
 
-            return Content("succesfully made order!");
+            return RedirectToAction(nameof(MyOrders));
         }
     }
 }

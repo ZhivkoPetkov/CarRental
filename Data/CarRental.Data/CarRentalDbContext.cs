@@ -50,6 +50,10 @@
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+             => optionsBuilder
+        .UseLazyLoadingProxies();
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Needed for Identity models configuration
@@ -59,6 +63,12 @@
                 HasMany(x => x.RentDays).
                 WithOne(x => x.Car).
                 HasForeignKey(k => k.CarId);
+
+            builder.Entity<ApplicationUser>().
+               HasMany(x => x.Orders).
+               WithOne(x => x.User).
+               HasForeignKey(k => k.ApplicationUserId).
+               OnDelete(DeleteBehavior.Restrict);
 
             ConfigureUserIdentityRelations(builder);
 

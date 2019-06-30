@@ -1,7 +1,49 @@
 ﻿
+@model ICollection<MyOrdersViewModel>
+
 @{
-    ViewData["Title"] = "MyOrders";
+    ViewData["Title"] = "My Orders";
 }
 
-<h1>MyOrders</h1>
+    <center>
+        <h1>My Orders</h1>
+    </center>
+<hr />
 
+<table class="table table-hover border">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">Order Id</th>
+            <th scope="col">Car Model</th>
+            <th scope="col">Pick Up Location</th>
+            <th scope="col">Return Location</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Price</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var order in @Model)
+        {
+            <tr class="table-light">
+                <th scope="row">@order.Id</th>
+                <td>@order.CarModel</td>
+                <td>@order.PickUpLocation</td>
+                <td>@order.ReturnLocation</td>
+                <td>@order.RentStart.ToShortDateString()</td>
+                <td>@order.RentEnd.ToShortDateString()</td>
+                <td>@order.Price</td>
+                <td>@order.Status.ToString()</td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+@if (Model.Count() > 0)
+{
+    var spent = this.Model.Sum(x => x.Price);
+    <h3 class="text-primary">Total spent: $ @spent</h3>
+}
