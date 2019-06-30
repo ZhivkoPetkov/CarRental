@@ -3,22 +3,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Web.InputModels.Orders
 {
-    public class OrderPreviewInputModel
+    public class OrderInputViewModel
     {
         [Required]
         public int Id { get; set; }
         [Required]
-        public string Model { get; set; }
+        public DateTime PickUp { get; set; }
         [Required]
-        public decimal PricePerDay { get; set; }
+        public DateTime Return { get; set; }
         [Required]
-        public DateTime RentStart { get; set; }
-        [Required]
-        public DateTime RentEnd { get; set; }
-        [Required]
-        public int Days { get; set; }
-        [Required]
-        public string Image { get; set; }
+        public decimal Price { get; set; }
+
         [Required]
         public string PickUpPlace { get; set; }
         [Required]
