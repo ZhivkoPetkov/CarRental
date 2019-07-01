@@ -10,7 +10,6 @@ namespace CarRental.Models
         {
             this.Reviews = new HashSet<Review>();
             this.RentDays = new HashSet<CarRentDays>();
-            this.IsRented = false;
         }
 
         [Key]
@@ -27,8 +26,6 @@ namespace CarRental.Models
         public GearType GearType { get; set; }
 
         public decimal PricePerDay { get; set; }
-
-        public bool IsRented { get; set; }
 
         public int LocationId { get; set; }
          public virtual Location Location { get; set; }

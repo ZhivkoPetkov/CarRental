@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRental.Data.Migrations
 {
     [DbContext(typeof(CarRentalDbContext))]
-    [Migration("20190628103134_InitializaRents")]
-    partial class InitializaRents
+    [Migration("20190701195245_Initialize")]
+    partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -128,8 +128,6 @@ namespace CarRental.Data.Migrations
 
                     b.Property<string>("Image");
 
-                    b.Property<bool>("IsRented");
-
                     b.Property<int>("LocationId");
 
                     b.Property<string>("Model");
@@ -143,6 +141,129 @@ namespace CarRental.Data.Migrations
                     b.HasIndex("LocationId");
 
                     b.ToTable("Cars");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "The 2019 Mazda 6 doesn’t make a bad step. This year, the mid-size sedan returns mostly unchanged from last year’s version, albeit with standard safety hardware that was optional last year.",
+                            GearType = 2,
+                            Image = "https://res.cloudinary.com/dis59vn8s/image/upload/v1561808448/Mazda%206.jpg",
+                            LocationId = 1,
+                            Model = "Mazda 6",
+                            PricePerDay = 65m,
+                            Year = 2019
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "The Mazda 3 is a family hatch, not an SUV or a crossover or pretending to be something it’s not. These days you don’t go to the expense of creating a whole new platform from the ground up without doing more than one thing with it, though, so expect more to come from the 3’s box of bits.",
+                            GearType = 1,
+                            Image = "https://res.cloudinary.com/dis59vn8s/image/upload/v1561808495/Mazda%203.jpg",
+                            LocationId = 1,
+                            Model = "Mazda 3",
+                            PricePerDay = 39m,
+                            Year = 2019
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "The X7 by contrast is about luxury. It takes themes from the facelifted 7 Series and the 8er, to make BMW’s three-flagship fleet. They want us to see this top-end trio as a separate high-end luxury series.",
+                            GearType = 2,
+                            Image = "https://res.cloudinary.com/dis59vn8s/image/upload/v1561834504/BMW%20X7.webp",
+                            LocationId = 1,
+                            Model = "BMW X7",
+                            PricePerDay = 80m,
+                            Year = 2019
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "The big Tesla. The one that seats seven and has every other firm on the planet that builds premium SUVs in a bit of a panic. Underneath, the architecture is similar to the Model S (massive battery pack, electric motors, aluminium chassis), but all Model X are four-wheel drive, so have twin electric motors, one driving each axle. ",
+                            GearType = 2,
+                            Image = "https://res.cloudinary.com/dis59vn8s/image/upload/v1561928423/Tesla%20X.jpg",
+                            LocationId = 1,
+                            Model = "Tesla Model X",
+                            PricePerDay = 80m,
+                            Year = 2019
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Developed by Mazda, launched by Scion, and now marketed as a Toyota, the Yaris iA proves that subcompact cars can delight. A different model from the Toyota Yaris hatchback, the frisky iA sedan stands out in a segment filled with insubstantial models. It feels refined for this entry-level class, with a smooth and willing four-cylinder engine, slick six-speed automatic transmission, and relatively compliant ride.",
+                            GearType = 2,
+                            Image = "https://res.cloudinary.com/dis59vn8s/image/upload/v1561931317/Toyota-Yaris-02-17_zq9xxm.jpg",
+                            LocationId = 1,
+                            Model = "Toyota Yaris iA",
+                            PricePerDay = 42m,
+                            Year = 2017
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "The Optima is a vehicle that delivers all of these virtues in a stylish, value-laden package that’s filled with features usually found on pricier cars. With outstanding reliability and extensive warranty coverage, savvy sedan shoppers should take this recently redesigned car for a test drive.",
+                            GearType = 2,
+                            Image = "https://res.cloudinary.com/dis59vn8s/image/upload/v1561931416/Kia-02-17_c1aqgf.jpg",
+                            LocationId = 2,
+                            Model = "Kia Optima",
+                            PricePerDay = 36m,
+                            Year = 2017
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "The Subaru Forester sets the standard for small SUVs, combining relatively roomy packaging, fuel efficiency, solid reliability, and easy access. Large windows and a boxy shape maximize room for passengers and gear in sharp contrast to style trends exhibited by competitors that compromise practicality. ",
+                            GearType = 1,
+                            Image = "https://res.cloudinary.com/dis59vn8s/image/upload/v1561931481/Sub-Forrester-02-17_zkc3ya.jpg",
+                            LocationId = 3,
+                            Model = "Subaru Forester",
+                            PricePerDay = 50m,
+                            Year = 2017
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Innovation abounds in this suburbia-targeted pickup, proving that trucks can be both refined and versatile. The Ridgeline glides along, more akin to a sedan than its roughneck rivals. It also handles far better than any compact or full-sized pickup, and it shames all nondiesel trucks for fuel economy. ",
+                            GearType = 1,
+                            Image = "https://res.cloudinary.com/dis59vn8s/image/upload/v1561932112/Ridgeline-02-17_vfvtab.jpg",
+                            LocationId = 4,
+                            Model = "Honda RidgeLine",
+                            PricePerDay = 20m,
+                            Year = 2017
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "The Insignia was the flagship of the Opel range and offered as a medium-large sedan and station wagon. Passenger space is good, with almost as much legroom, but slightly less width in the back seat than Commodore and Falcon.",
+                            GearType = 1,
+                            Image = "https://res.cloudinary.com/dis59vn8s/image/upload/v1561932246/opel-insignia-11_s9rcid.png",
+                            LocationId = 5,
+                            Model = "Opel Insignia",
+                            PricePerDay = 10m,
+                            Year = 2013
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "The Impala continues to reign as the leading large sedan. Slide behind the wheel and you can see why. Roomy, supportive seats put you in the perfect position to access the intuitive controls. Despite its prodigious size, the Impala’s handling is responsive and secure.",
+                            GearType = 2,
+                            Image = "https://res.cloudinary.com/dis59vn8s/image/upload/v1561932309/CR-Inline-top-picks-Chevy-Impala-02-17_cm6b9y.jpg",
+                            LocationId = 6,
+                            Model = "Chevrolet Impala",
+                            PricePerDay = 10m,
+                            Year = 2017
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "The car that pioneered the hybrid movement and has defined fuel-efficiency for four model generations still stands tall as an innovative green machine. Its fuel economy in our tests was a staggering 52 mpg overall—the highest we’ve ever recorded in a car that doesn’t plug in.",
+                            GearType = 2,
+                            Image = "https://res.cloudinary.com/dis59vn8s/image/upload/v1561932389/CR-Inline-top-picks-Toyota-Prius-02-17_cvg5ta.jpg",
+                            LocationId = 7,
+                            Model = "Toyota Prius",
+                            PricePerDay = 39m,
+                            Year = 2017
+                        });
                 });
 
             modelBuilder.Entity("CarRental.Models.CarRentDays", b =>
@@ -173,6 +294,58 @@ namespace CarRental.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Locations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Sofia, Airport Terminal 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Sofia, Airport Terminal 2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Plovdiv, Novotel"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Stara Zagora, Stadium Beroe"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Shumen, Post Office"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Asenovgrad, Post Office"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Varna, Bay"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Pleven, Hotel Bulgaria"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Sozopol, Old City Post Office"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Lovech"
+                        });
                 });
 
             modelBuilder.Entity("CarRental.Models.Order", b =>
@@ -184,11 +357,15 @@ namespace CarRental.Data.Migrations
 
                     b.Property<int>("CarId");
 
+                    b.Property<int>("PickUpLocationId");
+
                     b.Property<decimal>("Price");
 
                     b.Property<DateTime>("RentEnd");
 
                     b.Property<DateTime>("RentStart");
+
+                    b.Property<int>("ReturnLocationId");
 
                     b.Property<int>("Status");
 
@@ -199,6 +376,10 @@ namespace CarRental.Data.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CarId");
+
+                    b.HasIndex("PickUpLocationId");
+
+                    b.HasIndex("ReturnLocationId");
 
                     b.HasIndex("VoucherId");
 
@@ -383,11 +564,22 @@ namespace CarRental.Data.Migrations
                 {
                     b.HasOne("CarRental.Models.ApplicationUser", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("CarRental.Models.Car", "Car")
                         .WithMany()
                         .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CarRental.Models.Location", "PickUpLocation")
+                        .WithMany()
+                        .HasForeignKey("PickUpLocationId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CarRental.Models.Location", "ReturnLocation")
+                        .WithMany()
+                        .HasForeignKey("ReturnLocationId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("CarRental.Models.Voucher", "Voucher")

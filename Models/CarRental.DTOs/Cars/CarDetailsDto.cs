@@ -9,7 +9,6 @@ namespace CarRental.DTOs.Cars
         public CarDetailsDto()
         {
             this.Reviews = new HashSet<Review>(); 
-            this.IsRented = false;
         }
         public int Id { get; set; }
 
@@ -24,8 +23,6 @@ namespace CarRental.DTOs.Cars
         public GearType GearType { get; set; }
 
         public decimal PricePerDay { get; set; }
-
-        public bool IsRented { get; set; }
 
         public int LocationId { get; set; }
         public Location Location { get; set; }

@@ -26,7 +26,6 @@ namespace CarRental.Services
         }
         public bool AddCar(Car car)
         {         
-            car.IsRented = false;
             this.dbContext.Cars.Add(car);
             this.dbContext.SaveChanges();
             return true;
