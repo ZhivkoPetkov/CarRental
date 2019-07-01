@@ -11,5 +11,11 @@ namespace CarRental.Services.Contracts
                                     decimal price, DateTime startRent, DateTime endRent);
 
         ICollection<OrderDto> GetAllOrdersForUser(string email);
+
+        ICollection<OrderDto> All();
+
+        bool Delete(string id);
+        bool Cancel(string id);
+        bool Finish(string id);
     }
 }

@@ -31,6 +31,18 @@ namespace CarRental.Services
             return true;
         }
 
+        public bool ChangeLocation(int id, int returnLocationId)
+        {
+            var car = this.dbContext.Cars.Find(id);
+            if (car is null)
+            {
+                return false;
+            }
+            car.LocationId = returnLocationId;
+            this.dbContext.SaveChanges();
+            return true;
+        }
+
         public CarDetailsDto FindCar(int id)
         {
             var car = this.dbContext.Cars.Find(id);

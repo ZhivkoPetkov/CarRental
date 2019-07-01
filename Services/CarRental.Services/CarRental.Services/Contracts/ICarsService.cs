@@ -15,5 +15,7 @@ namespace CarRental.Services.Contracts
         bool RentCar(DateTime start, DateTime end, int cardId);
 
         CarDetailsDto FindCar(int id);
+
+        bool ChangeLocation(int id, int returnLocationId);
     }
 }

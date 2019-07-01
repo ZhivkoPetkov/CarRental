@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "All Orders";
+}
+
+<tr class="row">
+    <h1>All Orders: @Model.Count</h1>
+</tr>
+<hr />
+
+<div class="d-flex justify-content-between mx-2 mb-2">
+    <input class="form-control col-md-2 border-primary" type="text" id="myInput" onkeyup="byId()" placeholder="Search by Id">
+    <button type="button" class="btn btn-primary" onclick="location.reload();" id="showAll">Show All</button>
+    <button type="button" class="btn btn-primary" onclick="showActive()" id="myInputActive" value="Active">Show Active</button>
+    <button type="button" class="btn btn-primary" onclick="showCanceled()" id="myInputCanceled" value="Canceled">Show Canceled</button>
+    <button type="button" class="btn btn-primary" onclick="showFinished()" id="myInputFinished" value="Finished">Show Finished</button>
+    <button type="button" class="btn btn-primary" onclick="sortTable()">Sort By Date Ascending</button>
+    <button type="button" class="btn btn-primary" onclick="sortTableDateDesc()">Sort By Date Descending</button>
+
+</div>
+
+
+<table class="table table-hover border" style="font-size:90%" name="allorders" id="allorders">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">Order Id</th>
+            <th scope="col">Car Model</th>
+            <th scope="col">Return Location</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Price</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody class="align-content-between">
+
+        @foreach (var order in @Model)
+        {
+
+            if (order.Status.ToString() == "Canceled")
+            {
+                @Html.Raw(" <tr class=\"table-danger\">")
+            }
+            else if (order.Status.ToString() == "Finished")
+            {
+                @Html.Raw(" <tr class=\"table-success\">")
+            }
+            else
+            {
+                @Html.Raw(" <tr class=\"table-warning\">")
+            }
+
+
+        <th scope="row">@order.Id</th>
+        <td>@order.CarModel</td>
+        <td name="location">@order.ReturnLocation</td>
+        <td>@order.RentEnd.ToShortDateString()</td>
+        <td>@order.Price</td>
+        <td>@order.Status.ToString()</td>
+        <td>
+
+            @if (order.Status.ToString() != "Canceled" && order.Status.ToString() != "Finished")
+            {
+                <a class="btn btn-info" asp-controller="Orders" asp-action="Cancel" asp-route-id="@order.Id">Cancel</a>
+            }
+            <a class="btn btn-danger" asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id">Delete</a>
+            @if (order.Status.ToString() != "Canceled" && order.Status.ToString() != "Finished")
+            {
+                <a class="btn btn-success" asp-controller="Orders" asp-action="Finish" asp-route-id="@order.Id">Finish</a>
+            }
+        </td>
+        @Html.Raw("</tr>")
+    }
+        </tbody>
+    </table>
+
+    @section Scripts {
+        <partial name="~/Views/Shared/Partials/_SearchAndTableScripts.cshtml" />
+    }
+
+

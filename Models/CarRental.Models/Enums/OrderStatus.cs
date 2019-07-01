@@ -3,7 +3,7 @@
     public enum OrderStatus
     {
         Active = 1,
-        Finieshed = 2,
+        Finished = 2,
         Canceled = 3
     }
 }
