@@ -4,6 +4,15 @@
     ViewData["Title"] = "Order Details";
 }
 
+@if (Model.ReviewId == null && Model.Email == this.User.Identity.Name)
+{
+    <div class="alert alert-dismissible alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">Congratulations! Your order was finished</h4>
+        <p class="mb-0">You can leave a review for your order and win a discount voucher! <a asp-controller="Reviews" asp-action="Create" asp-route-orderId="@Model.Id">Follow this link!</a></p>
+    </div>
+}
+
 @if (@Model.Status == CarRental.Models.Enums.OrderStatus.Active)
 {
     <span class="badge badge-pill badge-warning" style="margin-top:5%">@Model.Status</span>
@@ -64,6 +73,8 @@ else
     <div class="text-success" style="font-size:200%">Price: $@Model.Price</div>
 </center>
 
+
+<hr class="border-primary" />
 <script>
     function myFunction() {
         window.print();

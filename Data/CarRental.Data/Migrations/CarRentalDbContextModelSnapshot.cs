@@ -365,6 +365,8 @@ namespace CarRental.Data.Migrations
 
                     b.Property<int>("ReturnLocationId");
 
+                    b.Property<int?>("ReviewId");
+
                     b.Property<int>("Status");
 
                     b.Property<int?>("VoucherId");
@@ -379,6 +381,8 @@ namespace CarRental.Data.Migrations
 
                     b.HasIndex("ReturnLocationId");
 
+                    b.HasIndex("ReviewId");
+
                     b.HasIndex("VoucherId");
 
                     b.ToTable("Orders");
@@ -386,8 +390,9 @@ namespace CarRental.Data.Migrations
 
             modelBuilder.Entity("CarRental.Models.Review", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ApplicationUserId");
 
@@ -579,6 +584,10 @@ namespace CarRental.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ReturnLocationId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CarRental.Models.Review", "Review")
+                        .WithMany()
+                        .HasForeignKey("ReviewId");
 
                     b.HasOne("CarRental.Models.Voucher", "Voucher")
                         .WithMany()

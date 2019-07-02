@@ -102,6 +102,13 @@ namespace CarRental.Services
             return mapper.Map<OrderDto>(order);
         }
 
+        public bool IsValidReviewRequest(string orderId, string customerEmail)
+        {
+            var order = this.dbContext.Orders.Find(orderId);
+
+            return order.User.Email == customerEmail;
+        }
+
         public bool MakeOrder(string customer, int carId, string startLocation, string returnLocation, decimal price, 
                                             DateTime startRent, DateTime endRent)
         {

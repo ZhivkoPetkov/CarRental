@@ -5,7 +5,7 @@ namespace CarRental.Models
     public class Review
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public int CarId { get; set; }
 

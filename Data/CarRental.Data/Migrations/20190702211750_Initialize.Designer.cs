@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRental.Data.Migrations
 {
     [DbContext(typeof(CarRentalDbContext))]
-    [Migration("20190702191213_Initialize")]
+    [Migration("20190702211750_Initialize")]
     partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -367,6 +367,8 @@ namespace CarRental.Data.Migrations
 
                     b.Property<int>("ReturnLocationId");
 
+                    b.Property<int?>("ReviewId");
+
                     b.Property<int>("Status");
 
                     b.Property<int?>("VoucherId");
@@ -381,6 +383,8 @@ namespace CarRental.Data.Migrations
 
                     b.HasIndex("ReturnLocationId");
 
+                    b.HasIndex("ReviewId");
+
                     b.HasIndex("VoucherId");
 
                     b.ToTable("Orders");
@@ -388,8 +392,9 @@ namespace CarRental.Data.Migrations
 
             modelBuilder.Entity("CarRental.Models.Review", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ApplicationUserId");
 
@@ -581,6 +586,10 @@ namespace CarRental.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ReturnLocationId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CarRental.Models.Review", "Review")
+                        .WithMany()
+                        .HasForeignKey("ReviewId");
 
                     b.HasOne("CarRental.Models.Voucher", "Voucher")
                         .WithMany()
