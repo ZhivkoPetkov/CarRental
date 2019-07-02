@@ -7,6 +7,12 @@ namespace CarRental.Models
 {
     public class Order
     {
+
+        public Order()
+        {
+            Id = Guid.NewGuid().ToString().GetHashCode().ToString("x");
+        }
+
         [Key]
         public string Id { get; set; }
 

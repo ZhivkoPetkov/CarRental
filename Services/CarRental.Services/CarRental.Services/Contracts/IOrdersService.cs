@@ -13,6 +13,7 @@ namespace CarRental.Services.Contracts
         ICollection<OrderDto> GetAllOrdersForUser(string email);
 
         ICollection<OrderDto> All();
+        OrderDto GetOrderById(string id);
 
         bool Delete(string id);
         bool Cancel(string id);

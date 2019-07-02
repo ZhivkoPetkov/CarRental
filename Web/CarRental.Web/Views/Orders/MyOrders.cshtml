@@ -12,7 +12,7 @@
 
 <table class="table table-hover border">
     <thead>
-        <tr class="table-primary">
+        <tr class="table-primary ">
             <th scope="col">Order Id</th>
             <th scope="col">Car Model</th>
             <th scope="col">Pick Up Location</th>
@@ -28,7 +28,7 @@
         @foreach (var order in @Model)
         {
             <tr class="table-light">
-                <th scope="row">@order.Id</th>
+                <th scope="row"><a href="/orders/details/@order.Id">@order.Id</a></th>
                 <td>@order.CarModel</td>
                 <td>@order.PickUpLocation</td>
                 <td>@order.ReturnLocation</td>
@@ -45,5 +45,22 @@
 @if (Model.Count() > 0)
 {
     var spent = this.Model.Sum(x => x.Price);
-    <h3 class="text-primary">Total spent: $ @spent</h3>
+    <h3 class="text-info">Total spent: $ @spent</h3>
 }
+
+<script>
+   $(function(){
+    $('.table tr[data-href]').each(function(){
+        $(this).css('cursor','pointer').hover(
+            function(){ 
+                $(this).addClass('active'); 
+            },  
+            function(){ 
+                $(this).removeClass('active'); 
+            }).click( function(){ 
+                document.location = $(this).attr('data-href'); 
+            }
+        );
+    });
+});
+</script>

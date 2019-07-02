@@ -59,6 +59,7 @@
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
+
             builder.Entity<Car>().
                 HasMany(x => x.RentDays).
                 WithOne(x => x.Car).

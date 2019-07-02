@@ -67,5 +67,13 @@ namespace CarRental.Web.Controllers
 
             return RedirectToAction(nameof(MyOrders));
         }
+
+        [Authorize]
+        public IActionResult Details(string id)
+        {
+            var order = this.ordersService.GetOrderById(id);
+            var viewModel = this.mapper.Map<OrderDetailsViewModel>(order);
+            return this.View(viewModel);
+        }
     }
 }

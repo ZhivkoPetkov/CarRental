@@ -17,7 +17,18 @@ namespace CarRental.Web.MappingConfiguration
             this.CreateMap<OrderDto, MyOrdersViewModel>()
                .ForMember(dest => dest.PickUpLocation, src => src.MapFrom(x => x.PickUpLocation.Name))
                .ForMember(dest => dest.ReturnLocation, src => src.MapFrom(x => x.ReturnLocation.Name))
-               .ForMember(dest => dest.CarModel, src => src.MapFrom(x => x.Car.Model)).ReverseMap();
+               .ForMember(dest => dest.CarModel, src => src.MapFrom(x => x.Car.Model))
+               .ReverseMap();
+            this.CreateMap<OrderDto, OrderDetailsViewModel>()
+              .ForMember(dest => dest.CarModel, src => src.MapFrom(x => x.Car.Model))
+              .ForMember(dest => dest.CarGearType, src => src.MapFrom(x => x.Car.GearType))
+              .ForMember(dest => dest.CarYear, src => src.MapFrom(x => x.Car.Year))
+              .ForMember(dest => dest.Email, src => src.MapFrom(x => x.User.Email))
+              .ForMember(dest => dest.Firstname, src => src.MapFrom(x => x.User.FirstName))
+              .ForMember(dest => dest.Lastname, src => src.MapFrom(x => x.User.LastName))
+              .ForMember(dest => dest.PickUpLocation, src => src.MapFrom(x => x.PickUpLocation.Name))
+              .ForMember(dest => dest.ReturnLocation, src => src.MapFrom(x => x.ReturnLocation.Name))
+              .ReverseMap();
             this.CreateMap<AddCarViewModel, Car>();
             this.CreateMap<ListCarDto, Car>();
             this.CreateMap<CarDetailsDto, Car>().
