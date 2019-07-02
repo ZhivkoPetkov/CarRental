@@ -16,6 +16,7 @@ else
 {
     <span class="badge badge-pill badge-danger" style="margin-top:5%">@Model.Status</span>
 }
+<span class="badge badge-pill badge-info" style="margin-top:5%; float:right" onclick="myFunction()">Print this order</span>
 
 <h1>Order ID: @Model.Id</h1>
 <hr class="border-primary" />
@@ -62,3 +63,9 @@ else
 <center>
     <div class="text-success" style="font-size:200%">Price: $@Model.Price</div>
 </center>
+
+<script>
+    function myFunction() {
+        window.print();
+    }
+</script>
