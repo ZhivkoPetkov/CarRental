@@ -15,17 +15,17 @@
 else
 {
     var counter = 0;
-<center>
-    <div class="justify-content-between">
-        <h6 class="text-primary">Sort by:</h6>
-        <div class="mx-2 mb-2">
-            <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentDescending">Times rented descending</a>
-            <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="RatingDescending">Rating descending</a>
-            <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentAscending">Times rented ascending</a>
-            <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="LastAdded">Last added</a>
+    <center>
+        <div class="justify-content-between">
+            <h6 class="text-primary">Sort by:</h6>
+            <div class="mx-2 mb-2">
+                <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentDescending">Times rented descending</a>
+                <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="RatingDescending">Rating descending</a>
+                <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentAscending">Times rented ascending</a>
+                <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="LastAdded">Last added</a>
+            </div>
         </div>
-    </div>
-</center>
+    </center>
     @: <div class="row justify-content-around">
         @foreach (var item in Model)
         {
@@ -34,9 +34,12 @@ else
             <div class="card mb-2 col-md-3 border-info ">
                 <span class="badge badge-warning">@item.Year</span>
                 <h4 class="card-header" style="background-color:transparent">@item.Model</h4>
-                <img style="height: 195px; width: 250px; display: block;" src="@item.Image" alt="@item.Model">
+                <div class="img_class">
+                    <img style="height: 195px; width: 250px; display: block;" src="@item.Image" alt="@item.Model">
+                </div>
+
                 <div class="card-body">
-                    <p class="card-text">@item.Description.Substring(0,165) ...</p>
+                    <p class="card-text">@item.Description.Substring(0, 165) ...</p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Gear Type: @item.GearType.ToString()</li>
@@ -54,3 +57,6 @@ else
             }
         }
     }
+<script>
+
+</script>
