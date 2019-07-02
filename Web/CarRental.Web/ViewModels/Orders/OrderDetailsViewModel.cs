@@ -12,8 +12,11 @@ namespace CarRental.Web.ViewModels.Orders
         public GearType CarGearType { get; set; }
 
         public int CarYear { get; set; }
-     
+
+        public string CarImage { get; set; }
+
         public string Email { get; set; }
+        public string CarDescription { get; set; }
 
         public string Firstname { get; set; }
 

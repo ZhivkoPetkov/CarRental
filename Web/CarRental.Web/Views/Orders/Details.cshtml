@@ -1,9 +1,64 @@
-﻿@model  OrderDetailsViewModel
+﻿@model OrderDetailsViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Order Details";
 }
 
-<h1>Details</h1>
+@if (@Model.Status == CarRental.Models.Enums.OrderStatus.Active)
+{
+    <span class="badge badge-pill badge-warning" style="margin-top:5%">@Model.Status</span>
+}
+else if (@Model.Status == CarRental.Models.Enums.OrderStatus.Finished)
+{
+    <span class="badge badge-pill badge-success" style="margin-top:5%">@Model.Status</span>
+}
+else
+{
+    <span class="badge badge-pill badge-danger" style="margin-top:5%">@Model.Status</span>
+}
 
-<h3>@Model.Id</h3>
+<h1>Order ID: @Model.Id</h1>
+<hr class="border-primary" />
+<div class="container-fluid">
+    <div class="d-flex justify-content-between">
+        <h4>Customer Names:</h4>
+        <h4>@Model.Firstname @Model.Lastname</h4>
+    </div>
+    <div class="d-flex justify-content-between">
+        <h4>Customer Email:</h4>
+        <h4>@Model.Email</h4>
+    </div>
+    <hr class="border-primary" />
+    <div class="d-flex justify-content-between">
+        <h4>Pick Up Location:</h4>
+        <h4>@Model.PickUpLocation</h4>
+    </div>
+    <div class="d-flex justify-content-between">
+        <h4>Return Location:</h4>
+        <h4>@Model.ReturnLocation</h4>
+    </div>
+    <hr class="border-primary" />
+    <div class="d-flex justify-content-between">
+        <h4>Rent start:</h4>
+        <h4>@Model.RentStart.ToShortDateString()</h4>
+    </div>
+    <div class="d-flex justify-content-between">
+        <h4>Rent end:</h4>
+        <h4>@Model.RentEnd.ToShortDateString()</h4>
+    </div>
+    <hr class="border-primary" />
+    <h2>Your Car:</h2>
+    <div class="d-flex justify-content-between">
+        <img src="@Model.CarImage" width="150px" height="110px" />
+        <div>
+            <h4>Model: @Model.CarModel</h4>
+            <h4>Gear Type: @Model.CarGearType</h4>
+            <h4>Year: @Model.CarYear</h4>
+        </div>
+    </div>
+    <div>@Model.CarDescription</div>
+    <hr class="border-primary" />
+</div>
+<center>
+    <div class="text-success" style="font-size:200%">Price: $@Model.Price</div>
+</center>
