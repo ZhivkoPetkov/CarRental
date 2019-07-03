@@ -27,7 +27,7 @@ namespace CarRental.Web.ViewComponents.Home
             {
                 Cars = this.dbContext.Cars.Count(),
                 Clients = this.dbContext.Users.Count(),
-                Rating = this.dbContext.Reviews.Count() == 0 ? 0 : this.dbContext.Reviews.Average(p => p.Rating),
+                Rating = this.dbContext.Reviews.Count() == 0 ? "0" : this.dbContext.Reviews.Average(p => p.Rating).ToString("F"),
                 Reviews = this.dbContext.Reviews.Count()
             };
 

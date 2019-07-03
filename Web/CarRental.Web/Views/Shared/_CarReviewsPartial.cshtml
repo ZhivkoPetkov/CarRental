@@ -1,0 +1,126 @@
+﻿@model  ICollection<ReviewViewModel>
+
+<!-- /.row -->
+<!-- Related Projects Row -->
+<h3 class="my-4">Reviews from our users:</h3>
+<div class="container">
+    <div class="row blog">
+        <div class="col-md-12">
+            <div id="blogCarousel" class="carousel slide" data-ride="carousel">
+
+                <ol class="carousel-indicators">
+                    <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#blogCarousel" data-slide-to="1"></li>
+                </ol>
+
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            @if (@Model.Count >= 1)
+                            {
+                                <div class="col-md-3">
+                                    <div class="card border-warning mb-3" style="max-width: 17rem;height: 220px">
+                                        <div class="card-body justify-content-around">
+                                            <div class="card-header" style="background-color:transparent"><h4>Rating: @Model.ToList()[0].Rating</h4></div>
+                                            <p class="card-text"><strong>Comment: </strong>@Model.ToList()[0].Comment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (@Model.Count >= 2)
+                            {
+                                <div class="col-md-3">
+                                    <div class="card border-warning mb-3" style="max-width: 17rem;height: 220px">
+                                        <div class="card-body justify-content-around">
+                                            <div class="card-header" style="background-color:transparent"><h4>Rating: @Model.ToList()[1].Rating</h4></div>
+                                            <p class="card-text"><strong>Comment: </strong>@Model.ToList()[1].Comment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (@Model.Count >= 3)
+                            {
+                                <div class="col-md-3">
+                                    <div class="card border-warning mb-3" style="max-width: 17rem;height: 220px">
+                                        <div class="card-body justify-content-around">
+                                            <div class="card-header" style="background-color:transparent"><h4>Rating: @Model.ToList()[2].Rating</h4></div>
+                                            <p class="card-text"><strong>Comment: </strong>@Model.ToList()[2].Comment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (@Model.Count >= 4)
+                            {
+                                <div class="col-md-3">
+                                    <div class="card border-warning mb-3" style="max-width: 17rem;height: 220px">
+                                        <div class="card-body justify-content-around">
+                                            <div class="card-header" style="background-color:transparent"><h4>Rating: @Model.ToList()[3].Rating</h4></div>
+                                            <p class="card-text"><strong>Comment: </strong>@Model.ToList()[3].Comment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <!--.row-->
+                    </div>
+                    <!--.item-->
+                    <div class="carousel-item">
+                        <div class="row">
+                            @if (@Model.Count >= 5)
+                            {
+                                <div class="col-md-3">
+                                    <div class="card border-warning mb-3" style="max-width: 17rem;height: 220px">
+                                        <div class="card-body justify-content-around">
+                                            <div class="card-header" style="background-color:transparent"><h4>Rating: @Model.ToList()[4].Rating</h4></div>
+                                            <p class="card-text"><strong>Comment: </strong>@Model.ToList()[4].Comment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (@Model.Count >= 6)
+                            {
+                                <div class="col-md-3">
+                                    <div class="card border-warning mb-3" style="max-width: 17rem;height: 220px">
+                                        <div class="card-body justify-content-around">
+                                            <div class="card-header" style="background-color:transparent"><h4>Rating: @Model.ToList()[5].Rating</h4></div>
+                                            <p class="card-text"><strong>Comment: </strong>@Model.ToList()[5].Comment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (@Model.Count >= 7)
+                            {
+                                <div class="col-md-3">
+                                    <div class="card border-warning mb-3" style="max-width: 17rem;height: 220px">
+                                        <div class="card-body justify-content-around">
+                                            <div class="card-header" style="background-color:transparent"><h4>Rating: @Model.ToList()[6].Rating</h4></div>
+                                            <p class="card-text"><strong>Comment: </strong>@Model.ToList()[6].Comment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (@Model.Count >= 8)
+                            {
+                                <div class="col-md-3">
+                                    <div class="card border-warning mb-3" style="max-width: 17rem;height: 220px">
+                                        <div class="card-body justify-content-around">
+                                            <div class="card-header" style="background-color:transparent"><h4>Rating: @Model.ToList()[7].Rating</h4></div>
+                                            <p class="card-text"><strong>Comment: </strong>@Model.ToList()[7].Comment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <!--.row-->
+                    </div>
+                    <!--.item-->
+
+                </div>
+                <!--.carousel-inner-->
+            </div>
+            <!--.Carousel-->
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿@model ICollection<ReviewViewModel>
+
+@{
+    var average = @Model.Average(x => x.Rating);
+}
+
+@if (average > 4.9)
+{
+    <span class="badge badge-primary">FAVOURITE CAR BY OUR CUSTOMERS</span>
+}
+else if (average > 4)
+{
+    <span class="badge badge-primary">RECOMMENDED CAR</span>
+}
+else if (average > 3)
+{
+    <span class="badge badge-primary">MEDIUM CLASS</span>
+}
+
+

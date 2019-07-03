@@ -2,6 +2,7 @@
 using CarRental.Common;
 using CarRental.Data;
 using CarRental.DTOs.Cars;
+using CarRental.DTOs.Reviews;
 using CarRental.Models;
 using CarRental.Services.Contracts;
 using CloudinaryDotNet;
@@ -47,7 +48,7 @@ namespace CarRental.Services
         {
             var car = this.dbContext.Cars.Find(id);
             var result = this.mapper.Map<CarDetailsDto>(car);
-
+            result.Reviews = this.mapper.Map<List<ReviewDto>>(car.Reviews);
             return result;
         }
 

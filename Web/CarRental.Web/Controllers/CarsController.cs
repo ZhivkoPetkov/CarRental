@@ -1,17 +1,22 @@
-﻿using CarRental.Services.Contracts;
+﻿using AutoMapper;
+using CarRental.Services.Contracts;
 using CarRental.Web.ViewModels.Cars;
 using CarRental.Web.ViewModels.Home;
+using CarRental.Web.ViewModels.Reviews;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace CarRental.Web.Controllers
 {
     public class CarsController : BaseController
     {
         private readonly ICarsService carsService;
+        private readonly IMapper mapper;
 
-        public CarsController(ICarsService carsService)
+        public CarsController(ICarsService carsService, IMapper mapper)
         {
             this.carsService = carsService;
+            this.mapper = mapper;
         }
 
         [HttpPost]
@@ -46,7 +51,9 @@ namespace CarRental.Web.Controllers
         public IActionResult Details(int id)
         {
             var car = this.carsService.FindCar(id);
-            return this.View(car);
+            var viewModel = this.mapper.Map<CarDetailsViewModel>(car);
+            viewModel.Reviews = this.mapper.Map<List<ReviewViewModel>>(car.Reviews);
+            return this.View(viewModel);
         }
     }
 }

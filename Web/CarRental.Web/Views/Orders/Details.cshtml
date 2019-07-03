@@ -72,11 +72,17 @@ else
 <center>
     <div class="text-success" style="font-size:200%">Price: $@Model.Price</div>
 </center>
-<hr class="border-primary" />
-<div class="justify-content-between">
-    <h3>Your Feedback:</h3>
-    <h4>@Model.Comment Rating: <strong>@Model.Rating</strong></h4>
-</div>
+
+
+@if (Model.Comment != null)
+{
+    <hr class="border-primary" />
+    <div class="justify-content-between">
+        <h3>Your Feedback:</h3>
+        <h4 >@Model.Comment <strong class="text-primary">Rating: @Model.Rating</strong></h4>
+    </div>
+
+}
 
 <hr class="border-primary" />
 <script>

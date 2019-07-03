@@ -1,15 +1,19 @@
 ﻿using CarRental.DTOs.Reviews;
 using CarRental.Models;
 using CarRental.Models.Enums;
+using CarRental.Web.ViewModels.Reviews;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace CarRental.DTOs.Cars
+namespace CarRental.Web.ViewModels.Cars
 {
-   public class CarDetailsDto
+    public class CarDetailsViewModel
     {
-        public CarDetailsDto()
+        public CarDetailsViewModel()
         {
-            this.Reviews = new HashSet<ReviewDto>(); 
+            this.Reviews = new HashSet<ReviewViewModel>();
         }
         public int Id { get; set; }
 
@@ -28,7 +32,6 @@ namespace CarRental.DTOs.Cars
         public int LocationId { get; set; }
         public Location Location { get; set; }
 
-        public ICollection<ReviewDto> Reviews { get; set; }
-
+        public ICollection<ReviewViewModel> Reviews { get; set; }
     }
 }

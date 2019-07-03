@@ -1,7 +1,8 @@
 ﻿
-@model CarDetailsDto
+@model CarDetailsViewModel
 @{
     ViewData["Title"] = Model.Model + " Details";
+    var averageRating = @Model.Reviews.Count() == 0 ? "0" : @Model.Reviews.Average(p => p.Rating).ToString("F");
 }
 
 <div class="container">
@@ -9,56 +10,32 @@
         @Model.Model Details
     </h1>
 
+    @if (Model.Reviews.Count > 0)
+	{
+		 <partial name="_CarDetailsBadge" model="@Model.Reviews" />
+	}
     <div class="row">
         <div class="col-md-8">
             <img class="img-fluid" src="@Model.Image" alt="">
         </div>
         <div class="col-md-4">
             <h3 class="my-3">Model Description</h3>
+            <hr class="border-primary" />
             <p>@Model.Description</p>
-            <h3 class="my-3">Model Video</h3>
-            <div>
-                <img src="~/Images/Pictograms/gear.jpg" height="20%" width="20%" /> <h6>@Model.GearType.ToString()</h6>
-            </div>
-            <div>
-                <img src="~/Images/Pictograms/feedback.png" height="20%" width="20%" /> <h6> @Model.Reviews.Count() Feedbacks Given </h6>
-            </div>
-           
+            <h3 class="my-3">Model Details</h3>
+            <hr class="border-primary" />
+            <h6>Gear Type: @Model.GearType.ToString()</h6>
+            <h6>Average Rating: @averageRating </h6>
+            <h6>Air Conditioner: Yes </h6>
+            <h6>GPS Navigation: Yes </h6>
         </div>
-
     </div>
-    <!-- /.row -->
-    <!-- Related Projects Row -->
-    <h3 class="my-4">Reviews from our users</h3>
 
-    <div class="row">
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
-
-    </div>
-    <!-- /.row -->
-
-</div>
-<!-- /.container -->
+    @if (@Model.Reviews.Count > 0)
+    {
+    <partial name="_CarReviewsPartial" model="@Model.Reviews" />
+    }
+    else
+    {
+        <h3>This cars was not reviewd by our users.</h3>
+    }

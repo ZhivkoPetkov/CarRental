@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using CarRental.DTOs.Cars;
 using CarRental.DTOs.Orders;
+using CarRental.DTOs.Reviews;
 using CarRental.Models;
 using CarRental.Web.Areas.Administration.ViewModels.Cars;
 using CarRental.Web.Areas.Administration.ViewModels.Locations;
+using CarRental.Web.ViewModels.Cars;
 using CarRental.Web.ViewModels.Orders;
+using CarRental.Web.ViewModels.Reviews;
 
 namespace CarRental.Web.MappingConfiguration
 {
@@ -35,6 +38,9 @@ namespace CarRental.Web.MappingConfiguration
               .ReverseMap();
             this.CreateMap<AddCarViewModel, Car>();
             this.CreateMap<ListCarDto, Car>();
+            this.CreateMap<ReviewDto, Review>().ReverseMap();
+            this.CreateMap<ReviewViewModel, ReviewDto>().ReverseMap();
+            this.CreateMap<CarDetailsDto, CarDetailsViewModel>().ReverseMap();
             this.CreateMap<CarDetailsDto, Car>().
                 ReverseMap();
         }
