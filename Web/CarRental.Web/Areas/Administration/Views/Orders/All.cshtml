@@ -50,7 +50,7 @@
             }
 
 
-        <th scope="row">@order.Id</th>
+        <th scope="row">@order.Id.Substring(0,8)</th>
         <td>@order.CarModel</td>
         <td name="location">@order.ReturnLocation</td>
         <td>@order.RentEnd.ToShortDateString()</td>

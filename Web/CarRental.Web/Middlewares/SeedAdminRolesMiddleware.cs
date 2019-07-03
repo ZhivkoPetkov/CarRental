@@ -49,7 +49,7 @@ namespace CarRental.Web.Middlewares
                 var user = new ApplicationUser
                 {
                     UserName = "admin@admin.bg",
-                    Email = "admin@gmail.com",
+                    Email = "admin@admin.bg",
                     FirstName = "Zhivko",
                     LastName = "Petkov",
                 };
