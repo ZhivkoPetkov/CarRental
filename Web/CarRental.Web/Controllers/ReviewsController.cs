@@ -8,10 +8,12 @@ namespace CarRental.Web.Controllers
     public class ReviewsController : BaseController
     {
         private readonly IOrdersService ordersService;
+        private readonly IReviewsService reviewsService;
 
-        public ReviewsController(IOrdersService ordersService)
+        public ReviewsController(IOrdersService ordersService, IReviewsService reviewsService)
         {
             this.ordersService = ordersService;
+            this.reviewsService = reviewsService;
         }
 
         [HttpPost]
@@ -23,7 +25,9 @@ namespace CarRental.Web.Controllers
                 return BadRequest();
             }
 
-            return View();
+            this.reviewsService.CreateReview(inputModel.OrderId, inputModel.Rating, inputModel.Comment);
+
+            return RedirectToAction("MyOrders", "Orders");
         }
 
         [Authorize]
@@ -35,6 +39,8 @@ namespace CarRental.Web.Controllers
             {
                 return BadRequest();
             }
+
+            ViewData["Order"] = orderId;
 
             return View();
         }

@@ -33,7 +33,9 @@ namespace CarRental.Web.ViewModels.Orders
         public string PickUpLocation  { get; set; }
 
         public string ReturnLocation { get; set; }
-
         public int? ReviewId { get; set; }
+        public string Comment { get; set; }
+
+        public int Rating { get; set; }
     }
 }

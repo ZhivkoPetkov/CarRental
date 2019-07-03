@@ -28,8 +28,10 @@ namespace CarRental.Web.MappingConfiguration
               .ForMember(dest => dest.Lastname, src => src.MapFrom(x => x.User.LastName))
               .ForMember(dest => dest.PickUpLocation, src => src.MapFrom(x => x.PickUpLocation.Name))
               .ForMember(dest => dest.ReturnLocation, src => src.MapFrom(x => x.ReturnLocation.Name))
-               .ForMember(dest => dest.CarImage, src => src.MapFrom(x => x.Car.Image))
-               .ForMember(dest => dest.CarDescription, src => src.MapFrom(x => x.Car.Description))
+              .ForMember(dest => dest.CarImage, src => src.MapFrom(x => x.Car.Image))
+              .ForMember(dest => dest.CarDescription, src => src.MapFrom(x => x.Car.Description))
+              .ForMember(dest => dest.Rating, src => src.MapFrom(x => x.Review.Rating))
+              .ForMember(dest => dest.Comment, src => src.MapFrom(x => x.Review.Comment))
               .ReverseMap();
             this.CreateMap<AddCarViewModel, Car>();
             this.CreateMap<ListCarDto, Car>();

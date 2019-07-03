@@ -35,5 +35,6 @@ namespace CarRental.DTOs.Orders
         public virtual Location ReturnLocation { get; set; }
 
         public int? ReviewId { get; set; }
+        public Review Review { get; set; }
     }
 }

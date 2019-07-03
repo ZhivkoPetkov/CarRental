@@ -114,6 +114,7 @@
             services.AddTransient<IImagesService, ImagesService>();
             services.AddTransient<IOrdersService, OrdersService>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IReviewsService, ReviewsService>();
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
