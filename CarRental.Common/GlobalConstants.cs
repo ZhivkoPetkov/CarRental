@@ -12,5 +12,7 @@
         public const string OrderCarsByRentsDescending = "TimesRentDescending";
         public const string OrderCarsByRatingDescending = "RatingDescending";
         public const string OrderCarsByLastAdded = "LastAdded";
+        public const string OrderCarsByPriceAscending = "PriceAscending";
+        public const string OrderCarsByPriceDescending = "PriceDescending";
     }
 }

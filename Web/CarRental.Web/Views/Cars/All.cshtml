@@ -15,13 +15,18 @@
 else
 {
     var counter = 0;
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top" class="btn-primary">Go Top</button>
+
     <center>
         <div class="justify-content-between">
             <h6 class="text-primary">Sort by:</h6>
             <div class="mx-2 mb-2">
-                <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentDescending">Times rented descending</a>
-                <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="RatingDescending">Rating descending</a>
-                <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentAscending">Times rented ascending</a>
+                <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentDescending">Times rented DSC</a>
+                <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="RatingDescending">Rating DSC</a>
+                <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentAscending">Times rented ASC</a>
+                <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="PriceAscending">Price ASC</a>
+                <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="PriceDescending">Price DSC</a>
                 <a class="btn btn-outline-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="LastAdded">Last added</a>
             </div>
         </div>
@@ -58,5 +63,20 @@ else
         }
     }
 <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
 
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("myBtn").style.display = "block";
+        } else {
+            document.getElementById("myBtn").style.display = "none";
+        }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+            document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      }
 </script>

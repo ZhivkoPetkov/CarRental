@@ -88,6 +88,14 @@ namespace CarRental.Services
             {
                 cars.Reverse();
             }
+            else if (orderby == GlobalConstants.OrderCarsByPriceAscending)
+            {
+                return cars.OrderBy(x => x.PricePerDay).ToList();
+            }
+            else if (orderby == GlobalConstants.OrderCarsByPriceDescending)
+            {
+                return cars.OrderByDescending(x => x.PricePerDay).ToList();
+            }
 
             return cars;
         }
