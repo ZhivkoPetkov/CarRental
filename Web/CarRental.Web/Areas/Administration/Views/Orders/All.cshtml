@@ -15,7 +15,6 @@
     <button type="button" class="btn btn-primary" onclick="showFinished()" id="myInputFinished" value="Finished">Show Finished</button>
     <button type="button" class="btn btn-primary" onclick="sortTable()">Sort By Date Ascending</button>
     <button type="button" class="btn btn-primary" onclick="sortTableDateDesc()">Sort By Date Descending</button>
-
 </div>
 
 
@@ -50,7 +49,7 @@
             }
 
 
-        <th scope="row">@order.Id.Substring(0,8)</th>
+        <th scope="row">@order.Id</th>
         <td>@order.CarModel</td>
         <td name="location">@order.ReturnLocation</td>
         <td>@order.RentEnd.ToShortDateString()</td>

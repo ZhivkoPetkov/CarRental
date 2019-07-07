@@ -6,7 +6,7 @@
 
 @if (Model.ReviewId == null && Model.Email == this.User.Identity.Name && Model.Status == CarRental.Models.Enums.OrderStatus.Finished)
 {
-    <div class="alert alert-dismissible alert-warning">
+    <div class="alert alert-dismissible alert-success" style="margin-top:2%">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <h4 class="alert-heading">Congratulations! Your order was finished</h4>
         <p class="mb-0">You can leave a review for your order and win a discount voucher! <a asp-controller="Reviews" asp-action="Create" asp-route-orderId="@Model.Id">Follow this link!</a></p>

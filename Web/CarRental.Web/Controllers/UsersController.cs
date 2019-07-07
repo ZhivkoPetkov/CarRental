@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
         public IActionResult Index()
         {

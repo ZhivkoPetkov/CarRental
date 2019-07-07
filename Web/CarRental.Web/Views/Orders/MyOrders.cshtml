@@ -10,7 +10,17 @@
 </center>
 <hr />
 
-<table class="table table-hover border">
+<div class="d-flex justify-content-between mx-2 mb-2">
+    <input class="form-control col-md-2 border-primary" type="text" id="myInput" onkeyup="byId()" placeholder="Search by Id">
+    <button type="button" class="btn btn-primary" onclick="location.reload();" id="showAll">Show All</button>
+    <button type="button" class="btn btn-primary" onclick="showActive()" id="myInputActive" value="Active">Show Active</button>
+    <button type="button" class="btn btn-primary" onclick="showCanceled()" id="myInputCanceled" value="Canceled">Show Canceled</button>
+    <button type="button" class="btn btn-primary" onclick="showFinished()" id="myInputFinished" value="Finished">Show Finished</button>
+    <button type="button" class="btn btn-primary" onclick="sortTable()">Sort By Date Ascending</button>
+    <button type="button" class="btn btn-primary" onclick="sortTableDateDesc()">Sort By Date Descending</button>
+</div>
+
+<table class="table table-hover border" name="allorders" id="allorders">
     <thead>
         <tr class="table-primary ">
             <th scope="col">Order Id</th>
@@ -27,40 +37,41 @@
 
         @foreach (var order in @Model)
         {
-            <tr class="table-light">
-                <th scope="row"><a href="/orders/details/@order.Id">@order.Id</a></th>
-                <td>@order.CarModel</td>
-                <td>@order.PickUpLocation</td>
-                <td>@order.ReturnLocation</td>
-                <td>@order.RentStart.ToShortDateString()</td>
-                <td>@order.RentEnd.ToShortDateString()</td>
-                <td>@order.Price</td>
-                <td>@order.Status.ToString()</td>
-            </tr>
-        }
+            if (order.Status.ToString() == "Canceled")
+            {
+                @Html.Raw(" <tr class=\"table-danger\">")
+            }
+            else if (order.Status.ToString() == "Finished")
+            {
+                @Html.Raw(" <tr class=\"table-success\">")
+            }
+            else
+            {
+                @Html.Raw(" <tr class=\"table-warning\">")
+            }
 
 
-    </tbody>
-</table>
-@if (Model.Count() > 0)
-{
-    var spent = this.Model.Sum(x => x.Price);
-    <h3 class="text-info">Total spent: $ @spent</h3>
-}
+        <th scope="row"><a href="/orders/details/@order.Id">@order.Id</a></th>
+        <td>@order.CarModel</td>
+        <td>@order.PickUpLocation</td>
+        <td>@order.ReturnLocation</td>
+        <td>@order.RentStart.ToShortDateString()</td>
+        <td>@order.RentEnd.ToShortDateString()</td>
+        <td>@order.Price</td>
+        <td>@order.Status.ToString()</td>
+        @Html.Raw(" </tr>")
+    }
+        </tbody>
+    </table>
+    @section Scripts {
+        <partial name="~/Views/Shared/Partials/_SearchAndTableScripts.cshtml" />
+    }
 
-<script>
-    $(function () {
-        $('.table tr[data-href]').each(function () {
-            $(this).css('cursor', 'pointer').hover(
-                function () {
-                    $(this).addClass('active');
-                },
-                function () {
-                    $(this).removeClass('active');
-                }).click(function () {
-                    document.location = $(this).attr('data-href');
-                }
-                );
-        });
-    });
-</script>
+    @if (Model.Count() > 0)
+    {
+        var spent = this.Model.Sum(x => x.Price);
+        <h3 class="text-info">Total spent: $ @spent</h3>
+    }
+
+
+

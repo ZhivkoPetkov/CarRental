@@ -7,11 +7,12 @@ namespace CarRental.Services
     public class ReviewsService : IReviewsService
     {
         private readonly CarRentalDbContext dbContext;
+        private readonly IVouchersService vouchersService;
 
-        public ReviewsService(CarRentalDbContext dbContext)
+        public ReviewsService(CarRentalDbContext dbContext, IVouchersService vouchersService)
         {
-           
             this.dbContext = dbContext;
+            this.vouchersService = vouchersService;
         }
 
         public bool CreateReview(string orderId, int rating, string comment)
@@ -24,7 +25,7 @@ namespace CarRental.Services
                 Comment = comment,
                 Rating = rating
             };
-
+            this.vouchersService.CreateForUser(order.User.UserName);
             this.dbContext.SaveChanges();
             return true;
         }

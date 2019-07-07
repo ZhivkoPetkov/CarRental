@@ -21,6 +21,11 @@ namespace CarRental.Services
             return this.userManager.FindByNameAsync(email).GetAwaiter().GetResult();
         }
 
+        public string GetUserIdByName(string email)
+        {
+            return this.userManager.FindByNameAsync(email).GetAwaiter().GetResult().Id;
+        }
+
         public string GetUserIdByEmail(string email)
         {
             var user = this.userManager.FindByNameAsync(email).GetAwaiter().GetResult();

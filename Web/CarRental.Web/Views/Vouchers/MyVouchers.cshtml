@@ -1,0 +1,49 @@
+﻿@model ICollection<VoucherViewModel>
+
+@{
+    ViewData["Title"] = "My Vouchers";
+}
+
+    <center>
+        <h1>My Vouchers</h1>
+    </center>
+<hr />
+<h5>The vouchers can be applied in your next preview order page. Thanks for choosing us.</h5>
+
+<table class="table table-hover border" style="font-size:90%; margin-top:2%" name="allorders" id="allorders">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">Vouched Code</th>
+            <th scope="col">Vouched Discount</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody class="align-content-between">
+
+        @foreach (var voucher in @Model)
+        {
+
+            if (voucher.Status.ToString() == "Active")
+            {
+                @Html.Raw(" <tr class=\"table-success\">")
+            }
+            else if (voucher.Status.ToString() == "Used")
+            {
+                @Html.Raw(" <tr class=\"table-warning\">")
+            }
+            else
+            {
+                @Html.Raw(" <tr class=\"table-info\">")
+            }
+
+
+        <th scope="row">@voucher.VoucherCode</th>
+        <td>@voucher.Discount %</td>
+        <td>@voucher.Status.ToString()</td>
+        }
+        </tbody>
+    </table>
+
+    @section Scripts {
+        <partial name="~/Views/Shared/Partials/_SearchAndTableScripts.cshtml" />
+    }
