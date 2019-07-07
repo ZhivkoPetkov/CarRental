@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewData["Title"] = "AdminPanel";
+}
+
+<div class="d-flex justify-content-between" style="margin-top:4%">
+
+    <div class="card mb-3 col-md-3" style="background-color:cornflowerblue">
+        <h3 class="card-header" style="background-color:transparent">Car Admin Panel</h3>
+        <img style="height: 200px; width: 100%; display: block;margin-top:2%" src="~/Images/Admin/car.png" alt="Card image">
+        <div class="card-body">
+            <p class="card-text">Add new cars to our database. List with all available cars for rent.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="background-color: blanchedalmond">
+                <a href="/Administration/Cars/Add">Add Car</a>
+            </li>
+            <li class="list-group-item" style="background-color: blanchedalmond">
+                <a href="/Cars/All">All Cars</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card mb-3 col-md-3" style="background-color:cornflowerblue">
+        <h3 class="card-header" style="background-color:transparent">Location Panel</h3>
+        <img style="height: 200px; width: 100%; display: block;margin-top:2%" src="~/Images/Admin/location.png" alt="Card image">
+        <div class="card-body">
+            <p class="card-text">Add location to our database.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="background-color: blanchedalmond">
+                <a href="/Administration/Locations/Add">Add Location</a>
+            </li>
+            <li class="list-group-item" style="background-color: blanchedalmond">
+                <a href="/Locations/All">TODO</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="card mb-3 col-md-3" style="background-color:cornflowerblue">
+        <h3 class="card-header" style="background-color:transparent">Vouchers Panel</h3>
+        <img style="height: 200px; width: 100%; display: block; margin-top:2%" src="~/Images/Admin/voucher.png" alt="Card image">
+        <div class="card-body">
+            <p class="card-text">List with all vouchers, posibility to generate a voucher for user.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="background-color: blanchedalmond">
+                <a href="/Administration/Vouchers/All">All Vouchers</a>
+            </li>
+        </ul>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="background-color: blanchedalmond">
+                <a href="/Administration/Vouchers/Generate">Generate Voucher For User</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between" style="margin-top:4%">
+
+    <div class="card mb-3 col-md-3" style="background-color:cornflowerblue">
+        <h3 class="card-header" style="background-color:transparent">Orders Panel</h3>
+        <img style="height: 200px; width: 100%; display: block; margin-top:2%" src="~/Images/Admin/order.png" alt="Card image">
+        <div class="card-body">
+            <p class="card-text">Modification of all orders. They can be deleted,finished, and canceled</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="background-color: blanchedalmond">
+                <a href="/Administration/Orders/All">All Orders</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card mb-3 col-md-3" style="background-color:cornflowerblue">
+        <h3 class="card-header" style="background-color:transparent">Rewiews Panel</h3>
+        <img style="height: 200px; width: 100%; display: block; margin-top:2%" src="~/Images/Admin/review.png" alt="Card image">
+        <div class="card-body">
+            <p class="card-text">Modification of all orders. They can be deleted,finished, and canceled</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="background-color: blanchedalmond">
+                <a href="/Administration/Reviews/All">All Reviews</a>
+            </li>
+        </ul>
+    </div>
+    </div>
