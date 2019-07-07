@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Web.Areas.Administration.ViewModels.Locations
 {
@@ -9,5 +10,7 @@ namespace CarRental.Web.Areas.Administration.ViewModels.Locations
         [MinLength(8)]
         [MaxLength(50)]
         public string Name { get; set; }
+
+        public ICollection<string> Locations { get; set; }
     }
 }

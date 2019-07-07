@@ -41,7 +41,6 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
             var car = this.mapper.Map<Car>(inputModel);
             car.Image = await this.imagesService.UploadImage(this.cloudinary, inputModel.ImageFile, inputModel.Model);
-
             this.carsService.AddCar(car);
 
             return Redirect("/");

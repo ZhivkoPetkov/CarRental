@@ -14,15 +14,15 @@ namespace CarRental.Models
 
         [Key]
         public int Id { get; set; }
-
+        [Required]
         public string VoucherCode { get; set; }
-
+        [Required]
         public string ApplicationUserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
-
+        [Required]
         public int Discount { get; set; }
-
+        [Required]
         public VoucherStatus Status { get; set; }
     }
 }

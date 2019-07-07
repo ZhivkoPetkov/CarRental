@@ -1,16 +1,15 @@
 ﻿@model CarRental.Web.Areas.Administration.ViewModels.Locations.AddLocationViewModel
 @{
-    ViewData["Title"] = "Add Location in the database";
+    ViewData["Title"] = "Add Location";
 }
 
-<h1>@ViewData["Title"]</h1>
-
+<center><h1>Add Location in the database</h1></center>
+<hr />
 <div class="row col-md-12">
     <div class="col-md-6">
         <form asp-controller="Locations" asp-action="Add" method="post">
 
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="Name"></label>
                 <input asp-for="Name" class="form-control" />
@@ -21,16 +20,17 @@
     </div>
 
     <div class="col-md-6">
-        <div class="row">  location 1 </div>
-        <div class="row">  location 1 </div>
-        <div class="row">  location 1 </div>
-        <div class="row">  location 1 </div>
-        <div class="row">  location 1 </div>
-        <div class="row">  location 1 </div>
-        <div class="row">  location 1 </div>
-        <div class="row">  location 1 </div>
-        <div class="row">  location 1 </div>
-
+        <strong>We have available the following locations: </strong>
+        @foreach (var location in Model.Locations)
+        {
+            <div>@location</div>
+        }
     </div>
 </div>
 
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.js">
+</script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js">
+</script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js">
+</script>

@@ -20,7 +20,9 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
         public IActionResult Add()
         {
-            return View();
+            var locations = this.locationsService.GetAllLocationNames();
+
+            return View(new AddLocationViewModel { Locations = locations });
         }
 
 
@@ -42,7 +44,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
                 return Content("Invalid data, duplicate name");
             }
 
-            return View();
+            return RedirectToAction(nameof(Add));
         }
     }
 }

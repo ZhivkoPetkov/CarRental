@@ -13,9 +13,16 @@ namespace CarRental.Web.Areas.Administration.ViewModels.Cars
         private const string PriceRangeError = "The price for the car should be between {1}$ and {2}$";
         private const string MinimumDailyPrice = "5";
         private const string MaximumDailyPrice = "999";
+
         private const string YearRangeError = "The year for the car should be between {1} and {2}";
         private const string MinimumYear = "1990";
         private const string MaximumYear = "2020";
+
+        private const int MaximumModelLenght = 5;
+        private const string MinimumLenghtModelError = "The Model name should be atleast {1} symbols";
+
+        private const int MaximumDescriptionlLenght = 150;
+        private const string MaximumDescriptionlLenghtError = "The Description should be atleast {1} symbols";
 
         public AddCarViewModel()
         {
@@ -24,11 +31,13 @@ namespace CarRental.Web.Areas.Administration.ViewModels.Cars
 
         [Required]
         [Display(Name = "Model")]
+        [MinLength(MaximumModelLenght, ErrorMessage = MinimumLenghtModelError)]
         public string Model { get; set; }
 
         [Required]
         [Display(Name = "Desc")]
         [DataType(DataType.MultilineText)]
+        [MinLength(MaximumDescriptionlLenght, ErrorMessage = MaximumDescriptionlLenghtError)]
         public string Description { get; set; }
 
         [Required]
@@ -55,7 +64,5 @@ namespace CarRental.Web.Areas.Administration.ViewModels.Cars
         public int LocationId { get; set; }
 
         public ICollection<string> Locations { get; set; }
-
-
     }
 }
