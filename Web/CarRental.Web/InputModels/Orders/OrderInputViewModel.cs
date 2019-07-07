@@ -18,5 +18,7 @@ namespace CarRental.Web.InputModels.Orders
         public string PickUpPlace { get; set; }
         [Required]
         public string ReturnPlace { get; set; }
+
+        public string DiscountCode { get; set; }
     }
 }

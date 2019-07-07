@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CarRental.Web.ViewModels.Vouchers;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.Web.InputModels.Orders
@@ -23,5 +25,17 @@ namespace CarRental.Web.InputModels.Orders
         public string PickUpPlace { get; set; }
         [Required]
         public string ReturnPlace { get; set; }
+
+        public string DiscountCode { get; set; } = "none";
+
+        public int DiscountPercent { get; set; }
+
+        public decimal PriceWithoutDiscount => this.PricePerDay * this.Days;
+
+        public decimal DiscountSum => ((decimal)this.DiscountPercent / 100) * this.PriceWithoutDiscount;
+
+        public decimal TotalPrice => this.PriceWithoutDiscount - this.DiscountSum;
+
+        public ICollection<VoucherViewModel> Vouchers { get; set; } = new HashSet<VoucherViewModel>();
     }
 }

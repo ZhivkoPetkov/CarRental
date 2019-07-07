@@ -52,6 +52,22 @@ namespace CarRental.Services
             return this.mapper.Map<List<VoucherDto>>(vouchers);
         }
 
+        public bool UseVoucher(string voucherCode)
+        {
+            var voucher = this.dbCotenxt.Vouchers.
+                Where(x => x.VoucherCode == voucherCode).
+                FirstOrDefault();
+
+            if (voucher is null)
+            {
+                return false;
+            }
+
+            voucher.Status = Models.Enums.VoucherStatus.Used;
+            this.dbCotenxt.SaveChanges();
+            return true;
+        }
+
         private int GenerateDiscount()
         {
             var random = new Random();

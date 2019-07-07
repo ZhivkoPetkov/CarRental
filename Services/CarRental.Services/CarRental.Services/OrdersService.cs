@@ -4,11 +4,9 @@ using CarRental.DTOs.Orders;
 using CarRental.Models;
 using CarRental.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CarRental.Services
 {
@@ -20,9 +18,11 @@ namespace CarRental.Services
         private readonly IMapper mapper;
         private readonly ILocationsService locationsService;
         private readonly ICarsService carsService;
+        private readonly IVouchersService vouchersService;
 
         public OrdersService(CarRentalDbContext dbContext, UserManager<ApplicationUser> userManager, 
-                        IUsersService usersService, IMapper mapper, ILocationsService locationsService, ICarsService carsService)
+                        IUsersService usersService, IMapper mapper, 
+                        ILocationsService locationsService, ICarsService carsService, IVouchersService vouchersService)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
@@ -30,6 +30,7 @@ namespace CarRental.Services
             this.mapper = mapper;
             this.locationsService = locationsService;
             this.carsService = carsService;
+            this.vouchersService = vouchersService;
         }
 
         public ICollection<OrderDto> All()
@@ -62,6 +63,7 @@ namespace CarRental.Services
             {
                 return false;
             }
+            this.CancelRentDays(order);
             this.dbContext.Orders.Remove(order);
             this.dbContext.SaveChanges();
 
@@ -110,11 +112,21 @@ namespace CarRental.Services
         }
 
         public bool MakeOrder(string customer, int carId, string startLocation, string returnLocation, decimal price, 
-                                            DateTime startRent, DateTime endRent)
+                                            DateTime startRent, DateTime endRent, string voucherCode)
         {
             var userId = this.usersService.GetUserIdByEmail(customer);
             var pikcupLocationId = this.locationsService.GetIdByName(startLocation);
             var returnLocationId = this.locationsService.GetIdByName(returnLocation);
+
+            if (voucherCode != "none")
+            {
+                var result = this.vouchersService.UseVoucher(voucherCode);
+                if (!result)
+                {
+                    return false;
+                }
+            }
+
             var order = new Order
             {
                 ApplicationUserId = userId,
@@ -129,13 +141,10 @@ namespace CarRental.Services
 
             this.dbContext.Orders.Add(order);
             this.dbContext.SaveChanges();
-
             var rentCar = this.carsService.RentCar(startRent, endRent, carId);
-
             return true;
         }
 
-       
         private void CancelRentDays(Order order)
         {
             

@@ -5,63 +5,113 @@
 }
 
 
-    <div class="container-fluid col-md-10 border-danger" style="margin-top: 4%">
+<div class="container-fluid col-md-10 border-danger" style="margin-top: 4%">
 
-        <h3><strong>Dear, @User.Identity.Name</strong></h3>
-        <h2><strong>Your order preview:</strong></h2>
-        <hr />
-        <div class="mx-auto">
-            <div class="receipt-id-handler d-flex justify-content-between">
-                <h3>Car Model:</h3>
-                <h3>@Model.Model</h3>
-            </div>
-            <hr />
-            <div class="d-flex justify-content-between">
-                <h4>Rent start:</h4>
-                <h4>@Model.RentStart.ToShortDateString()</h4>
-            </div>
-            <div class="d-flex justify-content-between">
-                <h4>Rent end:</h4>
-                <h4>@Model.RentEnd.ToShortDateString()</h4>
-            </div>
-            <hr />
-            <div class="d-flex justify-content-between">
-                <h4>Price per day:</h4>
-                <h4>$@Model.PricePerDay</h4>
-            </div>
-            <div class="d-flex justify-content-between">
-                <h4>Total for the period:</h4>
-                @{
-                    var price = Model.PricePerDay * Model.Days;
-                }
-                <h4>$@price</h4>
-            </div>
-            <hr />
-            <div class="d-flex justify-content-between">
-                <h4>You can pick up your car from <strong>@Model.PickUpPlace</strong>, and return it to <strong>@Model.ReturnPlace</strong>, until the end of <strong>@Model.RentEnd.ToShortDateString()</strong>.</h4>
-            </div>
-            <hr />
+    <h3><strong>Dear, @User.Identity.Name</strong></h3>
+    <h2><strong>Your order preview:</strong></h2>
+    <hr />
+    <div class="mx-auto">
+        <div class="receipt-id-handler d-flex justify-content-between">
+            <h3>Car Model:</h3>
+            <h3>@Model.Model</h3>
         </div>
+        <hr />
+        <div class="d-flex justify-content-between">
+            <h4>Rent start:</h4>
+            <h4>@Model.RentStart.ToShortDateString()</h4>
+        </div>
+        <div class="d-flex justify-content-between">
+            <h4>Rent end:</h4>
+            <h4>@Model.RentEnd.ToShortDateString()</h4>
+        </div>
+        <hr />
+
+
+
+        <div class="d-flex justify-content-between">
+            <h4>Price per day:</h4>
+            <h4>$@Model.PricePerDay</h4>
+        </div>
+
+        @if (@Model.DiscountPercent > 0)
+        {
+            <div class="d-flex justify-content-between">
+                <h4>Price for @Model.Days days:</h4>
+                <h4>$@Model.PriceWithoutDiscount</h4>
+            </div>
+            <div class="d-flex justify-content-between" style="color:red">
+                <h4>Discount:</h4>
+                <h4>- $@Model.DiscountSum.ToString("F")</h4>
+            </div>
+        }
+
+        <div class="d-flex justify-content-between">
+            <h4>Total Price:</h4>
+            <h4>$@Model.TotalPrice.ToString("F")</h4>
+        </div>
+        <hr />
+
+
+
+        <div class="d-flex justify-content-between">
+            <h4>You can pick up your car from <strong>@Model.PickUpPlace</strong>, and return it to <strong>@Model.ReturnPlace</strong>, until the end of <strong>@Model.RentEnd.ToShortDateString()</strong>.</h4>
+        </div>
+        <hr />
+        <h5>Discount:</h5>
+        <div class="d-flex justify-content-between">
+            @{
+                var discountPercent = 0;
+                var discountCode = "none";
+            }
+            <select class="custom-select col-md-8" asp-for="DiscountCode">
+                <option selected="">Choose a voucher</option>
+
+                @foreach (var voucher in Model.Vouchers)
+                {
+                    <option value="@voucher.VoucherCode">Discount - @voucher.Discount % /@voucher.VoucherCode/</option>
+                    discountPercent = voucher.Discount;
+                    discountCode = @voucher.VoucherCode;
+                }
+
+            </select>
+            <form asp-controller="Orders" asp-action="Preview" method="POST" class="col-md-2">
+                <input type="hidden" value="@Model.ReturnPlace" name="ReturnPlace" />
+                <input type="hidden" value="@Model.PickUpPlace" name="PickupPlace" />
+                <input type="hidden" value="@Model.RentStart" name="RentStart" />
+                <input type="hidden" value="@Model.RentEnd" name="RentEnd" />
+                <input type="hidden" value="@Model.PricePerDay" name="PricePerDay" />
+                <input type="hidden" value="@Model.Days" name="Days" />
+                <input type="hidden" value="@Model.Id" name="Id" />
+                <input type="hidden" value="@Model.Model" name="Model" />
+                <input type="hidden" value="@Model.Image" name="Image" />
+                <input type="hidden" value="@discountPercent" name="DiscountPercent" />
+                <button type="submit" class="btn btn-info">Apply Code</button>
+            </form>
+        </div>
+
+        <hr />
+    </div>
+</div>
+
+<center>
+    <div class="d-flex justify-content-around">
+        <form asp-controller="Cars" asp-action="Available" method="POST">
+            <input type="hidden" value="@Model.ReturnPlace" name="ReturnPlace" />
+            <input type="hidden" value="@Model.PickUpPlace" name="PickupPlace" />
+            <input type="hidden" value="@Model.RentStart" name="Pickup" />
+            <input type="hidden" value="@Model.RentEnd" name="Return" />
+            <button type="submit" class="btn btn-danger">Cancel</button>
+        </form>
+        <form asp-controller="Orders" asp-action="Order" method="POST">
+            <input type="hidden" value="@Model.ReturnPlace" name="ReturnPlace" />
+            <input type="hidden" value="@Model.PickUpPlace" name="PickupPlace" />
+            <input type="hidden" value="@Model.RentStart" name="Pickup" />
+            <input type="hidden" value="@Model.RentEnd" name="Return" />
+            <input type="hidden" value="@Model.Id" name="Id" />
+            <input type="hidden" value="@Model.TotalPrice" name="Price" />
+            <input type="hidden" value="@discountCode" name="DiscountCode" />
+            <button type="submit" class="btn btn-success">Confirm</button>
+        </form>
     </div>
 
-    <center>
-        <div class="d-flex justify-content-around">
-            <form asp-controller="Cars" asp-action="Available" method="POST">
-                <input type="hidden" value="@Model.ReturnPlace" name="ReturnPlace" />
-                <input type="hidden" value="@Model.PickUpPlace" name="PickupPlace" />
-                <input type="hidden" value="@Model.RentStart" name="Pickup" />
-                <input type="hidden" value="@Model.RentEnd" name="Return" />
-                <button type="submit" class="btn btn-danger">Cancel</button>
-            </form>
-            <form asp-controller="Orders" asp-action="Order" method="POST">
-                <input type="hidden" value="@Model.ReturnPlace" name="ReturnPlace" />
-                <input type="hidden" value="@Model.PickUpPlace" name="PickupPlace" />
-                <input type="hidden" value="@Model.RentStart" name="Pickup" />
-                <input type="hidden" value="@Model.RentEnd" name="Return" />
-                <input type="hidden" value="@Model.Id" name="Id" />
-                <input type="hidden" value="@price" name="Price" />
-                <button type="submit" class="btn btn-success">Confirm</button>
-            </form>
-        </div>
-       
-    </center>
+</center>
