@@ -43,6 +43,15 @@ namespace CarRental.Services
             return true;
         }
 
+        public ICollection<VoucherDto> GetAllActiveForUser(string username)
+        {
+            var userId = this.usersService.GetUserIdByEmail(username);
+
+            var vouchers = this.dbCotenxt.Vouchers.Where(x => x.ApplicationUserId == userId && x.Status == Models.Enums.VoucherStatus.Active);
+
+            return this.mapper.Map<List<VoucherDto>>(vouchers);
+        }
+
         public ICollection<VoucherDto> GetAllForUser(string username)
         {
             var userId = this.usersService.GetUserIdByEmail(username);

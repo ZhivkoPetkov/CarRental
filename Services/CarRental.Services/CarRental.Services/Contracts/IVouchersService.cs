@@ -9,6 +9,7 @@ namespace CarRental.Services.Contracts
     {
         bool CreateForUser(string username);
         ICollection<VoucherDto> GetAllForUser(string username);
+        ICollection<VoucherDto> GetAllActiveForUser(string username);
         bool UseVoucher(string voucherCode);
     }
 }
