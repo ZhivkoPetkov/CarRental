@@ -16,7 +16,6 @@ namespace CarRental.Web.ModelBinders
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
             var locationName = bindingContext.ValueProvider.GetValue(bindingContext.ModelName).ToString();
-
             var locationId = this.locationsService.GetIdByName(locationName);
 
             if (locationId != null)

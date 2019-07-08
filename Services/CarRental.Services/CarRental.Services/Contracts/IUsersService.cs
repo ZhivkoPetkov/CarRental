@@ -1,4 +1,5 @@
-﻿using CarRental.Models;
+﻿using CarRental.DTOs.Users;
+using CarRental.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,6 @@ namespace CarRental.Services.Contracts
     {
         string GetUserIdByEmail(string email);
         ApplicationUser GetUserByEmail(string email);
+        ICollection<UserVouchersDto> GetAllUsers();
     }
 }

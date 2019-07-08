@@ -1,18 +1,22 @@
 ﻿namespace CarRental.Web
 {
-    using System.Reflection;
-
+    using AutoMapper;
+    using AutoMapper.EquivalencyExpression;
+    using CarRental.Common;
     using CarRental.Data;
     using CarRental.Data.Common;
     using CarRental.Data.Common.Repositories;
-    using CarRental.Models;
     using CarRental.Data.Repositories;
-    using CarRental.Data.Seeding;
+    using CarRental.Models;
+    using CarRental.Services;
+    using CarRental.Services.Contracts;
     using CarRental.Services.Data;
     using CarRental.Services.Mapping;
     using CarRental.Services.Messaging;
+    using CarRental.Web.MappingConfiguration;
+    using CarRental.Web.Middlewares;
     using CarRental.Web.ViewModels;
-    using AutoMapper;
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -24,13 +28,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using CarRental.Web.MappingConfiguration;
-    using CarRental.Web.Middlewares;
-    using CarRental.Services.Contracts;
-    using CarRental.Services;
-    using CarRental.Common;
-    using CloudinaryDotNet;
-    using AutoMapper.EquivalencyExpression;
+    using System.Reflection;
 
     public class Startup
     {

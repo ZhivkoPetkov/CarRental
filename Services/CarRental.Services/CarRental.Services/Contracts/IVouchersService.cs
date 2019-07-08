@@ -8,6 +8,7 @@ namespace CarRental.Services.Contracts
    public interface IVouchersService
     {
         bool CreateForUser(string username);
+        bool CreateForUserCustom(string username, int discount);
         ICollection<VoucherDto> GetAllForUser(string username);
         ICollection<VoucherDto> GetAllActiveForUser(string username);
         bool UseVoucher(string voucherCode);

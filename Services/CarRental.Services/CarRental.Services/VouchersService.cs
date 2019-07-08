@@ -43,6 +43,25 @@ namespace CarRental.Services
             return true;
         }
 
+        public bool CreateForUserCustom(string username, int discount)
+        {
+            var userId = this.usersService.GetUserIdByEmail(username);
+            if (userId is null)
+            {
+                return false;
+            }
+            var voucher = new Voucher
+            {
+                ApplicationUserId = userId,
+                Status = Models.Enums.VoucherStatus.Active,
+                VoucherCode = Guid.NewGuid().ToString(),
+                Discount = discount
+            };
+            this.dbCotenxt.Vouchers.Add(voucher);
+            this.dbCotenxt.SaveChanges();
+            return true;
+        }
+
         public ICollection<VoucherDto> GetAllActiveForUser(string username)
         {
             var userId = this.usersService.GetUserIdByEmail(username);

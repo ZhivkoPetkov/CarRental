@@ -1,8 +1,12 @@
-﻿using CarRental.Models;
+﻿using CarRental.Data;
+using CarRental.DTOs.Users;
+using CarRental.Models;
 using CarRental.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CarRental.Services
@@ -30,6 +34,18 @@ namespace CarRental.Services
         {
             var user = this.userManager.FindByNameAsync(email).GetAwaiter().GetResult();
             return user.Id;
+        }
+
+        public ICollection<UserVouchersDto> GetAllUsers()
+        {
+            var users = this.userManager.Users.Select(x => new UserVouchersDto
+            {
+                Email = x.Email,
+                MoneySpent = x.Orders.Sum(m => m.Price),
+                Rents = x.Orders.Count()
+            }).ToList();
+
+            return users;
         }
     }
 }

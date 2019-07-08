@@ -43,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Administration\ViewModels\Home\" />
     <Folder Include="Views\Locations\" />
   </ItemGroup>
 

@@ -1,0 +1,50 @@
+﻿@model ICollection<UserVoucherViewModel>
+
+@{
+    ViewData["Title"] = "Generate Vouchers";
+}
+
+<center>
+    <h1>Generate vouchers for customers</h1>
+    <hr />
+</center>
+
+<div class="d-flex justify-content-between mx-2 mb-2">
+    <input class="form-control col-md-2 border-primary" type="text" id="myInput" onkeyup="byId()" placeholder="Search by Customer">
+</div>
+
+<table class="table table-hover border" style="font-size:90%" name="allorders" id="allorders">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">Customer Email</th>
+            <th scope="col">Money Spent</th>
+            <th scope="col">Rents</th>
+            <th scope="col">Percent Discount</th>
+        </tr>
+    </thead>
+    <tbody class="align-content-between">
+
+        @foreach (var user in @Model)
+        {
+
+        <th scope="row">@user.Email</th>
+        <td>@user.MoneySpent</td>
+        <td>@user.Rents</td>
+        <td>
+            <form class="d-flex justify-content-between" asp-controller="Vouchers" asp-action="Generate" asp-area="Administration" method="POST">
+                <input type="hidden"  asp-for="@user.Email" value="@user.Email"/>
+                <input asp-for="@user.Discount" class="form-control col-md-6" />
+                <span asp-validation-for="@user.Discount" class="text-danger"></span>
+            <button type="submit" class="btn btn-danger">Generate Voucher</button>
+            </form>
+        </td>
+
+        @Html.Raw("</tr>")
+    }
+        </tbody>
+    </table>
+
+    @section Scripts {
+        <partial name="~/Views/Shared/Partials/_SearchAndTable_Admin_Scripts.cshtml" />
+    }
+
