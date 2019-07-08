@@ -36,10 +36,29 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
         public IActionResult Delete(string id)
         {
-
             var result = this.ordersService.Delete(id);
-
             return RedirectToAction(nameof(All));
+        }
+
+        public IActionResult Edit(string id)
+        {
+            var order = this.ordersService.GetOrderById(id);
+            var viewModel = this.mapper.Map<OrderEditViewModel>(order);
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(OrderEditViewModel inputModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("All", "Orders");
+            }
+
+            var result = this.ordersService.EditOrder(inputModel.Id, inputModel.Firstname, inputModel.Lastname, 
+                                                                        inputModel.Email, inputModel.Price);
+
+            return RedirectToAction("All", "Orders");
         }
 
         public IActionResult All()

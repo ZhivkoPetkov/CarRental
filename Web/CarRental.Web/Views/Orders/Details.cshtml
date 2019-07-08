@@ -13,6 +13,11 @@
     </div>
 }
 
+@if (User.IsInRole("Administrator"))
+{
+    <a class="btn btn-info" asp-controller="Orders" asp-area="Administration" asp-action="Edit" asp-route-id="@Model.Id">Edit Order</a>
+}
+
 @if (@Model.Status == CarRental.Models.Enums.OrderStatus.Active)
 {
     <span class="badge badge-pill badge-warning" style="margin-top:5%">@Model.Status</span>
@@ -25,9 +30,11 @@ else
 {
     <span class="badge badge-pill badge-danger" style="margin-top:5%">@Model.Status</span>
 }
+
 <span class="badge badge-pill badge-info" style="margin-top:5%; float:right" onclick="myFunction()">Print this order</span>
 
 <h1>Order ID: @Model.Id</h1>
+
 <hr class="border-primary" />
 <div class="container-fluid">
     <div class="d-flex justify-content-between">
@@ -79,7 +86,7 @@ else
     <hr class="border-primary" />
     <div class="justify-content-between">
         <h3>Your Feedback:</h3>
-        <h4 >@Model.Comment <strong class="text-primary">Rating: @Model.Rating</strong></h4>
+        <h4>@Model.Comment <strong class="text-primary">Rating: @Model.Rating</strong></h4>
     </div>
 
 }

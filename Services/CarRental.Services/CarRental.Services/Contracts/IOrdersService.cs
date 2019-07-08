@@ -18,7 +18,7 @@ namespace CarRental.Services.Contracts
         bool Delete(string id);
         bool Cancel(string id);
         bool Finish(string id);
-
+        bool EditOrder(string id, string firstName, string lastName, string email, decimal price);
         bool IsValidReviewRequest(string orderId, string customerEmail);
     }
 }

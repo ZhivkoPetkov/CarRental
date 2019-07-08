@@ -1,0 +1,85 @@
+﻿@model OrderEditViewModel
+
+@{
+    ViewData["Title"] = "Edit Order";
+}
+
+<center>
+    <h1>Edit Order: @Model.Id</h1>
+</center>
+<hr class="border-primary" />
+<div class="row col-md-12 justify-content-center">
+    <div class="col-md-10">
+        <form asp-controller="Orders" asp-action="Edit" asp-area="Administration" method="POST" enctype="multipart/form-data">
+            <h3>Customer Info</h3>
+            <div class="form-row">
+                <div class="form-group col-md-4 mb-3">
+                    <label asp-for="Firstname"></label>
+                    <input asp-for="Firstname" class="form-control" value="@Model.Firstname" />
+                    <span asp-validation-for="Firstname" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4 mb-3">
+                    <label asp-for="Lastname"></label>
+                    <input asp-for="Lastname" class="form-control" value="@Model.Lastname" />
+                    <span asp-validation-for="Lastname" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4 mb-3">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" value="@Model.Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <h3>Destionation Info</h3>
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="PickUpLocation">Pick up location</label>
+                    <input asp-for="PickUpLocation" class="form-control" disabled value="@Model.PickUpLocation" />
+                    <span asp-validation-for="PickUpLocation" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="ReturnLocation" class="control-label">Return location</label>
+                    <input asp-for="ReturnLocation" class="form-control" disabled value="@Model.ReturnLocation" />
+                    <span asp-validation-for="ReturnLocation" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <h3>Dates Info</h3>
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="RentStart">Start Date</label>
+                    <input asp-for="RentStart" class="form-control" disabled value="@Model.RentStart" />
+                    <span asp-validation-for="RentStart" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="RentEnd" class="control-label">End Date</label>
+                    <input asp-for="RentEnd" class="form-control" disabled value="@Model.RentEnd" />
+                    <span asp-validation-for="RentEnd" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <h3>Price Info</h3>
+            <div class="form-row">
+                <div class="form-group col-md-4 mb-3">
+                    <label asp-for="Price">Price</label>
+                    <input asp-for="Price" class="form-control" value="@Model.Price" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <center>
+                <button type="submit" class="btn btn-primary">Edit Order</button>
+            </center>
+        </form>
+    </div>
+</div>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.js">
+</script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js">
+</script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js">
+</script>

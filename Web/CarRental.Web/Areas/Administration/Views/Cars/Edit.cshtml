@@ -9,7 +9,7 @@
 
 <div class="row col-md-12 justify-content-center">
     <div class="col-md-10">
-        <form asp-controller="Cars" asp-action="Edit" method="POST" enctype="multipart/form-data">
+        <form asp-controller="Orders" asp-action="Edit" asp-area="Administration" method="POST" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" value="@Model.Id" />
             <input type="hidden" asp-for="Image" value="@Model.Image" />
             <hr />

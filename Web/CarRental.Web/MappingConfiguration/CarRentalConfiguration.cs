@@ -39,6 +39,10 @@ namespace CarRental.Web.MappingConfiguration
               .ForMember(dest => dest.Rating, src => src.MapFrom(x => x.Review.Rating))
               .ForMember(dest => dest.Comment, src => src.MapFrom(x => x.Review.Comment))
               .ReverseMap();
+            this.CreateMap<OrderDto, OrderEditViewModel>()
+              .ForMember(dest => dest.Email, src => src.MapFrom(x => x.User.Email))
+              .ForMember(dest => dest.Firstname, src => src.MapFrom(x => x.User.FirstName))
+              .ForMember(dest => dest.Lastname, src => src.MapFrom(x => x.User.LastName));
             this.CreateMap<AddCarViewModel, Car>();
             this.CreateMap<CarEditViewModel, CarDetailsDto>().ReverseMap();
             this.CreateMap<ListCarDto, Car>();

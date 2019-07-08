@@ -87,6 +87,22 @@ namespace CarRental.Services
             return true;
         }
 
+        public bool EditOrder(string id, string firstName, string lastName, string email, decimal price)
+        {
+            var order = this.dbContext.Orders.Find(id);
+            if (order is null)
+            {
+                return false;
+            }
+
+            order.User.FirstName = firstName;
+            order.User.LastName = lastName;
+            order.User.Email = email;
+            order.Price = price;
+            this.dbContext.SaveChanges();
+            return true;
+        }
+
         public bool Finish(string id)
         {
             var order = this.dbContext.Orders.Find(id);
