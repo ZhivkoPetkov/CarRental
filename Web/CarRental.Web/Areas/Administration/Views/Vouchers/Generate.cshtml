@@ -19,26 +19,24 @@
             <th scope="col">Customer Email</th>
             <th scope="col">Money Spent</th>
             <th scope="col">Rents</th>
-            <th scope="col">Percent Discount</th>
+            <th scope="col">Percent Discount (1% - 100%)</th>
         </tr>
     </thead>
     <tbody class="align-content-between">
-
-        @foreach (var user in @Model)
+        @for (int i = 0; i < @Model.Count; i++)
         {
-
+            var user = Model.ToList()[i];
         <th scope="row">@user.Email</th>
         <td>@user.MoneySpent</td>
         <td>@user.Rents</td>
         <td>
             <form class="d-flex justify-content-between" asp-controller="Vouchers" asp-action="Generate" asp-area="Administration" method="POST">
-                <input type="hidden"  asp-for="@user.Email" value="@user.Email"/>
-                <input asp-for="@user.Discount" class="form-control col-md-6" />
+                <input type="hidden" asp-for="@user.Email" name="Email" value="@user.Email" />
+                <input asp-for="@user.Discount" name="Discount" class="form-control col-md-6" minimum="1" max="100" value="1" />
                 <span asp-validation-for="@user.Discount" class="text-danger"></span>
-            <button type="submit" class="btn btn-danger">Generate Voucher</button>
+                <button type="submit" class="btn btn-danger">Generate Voucher</button>
             </form>
         </td>
-
         @Html.Raw("</tr>")
     }
         </tbody>
@@ -47,4 +45,3 @@
     @section Scripts {
         <partial name="~/Views/Shared/Partials/_SearchAndTable_Admin_Scripts.cshtml" />
     }
-

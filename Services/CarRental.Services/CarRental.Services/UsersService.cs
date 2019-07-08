@@ -32,7 +32,7 @@ namespace CarRental.Services
 
         public string GetUserIdByEmail(string email)
         {
-            var user = this.userManager.FindByNameAsync(email).GetAwaiter().GetResult();
+            var user = this.userManager.FindByEmailAsync(email).GetAwaiter().GetResult();
             return user.Id;
         }
 
