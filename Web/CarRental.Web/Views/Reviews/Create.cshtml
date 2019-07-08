@@ -7,8 +7,6 @@
 
 <h1 class="text-primary mb-2" style="margin-top:2%">Give feedback for Order with ID: @orderId</h1>
 
-
-
 <form asp-controller="Reviews" asp-action="Create" method="POST" enctype="multipart/form-data">
     <input type="hidden" asp-for="OrderId" value="@orderId" />
     <h3>Rating</h3>

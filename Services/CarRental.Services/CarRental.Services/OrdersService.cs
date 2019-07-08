@@ -141,7 +141,7 @@ namespace CarRental.Services
         {
             var order = this.dbContext.Orders.Find(orderId);
 
-            return order.User.Email == customerEmail;
+            return order.User.Email.ToLower() == customerEmail;
         }
 
         public bool MakeOrder(string customer, int carId, string startLocation, string returnLocation, decimal price, 

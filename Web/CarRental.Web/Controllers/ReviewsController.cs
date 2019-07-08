@@ -33,7 +33,7 @@ namespace CarRental.Web.Controllers
         [Authorize]
         public IActionResult Create(string orderId)
         {
-            bool isValidRequest = this.ordersService.IsValidReviewRequest(orderId, this.User.Identity.Name);
+            bool isValidRequest = this.ordersService.IsValidReviewRequest(orderId, this.User.Identity.Name.ToLower());
 
             if (!isValidRequest)
             {
@@ -41,7 +41,6 @@ namespace CarRental.Web.Controllers
             }
 
             ViewData["Order"] = orderId;
-
             return View();
         }
     }
