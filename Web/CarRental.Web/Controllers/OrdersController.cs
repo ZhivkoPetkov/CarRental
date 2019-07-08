@@ -45,6 +45,7 @@ namespace CarRental.Web.Controllers
                 return Redirect("/");
             }
 
+            inputModel.DiscountPercent = this.vouchersService.GetDiscountForCode(inputModel.DiscountCode);
             var vouchers = this.mapper.Map<List<VoucherViewModel>>(this.vouchersService.GetAllActiveForUser(this.User.Identity.Name));
             inputModel.Vouchers = vouchers;
             return this.View(inputModel);

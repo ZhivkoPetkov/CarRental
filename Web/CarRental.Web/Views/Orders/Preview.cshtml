@@ -25,9 +25,6 @@
             <h4>@Model.RentEnd.ToShortDateString()</h4>
         </div>
         <hr />
-
-
-
         <div class="d-flex justify-content-between">
             <h4>Price per day:</h4>
             <h4>$@Model.PricePerDay</h4>
@@ -50,31 +47,20 @@
             <h4>$@Model.TotalPrice.ToString("F")</h4>
         </div>
         <hr />
-
-
-
         <div class="d-flex justify-content-between">
             <h4>You can pick up your car from <strong>@Model.PickUpPlace</strong>, and return it to <strong>@Model.ReturnPlace</strong>, until the end of <strong>@Model.RentEnd.ToShortDateString()</strong>.</h4>
         </div>
         <hr />
         <h5>Discount:</h5>
         <div class="d-flex justify-content-between">
-            @{
-                var discountPercent = 0;
-                var discountCode = "none";
-            }
-            <select class="custom-select col-md-8" asp-for="DiscountCode">
-                <option selected="">Choose a voucher</option>
+            <form asp-controller="Orders" asp-action="Preview" method="POST" class="col-md-12 justify-content-between">
+                <select class="custom-select col-md-10" asp-for="DiscountCode">      
+                    @foreach (var voucher in Model.Vouchers)
+                    {
+                        <option value="@voucher.VoucherCode">Discount - @voucher.Discount % /@voucher.VoucherCode/</option>
+                    }
+                </select>
 
-                @foreach (var voucher in Model.Vouchers)
-                {
-                    <option value="@voucher.VoucherCode">Discount - @voucher.Discount % /@voucher.VoucherCode/</option>
-                    discountPercent = voucher.Discount;
-                    discountCode = @voucher.VoucherCode;
-                }
-
-            </select>
-            <form asp-controller="Orders" asp-action="Preview" method="POST" class="col-md-2">
                 <input type="hidden" value="@Model.ReturnPlace" name="ReturnPlace" />
                 <input type="hidden" value="@Model.PickUpPlace" name="PickupPlace" />
                 <input type="hidden" value="@Model.RentStart" name="RentStart" />
@@ -84,11 +70,9 @@
                 <input type="hidden" value="@Model.Id" name="Id" />
                 <input type="hidden" value="@Model.Model" name="Model" />
                 <input type="hidden" value="@Model.Image" name="Image" />
-                <input type="hidden" value="@discountPercent" name="DiscountPercent" />
                 <button type="submit" class="btn btn-info">Apply Code</button>
             </form>
         </div>
-
         <hr />
     </div>
 </div>
@@ -109,9 +93,8 @@
             <input type="hidden" value="@Model.RentEnd" name="Return" />
             <input type="hidden" value="@Model.Id" name="Id" />
             <input type="hidden" value="@Model.TotalPrice" name="Price" />
-            <input type="hidden" value="@discountCode" name="DiscountCode" />
+            <input type="hidden" value="@Model.DiscountCode" name="DiscountCode" />
             <button type="submit" class="btn btn-success">Confirm</button>
         </form>
     </div>
-
 </center>

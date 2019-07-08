@@ -61,6 +61,20 @@ namespace CarRental.Services
             return this.mapper.Map<List<VoucherDto>>(vouchers);
         }
 
+        public int GetDiscountForCode(string voucherCode)
+        {
+            if (String.IsNullOrEmpty(voucherCode) ||voucherCode == "none")
+            {
+                return 0;
+            }
+
+            var discount = this.dbCotenxt.Vouchers.
+                 FirstOrDefault(x => x.VoucherCode == voucherCode).
+                 Discount;
+
+            return discount == null ? 0 : discount;
+        }
+
         public bool UseVoucher(string voucherCode)
         {
             var voucher = this.dbCotenxt.Vouchers.

@@ -1,7 +1,5 @@
 ﻿namespace CarRental.Data.Seeding
 {
-    using CarRental.Models;
-    using Microsoft.AspNetCore.Identity;
     using System;
     using System.Threading.Tasks;
 

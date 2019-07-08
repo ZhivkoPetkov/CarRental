@@ -1,4 +1,6 @@
-﻿using CarRental.Web.ViewModels.Vouchers;
+﻿using CarRental.Web.ModelBinders;
+using CarRental.Web.ViewModels.Vouchers;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

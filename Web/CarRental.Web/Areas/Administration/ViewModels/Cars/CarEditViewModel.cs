@@ -1,7 +1,4 @@
-﻿using CarRental.DTOs.Reviews;
-using CarRental.Web.ModelBinders;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
