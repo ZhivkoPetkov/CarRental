@@ -27,7 +27,7 @@
 
                 <div class="form-group col-md-4 mb-3">
                     <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control"  disabled value="@Model.Email" />
+                    <input class="form-control" disabled value="@Model.Email" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
             </div>
@@ -36,13 +36,13 @@
             <div class="form-row">
                 <div class="form-group col-md-6 mb-3">
                     <label asp-for="PickUpLocation">Pick up location</label>
-                    <input asp-for="PickUpLocation" class="form-control" disabled value="@Model.PickUpLocation" />
+                    <input class="form-control" disabled value="@Model.PickUpLocation" />
                     <span asp-validation-for="PickUpLocation" class="text-danger"></span>
                 </div>
 
                 <div class="form-group col-md-6 mb-3">
                     <label asp-for="ReturnLocation" class="control-label">Return location</label>
-                    <input asp-for="ReturnLocation" class="form-control" disabled value="@Model.ReturnLocation" />
+                    <input class="form-control" disabled value="@Model.ReturnLocation" />
                     <span asp-validation-for="ReturnLocation" class="text-danger"></span>
                 </div>
             </div>
@@ -51,13 +51,13 @@
             <div class="form-row">
                 <div class="form-group col-md-6 mb-3">
                     <label asp-for="RentStart">Start Date</label>
-                    <input asp-for="RentStart" class="form-control" disabled value="@Model.RentStart" />
+                    <input class="form-control" disabled value="@Model.RentStart" />
                     <span asp-validation-for="RentStart" class="text-danger"></span>
                 </div>
 
                 <div class="form-group col-md-6 mb-3">
                     <label asp-for="RentEnd" class="control-label">End Date</label>
-                    <input asp-for="RentEnd" class="form-control" disabled value="@Model.RentEnd" />
+                    <input class="form-control" disabled value="@Model.RentEnd" />
                     <span asp-validation-for="RentEnd" class="text-danger"></span>
                 </div>
             </div>
@@ -71,6 +71,7 @@
                 </div>
             </div>
             <center>
+                <input type="hidden" value="@Model.Email" name="Email" />
                 <button type="submit" class="btn btn-primary">Edit Order</button>
             </center>
         </form>
