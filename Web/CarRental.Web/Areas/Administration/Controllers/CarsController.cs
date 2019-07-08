@@ -2,8 +2,11 @@
 using CarRental.Models;
 using CarRental.Services.Contracts;
 using CarRental.Web.Areas.Administration.ViewModels.Cars;
+using CarRental.Web.ViewModels.Cars;
+using CarRental.Web.ViewModels.Reviews;
 using CloudinaryDotNet;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CarRental.Web.Areas.Administration.Controllers
@@ -44,6 +47,37 @@ namespace CarRental.Web.Areas.Administration.Controllers
             this.carsService.AddCar(car);
 
             return Redirect("/");
+        }
+
+        public IActionResult Edit(int id)
+        {
+                var car = this.carsService.FindCar(id);
+                var viewModel = this.mapper.Map<CarEditViewModel>(car);
+                return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CarEditViewModel inputModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
+            var car = this.mapper.Map<Car>(inputModel);
+
+            if (inputModel.ImageFile != null)
+            {
+            car.Image = await this.imagesService.UploadImage(this.cloudinary, inputModel.ImageFile, inputModel.Model);
+            }
+            else
+            {
+                car.Image = inputModel.Image;
+            }
+
+            this.carsService.EditCar(car);
+
+            return RedirectToAction("All", "Cars");
         }
     }
 }

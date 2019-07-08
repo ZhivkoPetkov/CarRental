@@ -1,0 +1,45 @@
+﻿@model ICollection<ListReviewViewModel>
+
+@{
+    ViewData["Title"] = "All";
+}
+
+<center>
+    <h1>All Customer Reviews</h1>
+    <hr />
+</center>
+
+<div class="d-flex justify-content-between mx-2 mb-2">
+    <input class="form-control col-md-2 border-primary" type="text" id="myInput" onkeyup="byId()" placeholder="Search by Customer">
+</div>
+
+
+<table class="table table-hover border" style="font-size:90%" name="allorders" id="allorders">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">Customer Email</th>
+            <th scope="col">Car Model</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Rating/5</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody class="align-content-between">
+
+        @foreach (var review in @Model)
+        {
+        <th scope="row">@review.User</th>
+        <td>@review.CarModel</td>
+        <td>@review.Comment</td>
+        <td>@review.Rating</td>
+        <td>
+            <a class="btn btn-danger" asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id">Delete</a>
+        </td>
+        @Html.Raw("</tr>")
+    }
+        </tbody>
+    </table>
+
+    @section Scripts {
+        <partial name="~/Views/Shared/Partials/_SearchAndTable_Admin_Scripts.cshtml" />
+    }

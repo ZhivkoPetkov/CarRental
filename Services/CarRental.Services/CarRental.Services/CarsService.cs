@@ -44,6 +44,20 @@ namespace CarRental.Services
             return true;
         }
 
+        public bool EditCar(Car car)
+        {
+            var oldCar = this.dbContext.Cars.Find(car.Id);
+
+            oldCar.Model = car.Model;
+            oldCar.Description = car.Description;
+            oldCar.Year = car.Year;
+            oldCar.PricePerDay = car.PricePerDay;
+            oldCar.Image = car.Image;
+            this.dbContext.SaveChanges();
+            return true;
+
+        }
+
         public CarDetailsDto FindCar(int id)
         {
             var car = this.dbContext.Cars.Find(id);
@@ -129,6 +143,13 @@ namespace CarRental.Services
                 }).
                 ToList();
             return cars;
+        }
+
+        public CarDetailsDto FindCarForEdit(int id)
+        {
+            var car = this.dbContext.Cars.Find(id);
+            var result = this.mapper.Map<CarDetailsDto>(car);
+            return result;
         }
 
         public bool RentCar(DateTime start, DateTime end, int cardId)

@@ -6,6 +6,7 @@ using CarRental.DTOs.Vouchers;
 using CarRental.Models;
 using CarRental.Web.Areas.Administration.ViewModels.Cars;
 using CarRental.Web.Areas.Administration.ViewModels.Locations;
+using CarRental.Web.Areas.Administration.ViewModels.Rewiews;
 using CarRental.Web.ViewModels.Cars;
 using CarRental.Web.ViewModels.Orders;
 using CarRental.Web.ViewModels.Reviews;
@@ -39,14 +40,20 @@ namespace CarRental.Web.MappingConfiguration
               .ForMember(dest => dest.Comment, src => src.MapFrom(x => x.Review.Comment))
               .ReverseMap();
             this.CreateMap<AddCarViewModel, Car>();
+            this.CreateMap<CarEditViewModel, CarDetailsDto>().ReverseMap();
             this.CreateMap<ListCarDto, Car>();
             this.CreateMap<ReviewDto, Review>().ReverseMap();
             this.CreateMap<ReviewViewModel, ReviewDto>().ReverseMap();
             this.CreateMap<CarDetailsDto, CarDetailsViewModel>().ReverseMap();
+            this.CreateMap<CarEditViewModel, Car>();
             this.CreateMap<CarDetailsDto, Car>().
                 ReverseMap();
             this.CreateMap<Voucher, VoucherDto>();
             this.CreateMap<VoucherViewModel, VoucherDto>().ReverseMap();
+            this.CreateMap<Review, ListReviewDto>()
+            .ForMember(dest => dest.CarModel, src => src.MapFrom(x => x.Car.Model))
+            .ForMember(dest => dest.User, src => src.MapFrom(x => x.User.Email));
+            this.CreateMap<ListReviewDto, ListReviewViewModel>();
         }
     }
 }

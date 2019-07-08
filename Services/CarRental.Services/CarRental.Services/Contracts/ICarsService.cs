@@ -9,12 +9,15 @@ namespace CarRental.Services.Contracts
     {
         bool AddCar(Car car);
 
+        bool EditCar(Car car);
+
         ICollection<ListCarDto> GetAvailableCars(DateTime start, DateTime end, string location);
         ICollection<ListCarDto> GetAllCars(string orderBy);
 
         bool RentCar(DateTime start, DateTime end, int cardId);
 
         CarDetailsDto FindCar(int id);
+        CarDetailsDto FindCarForEdit(int id);
 
         bool ChangeLocation(int id, int returnLocationId);
     }

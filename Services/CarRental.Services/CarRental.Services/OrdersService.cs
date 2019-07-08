@@ -70,6 +70,23 @@ namespace CarRental.Services
             return true;
         }
 
+        public bool DeleteReviewFromOrder(int reviewId)
+        {
+            var order = this.dbContext.
+                Orders.
+                Where(x => x.ReviewId == reviewId).
+                FirstOrDefault();
+
+            if (order is null)
+            {
+                return false;
+            }
+            order.ReviewId = null;
+            this.dbContext.SaveChanges();
+
+            return true;
+        }
+
         public bool Finish(string id)
         {
             var order = this.dbContext.Orders.Find(id);

@@ -77,8 +77,6 @@
              HasForeignKey(k => k.CarId).
              OnDelete(DeleteBehavior.Restrict);
 
-
-
             builder.Entity<Location>().HasData(new Location { Id = 1, Name = "Sofia, Airport Terminal 1" });
             builder.Entity<Location>().HasData(new Location { Id = 2, Name = "Sofia, Airport Terminal 2" });
             builder.Entity<Location>().HasData(new Location { Id = 3, Name = "Plovdiv, Novotel" });

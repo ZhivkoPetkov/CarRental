@@ -11,7 +11,7 @@ namespace CarRental.Services.Contracts
                                     decimal price, DateTime startRent, DateTime endRent, string voucherCode);
 
         ICollection<OrderDto> GetAllOrdersForUser(string email);
-
+        bool DeleteReviewFromOrder(int reviewId);
         ICollection<OrderDto> All();
         OrderDto GetOrderById(string id);
 

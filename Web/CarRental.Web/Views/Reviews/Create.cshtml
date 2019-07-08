@@ -10,7 +10,6 @@
 
 
 <form asp-controller="Reviews" asp-action="Create" method="POST" enctype="multipart/form-data">
-    <div asp-validation-summary="All" class="text-danger"></div>
     <input type="hidden" asp-for="OrderId" value="@orderId" />
     <h3>Rating</h3>
     <hr class="border-primary" />
