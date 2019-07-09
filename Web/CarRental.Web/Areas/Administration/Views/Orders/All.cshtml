@@ -59,12 +59,12 @@
 
             @if (order.Status.ToString() != "Canceled" && order.Status.ToString() != "Finished")
             {
-                <a class="btn btn-info" asp-controller="Orders" asp-action="Cancel" asp-route-id="@order.Id">Cancel</a>
+                <a class="btn btn-info" asp-controller="Orders" asp-action="Cancel" asp-route-id="@order.Id" data-confirm="You will cancel order with ID: @order.Id">Cancel</a>
             }
-            <a class="btn btn-danger" asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id">Delete</a>
+            <a class="btn btn-danger" asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id" data-confirm="You will delete order with ID: @order.Id" >Delete</a>
             @if (order.Status.ToString() != "Canceled" && order.Status.ToString() != "Finished")
             {
-                <a class="btn btn-success" asp-controller="Orders" asp-action="Finish" asp-route-id="@order.Id">Finish</a>
+                <a class="btn btn-success" asp-controller="Orders" asp-action="Finish" asp-route-id="@order.Id" data-confirm="You will finish order with ID: @order.Id" >Finish</a>
             }
         </td>
         @Html.Raw("</tr>")
@@ -74,6 +74,8 @@
 
     @section Scripts {
         <partial name="~/Views/Shared/Partials/_SearchAndTable_Admin_Scripts.cshtml" />
+        <partial name="~/Views/Shared/Partials/_DataValidationAndConfirmScripts.cshtml" />
     }
 
+ 
 

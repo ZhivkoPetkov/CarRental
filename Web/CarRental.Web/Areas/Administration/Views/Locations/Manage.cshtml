@@ -15,15 +15,17 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Add Location</button>
+            <button type="submit" data-confirm="You will create a new Location" class="btn btn-primary">Add Location</button>
         </form>
     </div>
 
     <div class="col-md-6">
         <strong>We have available the following locations: </strong>
-        <p style="color:red">Note: The logistic service will move all cars from the deleted location to our central office "Sofia, Airport Terminal 1". 
-        All unfinished rents with deleted location as a return location will be redirected the same way.
-        You can't delete a location featured in any rent as a pick up location!</p>
+        <p style="color:red">
+            Note: The logistic service will move all cars from the deleted location to our central office "Sofia, Airport Terminal 1".
+            All unfinished rents with deleted location as a return location will be redirected the same way.
+            You can't delete a location featured in any rent as a pick up location!
+        </p>
         @foreach (var location in Model.Locations)
         {
             <div class="d-flex col-md-10 justify-content-between">
@@ -32,7 +34,7 @@
                 @if (!location.Contains("Terminal 1"))
                 {
                     <div>
-                        <a asp-controller="Locations" asp-action="Delete" asp-area="Administration" asp-route-name="@location">Delete Location</a>
+                        <a asp-controller="Locations" asp-action="Delete" asp-area="Administration" data-confirm="You will delete the location with name @location" asp-route-name="@location">Delete Location</a>
                     </div>
                 }
             </div>
@@ -41,9 +43,6 @@
     </div>
 </div>
 
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.js">
-</script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js">
-</script>
-<script src="~/Scripts/jquery.validate.unobtrusive.js">
-</script>
+@section Scripts {
+    <partial name="~/Views/Shared/Partials/_DataValidationAndConfirmScripts.cshtml" />
+}
