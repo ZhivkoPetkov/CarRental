@@ -14,5 +14,8 @@
         public const string OrderCarsByLastAdded = "LastAdded";
         public const string OrderCarsByPriceAscending = "PriceAscending";
         public const string OrderCarsByPriceDescending = "PriceDescending";
+
+        public const string DefaultLocationName = "Sofia, Airport Terminal 1";
+
     }
 }

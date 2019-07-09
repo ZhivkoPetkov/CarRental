@@ -71,6 +71,7 @@ namespace CarRental.Services
             }
 
             this.dbCotenxt.Vouchers.Remove(voucher);
+            this.dbCotenxt.SaveChanges();
             return true;
         }
 

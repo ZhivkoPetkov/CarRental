@@ -7,7 +7,7 @@
 <hr />
 <div class="row col-md-12">
     <div class="col-md-6">
-        <form asp-controller="Locations" asp-action="Add" method="post">
+        <form asp-controller="Locations" asp-action="Manage" method="post">
 
 
             <div class="form-group">
@@ -21,9 +21,22 @@
 
     <div class="col-md-6">
         <strong>We have available the following locations: </strong>
+        <p style="color:red">Note: The logistic service will move all cars from the deleted location to our central office "Sofia, Airport Terminal 1". 
+        All unfinished rents with deleted location as a return location will be redirected the same way.
+        You can't delete a location featured in any rent as a pick up location!</p>
         @foreach (var location in Model.Locations)
         {
-            <div>@location</div>
+            <div class="d-flex col-md-10 justify-content-between">
+                <div>@location</div>
+
+                @if (!location.Contains("Terminal 1"))
+                {
+                    <div>
+                        <a asp-controller="Locations" asp-action="Delete" asp-area="Administration" asp-route-name="@location">Delete Location</a>
+                    </div>
+                }
+            </div>
+            <hr />
         }
     </div>
 </div>

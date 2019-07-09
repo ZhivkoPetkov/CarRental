@@ -2,7 +2,6 @@
 using CarRental.Models;
 using CarRental.Services.Contracts;
 using CarRental.Web.Areas.Administration.ViewModels.Locations;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Areas.Administration.Controllers
@@ -18,18 +17,23 @@ namespace CarRental.Web.Areas.Administration.Controllers
             this.mapper = mapper;
         }
 
-        public IActionResult Add()
+        public IActionResult Manage()
         {
             var locations = this.locationsService.GetAllLocationNames();
 
             return View(new AddLocationViewModel { Locations = locations });
         }
 
+        public IActionResult Delete(string name)
+        {
+            var result = this.locationsService.DeleteLocation(name);
+
+            return RedirectToAction(nameof(Manage));
+        }
 
 
         [HttpPost]
-        [Authorize]
-        public IActionResult Add(AddLocationViewModel inputModel)
+        public IActionResult Manage(AddLocationViewModel inputModel)
         {
             if (!ModelState.IsValid)
             {
@@ -44,7 +48,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
                 return Content("Invalid data, duplicate name");
             }
 
-            return RedirectToAction(nameof(Add));
+            return RedirectToAction(nameof(Manage));
         }
     }
 }

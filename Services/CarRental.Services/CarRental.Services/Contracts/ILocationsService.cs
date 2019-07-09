@@ -7,6 +7,7 @@ namespace CarRental.Services.Contracts
     {
         bool CreateLocation(Location location);
 
+        bool DeleteLocation(string name);
         ICollection<string> GetAllLocationNames();
 
         int GetIdByName(string name);
