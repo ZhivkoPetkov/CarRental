@@ -26,6 +26,25 @@ namespace CarRental.Web.Areas.Administration.Controllers
             return this.View(viewModels);
         }
 
+        public IActionResult All()
+        {
+            var vouchers = this.vouchersService.GetAllVouchers();
+            var viewModels = this.mapper.Map<List<VoucherDetailsViewModel>>(vouchers);
+            return this.View(viewModels);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var result = this.vouchersService.DeleteVoucher(id);
+
+            if (!result)
+            {
+                return BadRequest("Invalid ID for deletion");
+            }
+
+            return RedirectToAction(nameof(All));
+        }
+
         [HttpPost]
         public IActionResult Generate(UserVoucherViewModel inputModel)
         {

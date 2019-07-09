@@ -1,13 +1,11 @@
 ﻿using CarRental.Models;
 using CarRental.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarRental.DTOs.Vouchers
 {
     public class VoucherDto
     {
+        public int Id { get; set; }
         public string VoucherCode { get; set; }
 
         public string ApplicationUserId { get; set; }

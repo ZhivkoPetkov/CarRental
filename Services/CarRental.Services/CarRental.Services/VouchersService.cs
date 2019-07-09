@@ -3,11 +3,9 @@ using CarRental.Data;
 using CarRental.DTOs.Vouchers;
 using CarRental.Models;
 using CarRental.Services.Contracts;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CarRental.Services
 {
@@ -62,6 +60,20 @@ namespace CarRental.Services
             return true;
         }
 
+        public bool DeleteVoucher(int id)
+        {
+            var voucher = this.dbCotenxt.
+                             Vouchers.Find(id);
+
+            if (voucher is null)
+            {
+                return false;
+            }
+
+            this.dbCotenxt.Vouchers.Remove(voucher);
+            return true;
+        }
+
         public ICollection<VoucherDto> GetAllActiveForUser(string username)
         {
             var userId = this.usersService.GetUserIdByEmail(username);
@@ -76,6 +88,14 @@ namespace CarRental.Services
             var userId = this.usersService.GetUserIdByEmail(username);
 
             var vouchers = this.dbCotenxt.Vouchers.Where(x => x.ApplicationUserId == userId);
+
+            return this.mapper.Map<List<VoucherDto>>(vouchers);
+        }
+
+        public ICollection<VoucherDto> GetAllVouchers()
+        {
+            var vouchers = this.dbCotenxt.
+                             Vouchers.ToList();
 
             return this.mapper.Map<List<VoucherDto>>(vouchers);
         }

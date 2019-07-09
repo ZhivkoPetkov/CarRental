@@ -1,0 +1,67 @@
+﻿@model ICollection<VoucherDetailsViewModel>
+
+@{
+    ViewData["Title"] = "All Vouchers";
+}
+
+<tr class="row">
+    <h1>All Vouchers: @Model.Count</h1>
+</tr>
+<hr />
+
+<div class="d-flex justify-content-between mx-2 mb-2">
+    <input class="form-control col-md-2 border-primary" type="text" id="myInput" onkeyup="byId()" placeholder="Search by Email">
+    <button type="button" class="btn btn-primary" onclick="location.reload();" id="showAll">Show All</button>
+    <button type="button" class="btn btn-primary" onclick="showActive()" id="myInputActive" value="Active">Show Active</button>
+    <button type="button" class="btn btn-primary" onclick="showFinished()" id="myInputFinished" value="Used">Show Used</button>
+</div>
+
+
+<table class="table table-hover border" style="font-size:90%" name="allvouchers" id="allvouchers">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">Customer Email</th>
+            <th scope="col">Voucher Id</th>
+            <th scope="col">Discount</th>
+            <th scope="col">Voucher Code</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody class="align-content-between">
+
+        @foreach (var voucher in @Model)
+        {
+
+            if (voucher.Status.ToString() == "Used")
+            {
+                @Html.Raw(" <tr class=\"table-danger\">")
+            }
+            else if (voucher.Status.ToString() == "Active")
+            {
+                @Html.Raw(" <tr class=\"table-success\">")
+            }
+            else
+            {
+                @Html.Raw(" <tr class=\"table-warning\">")
+            }
+
+
+        <th scope="row">@voucher.User</th>
+        <td>@voucher.Id</td>
+        <td>@voucher.Discount</td>
+        <td>@voucher.VoucherCode</td>
+        <td>@voucher.Status.ToString()</td>
+        <td>
+            <a class="btn btn-danger" asp-controller="Vouchers" asp-action="Delete" asp-area="Administration" asp-route-id="@voucher.Id">Delete</a>
+        </td>
+        @Html.Raw("</tr>")
+    }
+        </tbody>
+    </table>
+
+    @section Scripts {
+        <partial name="~/Views/Shared/Partials/_SearchAndTableVouchers_Admin_Scripts.cshtml" />
+    }
+
+

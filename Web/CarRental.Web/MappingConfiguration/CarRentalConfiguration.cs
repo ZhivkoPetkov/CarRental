@@ -65,6 +65,9 @@ namespace CarRental.Web.MappingConfiguration
                  .ForMember(dest => dest.Email, src => src.MapFrom(x => x.Email))
                  .ForMember(dest => dest.Rents, src => src.MapFrom(x => x.Orders.Count))
                  .ForMember(dest => dest.MoneySpent, src => src.MapFrom(x => x.Orders.Sum(p => p.Price)));
+            this.CreateMap<VoucherDto, VoucherDetailsViewModel>()
+                 .ForMember(dest => dest.User, src => src.MapFrom(x => x.User.Email));
+
         }
     }
 }
