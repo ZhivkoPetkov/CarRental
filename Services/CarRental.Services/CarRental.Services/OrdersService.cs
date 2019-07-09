@@ -20,8 +20,8 @@ namespace CarRental.Services
         private readonly ICarsService carsService;
         private readonly IVouchersService vouchersService;
 
-        public OrdersService(CarRentalDbContext dbContext, UserManager<ApplicationUser> userManager, 
-                        IUsersService usersService, IMapper mapper, 
+        public OrdersService(CarRentalDbContext dbContext, UserManager<ApplicationUser> userManager,
+                        IUsersService usersService, IMapper mapper,
                         ILocationsService locationsService, ICarsService carsService, IVouchersService vouchersService)
         {
             this.dbContext = dbContext;
@@ -63,7 +63,11 @@ namespace CarRental.Services
             {
                 return false;
             }
-            this.CancelRentDays(order);
+            if (order.Status != Models.Enums.OrderStatus.Canceled)
+            {
+                this.CancelRentDays(order);
+            }
+
             this.dbContext.Orders.Remove(order);
             this.dbContext.SaveChanges();
 
@@ -123,10 +127,10 @@ namespace CarRental.Services
         public ICollection<OrderDto> GetAllOrdersForUser(string email)
         {
             var user = this.usersService.GetUserByEmail(email);
-          
+
             var orders = user.Orders.ToList();
 
-            return mapper.Map <List<OrderDto>> (orders);
+            return mapper.Map<List<OrderDto>>(orders);
 
         }
 
@@ -144,7 +148,7 @@ namespace CarRental.Services
             return order.User.Email.ToLower() == customerEmail;
         }
 
-        public bool MakeOrder(string customer, int carId, string startLocation, string returnLocation, decimal price, 
+        public bool MakeOrder(string customer, int carId, string startLocation, string returnLocation, decimal price,
                                             DateTime startRent, DateTime endRent, string voucherCode)
         {
             var userId = this.usersService.GetUserIdByEmail(customer);
@@ -180,7 +184,7 @@ namespace CarRental.Services
 
         private void CancelRentDays(Order order)
         {
-            
+
             for (var dt = order.RentStart; dt <= order.RentEnd; dt = dt.AddDays(1))
             {
                 var rentday = order.Car.RentDays.FirstOrDefault(x => x.RentDate.Date == dt);
