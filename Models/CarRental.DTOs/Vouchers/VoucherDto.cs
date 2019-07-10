@@ -1,5 +1,4 @@
 ﻿using CarRental.DTOs.Users;
-using CarRental.Models;
 using CarRental.Models.Enums;
 
 namespace CarRental.DTOs.Vouchers
