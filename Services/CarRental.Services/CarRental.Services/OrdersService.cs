@@ -184,7 +184,6 @@ namespace CarRental.Services
 
         private void CancelRentDays(Order order)
         {
-
             for (var dt = order.RentStart; dt <= order.RentEnd; dt = dt.AddDays(1))
             {
                 var rentday = order.Car.RentDays.FirstOrDefault(x => x.RentDate.Date == dt);

@@ -82,7 +82,7 @@ namespace CarRental.Services
                     Model = x.Model,
                     Year = x.Year,
                     RentDays = x.RentDays,
-                    Reviews = x.Reviews
+                    Reviews = this.mapper.Map<List<ReviewDto>>(x.Reviews)
                 }).
                 ToList();
 

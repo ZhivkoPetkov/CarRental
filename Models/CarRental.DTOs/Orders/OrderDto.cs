@@ -1,22 +1,22 @@
-﻿using CarRental.Models;
+﻿using CarRental.DTOs.Cars;
+using CarRental.DTOs.Locations;
+using CarRental.DTOs.Reviews;
+using CarRental.DTOs.Users;
+using CarRental.Models;
 using CarRental.Models.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarRental.DTOs.Orders
 {
-   public class OrderDto
+    public class OrderDto
     {
         public string Id { get; set; }
 
-        public int CarId { get; set; }
-
-        public Car Car { get; set; }
+        public CarDetailsDto Car { get; set; }
 
         public string ApplicationUserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public UserDto User { get; set; }
 
         public decimal Price { get; set; }
 
@@ -28,13 +28,13 @@ namespace CarRental.DTOs.Orders
 
         public int PickUpLocationId { get; set; }
 
-        public virtual Location PickUpLocation { get; set; }
+        public LocationDto PickUpLocation { get; set; }
 
         public int ReturnLocationId { get; set; }
 
-        public virtual Location ReturnLocation { get; set; }
+        public LocationDto ReturnLocation { get; set; }
 
         public int? ReviewId { get; set; }
-        public Review Review { get; set; }
+        public ReviewDto Review { get; set; }
     }
 }

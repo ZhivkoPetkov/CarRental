@@ -1,4 +1,5 @@
-﻿using CarRental.Models;
+﻿using CarRental.DTOs.Users;
+using CarRental.Models;
 using CarRental.Models.Enums;
 
 namespace CarRental.DTOs.Vouchers
@@ -10,7 +11,7 @@ namespace CarRental.DTOs.Vouchers
 
         public string ApplicationUserId { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public virtual UserDto User { get; set; }
 
         public int Discount { get; set; }
 

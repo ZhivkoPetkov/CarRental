@@ -1,4 +1,5 @@
-﻿using CarRental.Models;
+﻿using CarRental.DTOs.Reviews;
+using CarRental.Models;
 using CarRental.Models.Enums;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace CarRental.DTOs.Cars
         public DateTime End { get; set; }
         public int Days { get; set; }
 
-        public virtual ICollection<Review> Reviews { get; set; } 
+        public virtual ICollection<ReviewDto> Reviews { get; set; } 
 
         public virtual ICollection<CarRentDays> RentDays { get; set; }
 

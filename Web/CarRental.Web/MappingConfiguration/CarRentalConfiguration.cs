@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CarRental.DTOs.Cars;
+using CarRental.DTOs.Locations;
 using CarRental.DTOs.Orders;
 using CarRental.DTOs.Reviews;
 using CarRental.DTOs.Users;
@@ -49,12 +50,14 @@ namespace CarRental.Web.MappingConfiguration
             this.CreateMap<AddCarViewModel, Car>();
             this.CreateMap<CarEditViewModel, CarDetailsDto>().ReverseMap();
             this.CreateMap<ListCarDto, Car>();
+            this.CreateMap<ApplicationUser, UserDto>();
             this.CreateMap<ReviewDto, Review>().ReverseMap();
             this.CreateMap<ReviewViewModel, ReviewDto>().ReverseMap();
             this.CreateMap<CarDetailsDto, CarDetailsViewModel>().ReverseMap();
             this.CreateMap<CarEditViewModel, Car>();
             this.CreateMap<CarDetailsDto, Car>().ReverseMap();
             this.CreateMap<Voucher, VoucherDto>();
+            this.CreateMap<Location, LocationDto>();
             this.CreateMap<VoucherViewModel, VoucherDto>().ReverseMap();
             this.CreateMap<Review, ListReviewDto>()
                 .ForMember(dest => dest.CarModel, src => src.MapFrom(x => x.Car.Model))
