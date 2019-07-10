@@ -51,7 +51,7 @@
             }
 
 
-        <th scope="row"><a href="/orders/details/@order.Id">@order.Id</a></th>
+        <th scope="row"><a href="/orders/details/@order.Id">@order.Id.ToUpper()</a></th>
         <td>@order.CarModel</td>
         <td>@order.PickUpLocation</td>
         <td>@order.ReturnLocation</td>

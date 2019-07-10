@@ -17,7 +17,6 @@
     <button type="button" class="btn btn-primary" onclick="sortTableDateDesc()">Sort By End Date DSC</button>
 </div>
 
-
 <table class="table table-hover border" style="font-size:90%" name="allorders" id="allorders">
     <thead>
         <tr class="table-primary">
@@ -31,7 +30,6 @@
         </tr>
     </thead>
     <tbody class="align-content-between">
-
         @foreach (var order in @Model)
         {
 
@@ -48,8 +46,7 @@
                 @Html.Raw(" <tr class=\"table-warning\">")
             }
 
-
-        <th scope="row"><a href="/orders/details/@order.Id">@order.Id</a></th>
+        <th scope="row"><a href="/orders/details/@order.Id">@order.Id.ToUpper()</a></th>
         <td>@order.CarModel</td>
         <td name="location">@order.ReturnLocation</td>
         <td>@order.RentEnd.ToShortDateString()</td>

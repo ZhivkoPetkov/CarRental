@@ -15,9 +15,8 @@
         </div>
         <div class="form-row">
             <div class="col-md-6 mb-3">
-                <label asp-for="PickupPlace" class="text-white">Starting location for the car</label>
+                <label asp-for="PickupPlace" class="text-white">Pick Up location for the car</label>
                 <select class="custom-select" asp-for="PickupPlace">
-                    <option selected="">Choose a pick up place</option>
                     @foreach (var location in Model.Locations)
                     {
                         <option value="@location">@location</option>
@@ -28,9 +27,8 @@
             </div>
 
             <div class="col-md-6 mb-3">
-                <label asp-for="ReturnPlace" class="text-white">Starting location for the car</label>
+                <label asp-for="ReturnPlace" class="text-white">Return location for the car</label>
                 <select class="custom-select" asp-for="ReturnPlace">
-                    <option selected="">Choose a location for return</option>
                     @foreach (var location in Model.Locations)
                     {
                         <option value="@location">@location</option>
@@ -45,5 +43,5 @@
 </div>
 
 @section Scripts {
-    <partial name="~/Views/Shared/Partials/_ValidationScriptsPartial.cshtml" />
+    <partial name="~/Views/Shared/Partials/_DataValidationAndConfirmScripts.cshtml" />
 }
