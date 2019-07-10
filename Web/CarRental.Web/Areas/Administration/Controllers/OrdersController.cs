@@ -58,7 +58,6 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
             var result = this.ordersService.EditOrder(inputModel.Id, inputModel.Firstname, inputModel.Lastname, 
                                                                         inputModel.Email, inputModel.Price);
-
             return RedirectToAction("All", "Orders");
         }
 

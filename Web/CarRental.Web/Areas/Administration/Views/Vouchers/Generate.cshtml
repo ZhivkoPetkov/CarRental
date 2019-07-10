@@ -22,13 +22,13 @@
             <th scope="col">Percent Discount (1% - 100%)</th>
         </tr>
     </thead>
-    <tbody class="align-content-between">
+    <tbody>
         @for (int i = 0; i < @Model.Count; i++)
         {
             var user = Model.ToList()[i];
-        <th scope="row">@user.Email</th>
-        <td>@user.MoneySpent</td>
-        <td>@user.Rents</td>
+        <th style="font-size:150%" scope="row">@user.Email</th>
+        <td style="font-size:150%">@user.MoneySpent</td>
+        <td style="font-size:150%">@user.Rents</td>
         <td>
             <form class="d-flex justify-content-between" asp-controller="Vouchers" asp-action="Generate" asp-area="Administration" method="POST">
                 <input type="hidden" asp-for="@user.Email" name="Email" value="@user.Email" />

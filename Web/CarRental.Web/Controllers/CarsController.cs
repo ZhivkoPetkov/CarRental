@@ -50,10 +50,18 @@ namespace CarRental.Web.Controllers
  
         public IActionResult Details(int id)
         {
-            var car = this.carsService.FindCar(id);
-            var viewModel = this.mapper.Map<CarDetailsViewModel>(car);
-            viewModel.Reviews = this.mapper.Map<List<ReviewViewModel>>(car.Reviews);
-            return this.View(viewModel);
+            try
+            {
+                var car = this.carsService.FindCar(id);
+                var viewModel = this.mapper.Map<CarDetailsViewModel>(car);
+                viewModel.Reviews = this.mapper.Map<List<ReviewViewModel>>(car.Reviews);
+                return this.View(viewModel);
+            }
+            catch (System.Exception)
+            {
+                throw new System.Exception("Invalid Car Id");
+            }
+          
         }
     }
 }

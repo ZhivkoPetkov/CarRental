@@ -28,10 +28,10 @@
 
         @foreach (var review in @Model)
         {
-        <th scope="row">@review.User</th>
-        <td>@review.CarModel</td>
-        <td>@review.Comment</td>
-        <td>@review.Rating</td>
+        <th style="font-size:150%" scope="row">@review.User</th>
+        <td style="font-size:150%">@review.CarModel</td>
+        <td style="font-size:150%">@review.Comment</td>
+        <td style="font-size:150%">@review.Rating</td>
         <td>
             <a class="btn btn-danger" asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id">Delete</a>
         </td>

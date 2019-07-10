@@ -17,7 +17,7 @@
 </div>
 
 
-<table class="table table-hover border" style="font-size:90%" name="allvouchers" id="allvouchers">
+<table class="table table-hover border" style="font-size:100%" name="allvouchers" id="allvouchers">
     <thead>
         <tr class="table-primary">
             <th scope="col">Customer Email</th>
@@ -28,7 +28,7 @@
             <th scope="col">Actions</th>
         </tr>
     </thead>
-    <tbody class="align-content-between">
+    <tbody class="justify-content-center">
 
         @foreach (var voucher in @Model)
         {
@@ -53,7 +53,7 @@
         <td>@voucher.VoucherCode</td>
         <td>@voucher.Status.ToString()</td>
         <td>
-            <a class="btn btn-danger" asp-controller="Vouchers" asp-action="Delete" asp-area="Administration" asp-route-id="@voucher.Id">Delete</a>
+            <a class="href" style="color:red; font-size:110%" asp-controller="Vouchers" asp-action="Delete" asp-area="Administration" asp-route-id="@voucher.Id"><strong>Delete</strong></a>
         </td>
         @Html.Raw("</tr>")
     }

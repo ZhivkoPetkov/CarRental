@@ -10,48 +10,48 @@
 </center>
 
 <div class="row col-md-12 justify-content-center">
-    <div class="col-md-10">
+    <div class="col-md-10 border rounded">
         <form asp-controller="Cars" asp-action="Add" method="POST" enctype="multipart/form-data">
             <hr />
             <div class="form-group">
-                <label asp-for="Model"></label>
+                <label  class="col-form-label" asp-for="Model"></label>
                 <input asp-for="Model" class="form-control" />
                 <span asp-validation-for="Model" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Year"></label>
+                <label class="col-form-label" asp-for="Year"></label>
                 <input asp-for="Year" class="form-control" />
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Description">Description</label>
+                <label class="col-form-label" asp-for="Description">Description</label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="ImageFile" class="control-label">Car Photo</label>
+                <label class="col-form-label" asp-for="ImageFile" class="control-label">Car Photo</label>
                 <input asp-for="ImageFile" type="file" class="form-control" />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="GearType">Gear Type</label>
+                <label class="col-form-label" asp-for="GearType">Gear Type</label>
                 <select class="custom-select" asp-for="GearType" asp-items="@Html.GetEnumSelectList<GearType>()">
                 </select>
                 <span asp-validation-for="GearType" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="PricePerDay">Price per day</label>
+                <label class="col-form-label" asp-for="PricePerDay">Price per day ($)</label>
                 <input asp-for="PricePerDay" class="form-control" />
                 <span asp-validation-for="PricePerDay" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="LocationId">Starting location for the car</label>
+                <label class="col-form-label" asp-for="LocationId">Starting location for the car</label>
                 <select class="custom-select" asp-for="LocationId">
                     @foreach (var location in Model.Locations)
                     {
@@ -60,7 +60,7 @@
                 </select>
                 <span asp-validation-for="LocationId" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Add Car</button>
+            <button type="submit"style="margin-bottom:2%" class="btn btn-primary">Add Car</button>
         </form>
     </div>
 </div>

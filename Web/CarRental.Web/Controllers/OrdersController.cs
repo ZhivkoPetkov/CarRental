@@ -6,6 +6,7 @@ using CarRental.Web.ViewModels.Vouchers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CarRental.Web.Controllers
 {
@@ -38,7 +39,7 @@ namespace CarRental.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Preview(OrderPreviewInputModel inputModel)
+        public async Task<IActionResult> Preview(OrderPreviewInputModel inputModel)
         {
             if (!ModelState.IsValid)
             {
@@ -53,11 +54,11 @@ namespace CarRental.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Order(OrderInputViewModel inputModel)
+        public async Task<IActionResult> Order(OrderInputViewModel inputModel)
         {
             if (!ModelState.IsValid)
             {
-                return Redirect("/");
+                return RedirectToAction("Index", "Home");
             }
 
             var result = this.ordersService.MakeOrder(this.User.Identity.Name, inputModel.Id, inputModel.PickUpPlace, inputModel.ReturnPlace,

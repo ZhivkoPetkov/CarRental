@@ -60,10 +60,10 @@ namespace CarRental.Services
 
         public CarDetailsDto FindCar(int id)
         {
-            var car = this.dbContext.Cars.Find(id);
-            var result = this.mapper.Map<CarDetailsDto>(car);
-            result.Reviews = this.mapper.Map<List<ReviewDto>>(car.Reviews);
-            return result;
+                var car = this.dbContext.Cars.Find(id);
+                var result = this.mapper.Map<CarDetailsDto>(car);
+                result.Reviews = this.mapper.Map<List<ReviewDto>>(car.Reviews);
+                return result;
         }
 
         public ICollection<ListCarDto> GetAllCars(string orderby)
