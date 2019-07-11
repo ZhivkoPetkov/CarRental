@@ -3,9 +3,7 @@
     using CarRental.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Linq;
-    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -21,7 +19,6 @@
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Voucher> Vouchers { get; set; }
-
         public DbSet<CarRentDays> CarRentDays { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
@@ -202,8 +199,6 @@
             });
 
             ConfigureUserIdentityRelations(builder);
-
-     
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 
