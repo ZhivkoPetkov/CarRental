@@ -1,12 +1,11 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
 namespace CarRental.Models
 {
-    using CarRental.Data.Common.Models;
     using Microsoft.AspNetCore.Identity;
     using System;
     using System.Collections.Generic;
 
-    public class ApplicationUser : IdentityUser<string>, IAuditInfo
+    public class ApplicationUser : IdentityUser<string>
     {
         public ApplicationUser()
         {        

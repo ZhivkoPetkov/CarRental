@@ -1,8 +1,8 @@
 ﻿namespace CarRental.Models
 {
-    using CarRental.Data.Common.Models;
+   
 
-    public class Setting : BaseDeletableModel<int>
+    public class Setting 
     {
         public string Name { get; set; }
 

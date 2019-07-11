@@ -1,11 +1,6 @@
 ﻿namespace CarRental.Web.ViewModels.Settings
 {
-    using CarRental.Models;
-    using CarRental.Services.Mapping;
-
-    using AutoMapper;
-
-    public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
+    public class SettingViewModel
     {
         public int Id { get; set; }
 
@@ -15,11 +10,6 @@
 
         public string NameAndValue { get; set; }
 
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<Setting, SettingViewModel>().ForMember(
-                m => m.NameAndValue,
-                opt => opt.MapFrom(x => x.Name + " = " + x.Value));
-        }
+
     }
 }

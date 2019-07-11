@@ -4,14 +4,9 @@
     using AutoMapper.EquivalencyExpression;
     using CarRental.Common;
     using CarRental.Data;
-    using CarRental.Data.Common;
-    using CarRental.Data.Common.Repositories;
-    using CarRental.Data.Repositories;
     using CarRental.Models;
     using CarRental.Services;
     using CarRental.Services.Contracts;
-    using CarRental.Services.Data;
-    using CarRental.Services.Mapping;
     using CarRental.Services.Messaging;
     using CarRental.Web.MappingConfiguration;
     using CarRental.Web.Middlewares;
@@ -115,15 +110,10 @@
             services.AddTransient<IReviewsService, ReviewsService>();
             services.AddTransient<IVouchersService, VouchersService>();
 
-            // Data repositories
-            services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
-            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            services.AddScoped<IDbQueryRunner, DbQueryRunner>();
-
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISmsSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
+
 
             //Anti-forgery key
             services.AddMvc(options =>
@@ -136,8 +126,7 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
+         
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
