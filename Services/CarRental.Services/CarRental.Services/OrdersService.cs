@@ -182,6 +182,12 @@ namespace CarRental.Services
             return true;
         }
 
+        public bool UserFinishedOrders(string name)
+        {
+            return this.dbContext.Orders.
+                Any(x => x.User.UserName == name && x.Status == Models.Enums.OrderStatus.Finished && x.ReviewId == null);
+        }
+
         private void CancelRentDays(Order order)
         {
             for (var dt = order.RentStart; dt <= order.RentEnd; dt = dt.AddDays(1))

@@ -14,7 +14,7 @@ namespace CarRental.Services.Contracts
         bool DeleteReviewFromOrder(int reviewId);
         ICollection<OrderDto> All();
         OrderDto GetOrderById(string id);
-
+        bool UserFinishedOrders(string name);
         bool Delete(string id);
         bool Cancel(string id);
         bool Finish(string id);

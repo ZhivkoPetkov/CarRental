@@ -7,15 +7,19 @@
     public class HomeController : BaseController
     {
         private readonly ILocationsService locationsService;
+        private readonly IOrdersService ordersService;
 
-        public HomeController(ILocationsService locationsService)
+        public HomeController(ILocationsService locationsService, IOrdersService ordersService)
         {
             this.locationsService = locationsService;
+            this.ordersService = ordersService;
         }
 
         public IActionResult Index()
         {
             var locationsList = this.locationsService.GetAllLocationNames();
+
+            ViewData["FinishedOrders"] = this.ordersService.UserFinishedOrders(User.Identity.Name);
 
             return this.View(new SearchCarsViewModel { Locations = locationsList });
         }

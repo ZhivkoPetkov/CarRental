@@ -1,0 +1,10 @@
+﻿@model UserFinishedOrdersBarViewModel
+
+@if (Model.HasFinished)
+{
+    <div class="alert alert-dismissible alert-success" style="margin-top:2%">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">Congratulations! Your have finished orders</h4>
+        <p class="mb-0">You can leave a review for your order and win a discount voucher from 1% to 5%! <a asp-controller="Orders" asp-action="MyOrders">Follow this link!</a></p>
+    </div>
+}
