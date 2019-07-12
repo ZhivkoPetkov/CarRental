@@ -118,9 +118,9 @@ namespace CarRental.Services
             }
 
             order.Status = Models.Enums.OrderStatus.Finished;
-            this.carsService.ChangeLocation(order.CarId, order.ReturnLocationId);
+            await this.carsService.ChangeLocation(order.CarId, order.ReturnLocationId);
 
-            await this.dbContext.SaveChangesAsync();
+           this.dbContext.SaveChanges();
 
             return true;
         }
@@ -178,8 +178,8 @@ namespace CarRental.Services
             };
 
             this.dbContext.Orders.Add(order);
-            await this.dbContext.SaveChangesAsync();
-            var rentCar = this.carsService.RentCar(startRent, endRent, carId);
+            var rentCar = await this.carsService.RentCar(startRent, endRent, carId);
+            this.dbContext.SaveChanges();
             return true;
         }
 

@@ -1,4 +1,5 @@
-﻿using CarRental.Services.Contracts;
+﻿using System.Threading.Tasks;
+using CarRental.Services.Contracts;
 using CarRental.Web.InputModels.Reviews;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +19,14 @@ namespace CarRental.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Create(ReviewInputModel inputModel)
+        public async Task<IActionResult> Create(ReviewInputModel inputModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            this.reviewsService.CreateReview(inputModel.OrderId, inputModel.Rating, inputModel.Comment);
+            await this.reviewsService.CreateReview(inputModel.OrderId, inputModel.Rating, inputModel.Comment);
 
             return RedirectToAction("MyOrders", "Orders");
         }

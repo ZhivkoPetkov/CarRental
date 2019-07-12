@@ -61,8 +61,8 @@ namespace CarRental.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var result = this.ordersService.MakeOrder(this.User.Identity.Name, inputModel.Id, inputModel.PickUpPlace, inputModel.ReturnPlace,
-                    inputModel.Price, inputModel.PickUp, inputModel.Return, inputModel.DiscountCode).GetAwaiter().GetResult();
+            var result = await this.ordersService.MakeOrder(this.User.Identity.Name, inputModel.Id, inputModel.PickUpPlace, inputModel.ReturnPlace,
+                    inputModel.Price, inputModel.PickUp, inputModel.Return, inputModel.DiscountCode);
 
             if (!result)
             {

@@ -21,23 +21,23 @@ namespace CarRental.Web.Areas.Administration.Controllers
             this.mapper = mapper;
         }
 
-        public IActionResult Cancel(string id)
+        public async Task<IActionResult> Cancel(string id)
         {
-           var result = this.ordersService.Cancel(id);
+           await this.ordersService.Cancel(id);
 
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult Finish(string id)
+        public async Task<IActionResult> Finish(string id)
         {
-            var result = this.ordersService.Finish(id);
+           await this.ordersService.Finish(id);
 
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            var result = this.ordersService.Delete(id);
+            await this.ordersService.Delete(id);
             return RedirectToAction(nameof(All));
         }
 
@@ -49,14 +49,14 @@ namespace CarRental.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(OrderEditViewModel inputModel)
+        public async Task<IActionResult> Edit(OrderEditViewModel inputModel)
         {
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("All", "Orders");
             }
 
-            var result = this.ordersService.EditOrder(inputModel.Id, inputModel.Firstname, inputModel.Lastname, 
+           await this.ordersService.EditOrder(inputModel.Id, inputModel.Firstname, inputModel.Lastname, 
                                                                         inputModel.Email, inputModel.Price);
             return RedirectToAction("All", "Orders");
         }

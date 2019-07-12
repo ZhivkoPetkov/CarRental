@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Threading.Tasks;
+using AutoMapper;
 using CarRental.Models;
 using CarRental.Services.Contracts;
 using CarRental.Web.Areas.Administration.ViewModels.Locations;
@@ -24,9 +25,9 @@ namespace CarRental.Web.Areas.Administration.Controllers
             return View(new AddLocationViewModel { Locations = locations });
         }
 
-        public IActionResult Delete(string name)
+        public async Task<IActionResult> Delete(string name)
         {
-            var result = this.locationsService.DeleteLocation(name);
+            await this.locationsService.DeleteLocation(name);
 
             return RedirectToAction(nameof(Manage));
         }

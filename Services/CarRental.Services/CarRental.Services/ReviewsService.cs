@@ -35,8 +35,8 @@ namespace CarRental.Services
                 Comment = comment,
                 Rating = rating
             };
-            this.vouchersService.CreateForUser(order.User.UserName);
-            await this.dbContext.SaveChangesAsync();
+            await this.vouchersService.CreateForUser(order.User.UserName);
+            this.dbContext.SaveChanges();
             return true;
         }
 
@@ -48,9 +48,9 @@ namespace CarRental.Services
             {
                 return false;
             }
-            this.ordersService.DeleteReviewFromOrder(id);
+            await this.ordersService.DeleteReviewFromOrder(id);
             this.dbContext.Reviews.Remove(review);
-            await this.dbContext.SaveChangesAsync();
+            this.dbContext.SaveChanges();
             return true;
         }
 

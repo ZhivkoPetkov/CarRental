@@ -11,6 +11,7 @@ namespace CarRental.Services.Contracts
         Task<bool> AddCar(Car car);
 
         Task<bool> EditCar(Car car);
+        Task<bool> DeleteCar(int id);
 
         ICollection<ListCarDto> GetAvailableCars(DateTime start, DateTime end, string location);
         ICollection<ListCarDto> GetAllCars(string orderBy);

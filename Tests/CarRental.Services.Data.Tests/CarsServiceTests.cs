@@ -65,8 +65,6 @@ namespace CarRental.Services.Tests
             Assert.True(invalidId == null);
         }
 
-
-        
         //bool EditCar(Car car);
         //ICollection<ListCarDto> GetAvailableCars(DateTime start, DateTime end, string location);
         //ICollection<ListCarDto> GetAllCars(string orderBy);

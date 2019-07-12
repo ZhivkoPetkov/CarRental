@@ -135,7 +135,7 @@ namespace CarRental.Services
         private int GenerateDiscount()
         {
             var random = new Random();
-            var value = random.Next(0, 5);
+            var value = random.Next(1, 5);
             return value;
         }
     }

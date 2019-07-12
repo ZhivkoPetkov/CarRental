@@ -43,7 +43,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
             var car = this.mapper.Map<Car>(inputModel);
             car.Image = await this.imagesService.UploadImage(this.cloudinary, inputModel.ImageFile, inputModel.Model);
-            this.carsService.AddCar(car);
+            await this.carsService.AddCar(car);
 
             return Redirect("/");
         }
@@ -53,6 +53,12 @@ namespace CarRental.Web.Areas.Administration.Controllers
                 var car = this.carsService.FindCar(id);
                 var viewModel = this.mapper.Map<CarEditViewModel>(car);
                 return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.carsService.DeleteCar(id);
+            return RedirectToAction("All", "Cars");
         }
 
         [HttpPost]
@@ -74,7 +80,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
                 car.Image = inputModel.Image;
             }
 
-            this.carsService.EditCar(car);
+            await this.carsService.EditCar(car);
 
             return RedirectToAction("All", "Cars");
         }

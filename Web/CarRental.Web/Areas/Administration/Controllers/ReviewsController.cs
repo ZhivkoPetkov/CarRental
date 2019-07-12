@@ -3,6 +3,7 @@ using CarRental.Services.Contracts;
 using CarRental.Web.Areas.Administration.ViewModels.Rewiews;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CarRental.Web.Areas.Administration.Controllers
 {
@@ -25,9 +26,9 @@ namespace CarRental.Web.Areas.Administration.Controllers
             return this.View(viewModels);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var result = this.reviewsService.DeleteReview(id);
+            await this.reviewsService.DeleteReview(id);
             return RedirectToAction(nameof(All));
         }
     }
