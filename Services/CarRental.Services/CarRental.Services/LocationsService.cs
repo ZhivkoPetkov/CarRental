@@ -5,6 +5,7 @@ using CarRental.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarRental.Services
 {
@@ -17,7 +18,7 @@ namespace CarRental.Services
             this.dbContext = dbContext;
         }
       
-        public bool CreateLocation(Location location)
+        public async Task<bool> CreateLocation(Location location)
         {
             if (this.dbContext.
                 Locations.
@@ -27,11 +28,11 @@ namespace CarRental.Services
             }
 
             this.dbContext.Locations.Add(location);
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
             return true;
         }
 
-        public bool DeleteLocation(string name)
+        public async Task<bool> DeleteLocation(string name)
         {
             var location = this.dbContext.Locations.Where(x => x.Name == name).FirstOrDefault();
 
@@ -55,7 +56,7 @@ namespace CarRental.Services
             ChangeLocationOfOrder(orders);
             this.dbContext.Locations.Remove(location);
 
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
             return true;
         }
 

@@ -6,6 +6,7 @@ using CarRental.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarRental.Services
 {
@@ -22,7 +23,7 @@ namespace CarRental.Services
             this.mapper = mapper;
         }
 
-        public bool CreateForUser(string username)
+        public async Task<bool> CreateForUser(string username)
         {
             var userId = this.usersService.GetUserIdByEmail(username);
             if (userId is null)
@@ -37,7 +38,7 @@ namespace CarRental.Services
                 Discount = this.GenerateDiscount()
             };
             this.dbCotenxt.Vouchers.Add(voucher);
-            this.dbCotenxt.SaveChanges();
+            await this.dbCotenxt.SaveChangesAsync();
             return true;
         }
 
@@ -115,7 +116,7 @@ namespace CarRental.Services
             return discount == null ? 0 : discount;
         }
 
-        public bool UseVoucher(string voucherCode)
+        public async Task<bool> UseVoucher(string voucherCode)
         {
             var voucher = this.dbCotenxt.Vouchers.
                 Where(x => x.VoucherCode == voucherCode).
@@ -127,7 +128,7 @@ namespace CarRental.Services
             }
 
             voucher.Status = Models.Enums.VoucherStatus.Used;
-            this.dbCotenxt.SaveChanges();
+            await this.dbCotenxt.SaveChangesAsync();
             return true;
         }
 

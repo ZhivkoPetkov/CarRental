@@ -2,15 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CarRental.Services.Contracts
 {
     public interface IReviewsService
     {
 
-        bool CreateReview(string orderId, int rating, string comment);
+        Task<bool> CreateReview(string orderId, int rating, string comment);
         ICollection<ListReviewDto> GetAllReviews();
 
-        bool DeleteReview(int id);
+        Task<bool> DeleteReview(int id);
     }
 }

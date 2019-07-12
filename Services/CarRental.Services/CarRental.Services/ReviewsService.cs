@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using CarRental.Data;
 using CarRental.DTOs.Reviews;
@@ -24,7 +25,7 @@ namespace CarRental.Services
             this.ordersService = ordersService;
         }
 
-        public bool CreateReview(string orderId, int rating, string comment)
+        public async Task<bool> CreateReview(string orderId, int rating, string comment)
         {
             var order = this.dbContext.Orders.Find(orderId);
             order.Review = new Review
@@ -35,11 +36,11 @@ namespace CarRental.Services
                 Rating = rating
             };
             this.vouchersService.CreateForUser(order.User.UserName);
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
             return true;
         }
 
-        public bool DeleteReview(int id)
+        public async Task<bool> DeleteReview(int id)
         {
             var review = this.dbContext.Reviews.Find(id);
 
@@ -49,7 +50,7 @@ namespace CarRental.Services
             }
             this.ordersService.DeleteReviewFromOrder(id);
             this.dbContext.Reviews.Remove(review);
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
             return true;
         }
 

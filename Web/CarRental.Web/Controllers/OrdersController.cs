@@ -62,7 +62,7 @@ namespace CarRental.Web.Controllers
             }
 
             var result = this.ordersService.MakeOrder(this.User.Identity.Name, inputModel.Id, inputModel.PickUpPlace, inputModel.ReturnPlace,
-                    inputModel.Price, inputModel.PickUp, inputModel.Return, inputModel.DiscountCode);
+                    inputModel.Price, inputModel.PickUp, inputModel.Return, inputModel.DiscountCode).GetAwaiter().GetResult();
 
             if (!result)
             {

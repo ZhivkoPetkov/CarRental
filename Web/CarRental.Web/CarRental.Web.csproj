@@ -14,6 +14,13 @@
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Locations\**" />
+    <Content Remove="Views\Locations\**" />
+    <EmbeddedResource Remove="Views\Locations\**" />
+    <None Remove="Views\Locations\**" />
+  </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
@@ -43,7 +50,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Administration\ViewModels\Home\" />
-    <Folder Include="Views\Locations\" />
   </ItemGroup>
 
   <ItemGroup>

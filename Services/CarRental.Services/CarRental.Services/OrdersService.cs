@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarRental.Services
 {
@@ -40,7 +41,7 @@ namespace CarRental.Services
             return mapper.Map<List<OrderDto>>(orders);
         }
 
-        public bool Cancel(string id)
+        public async Task<bool> Cancel(string id)
         {
             var order = this.dbContext.Orders.Find(id);
             if (order is null)
@@ -51,12 +52,12 @@ namespace CarRental.Services
 
             this.CancelRentDays(order);
 
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }
 
-        public bool Delete(string id)
+        public async Task<bool> Delete(string id)
         {
             var order = this.dbContext.Orders.Find(id);
             if (order is null)
@@ -69,12 +70,12 @@ namespace CarRental.Services
             }
 
             this.dbContext.Orders.Remove(order);
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }
 
-        public bool DeleteReviewFromOrder(int reviewId)
+        public async Task<bool> DeleteReviewFromOrder(int reviewId)
         {
             var order = this.dbContext.
                 Orders.
@@ -86,12 +87,12 @@ namespace CarRental.Services
                 return false;
             }
             order.ReviewId = null;
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }
 
-        public bool EditOrder(string id, string firstName, string lastName, string email, decimal price)
+        public async Task<bool> EditOrder(string id, string firstName, string lastName, string email, decimal price)
         {
             var order = this.dbContext.Orders.Find(id);
             if (order is null)
@@ -103,11 +104,11 @@ namespace CarRental.Services
             order.User.LastName = lastName;
             order.User.Email = email;
             order.Price = price;
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
             return true;
         }
 
-        public bool Finish(string id)
+        public async Task<bool> Finish(string id)
         {
             var order = this.dbContext.Orders.Find(id);
 
@@ -119,7 +120,7 @@ namespace CarRental.Services
             order.Status = Models.Enums.OrderStatus.Finished;
             this.carsService.ChangeLocation(order.CarId, order.ReturnLocationId);
 
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }
@@ -141,14 +142,14 @@ namespace CarRental.Services
             return mapper.Map<OrderDto>(order);
         }
 
-        public bool IsValidReviewRequest(string orderId, string customerEmail)
+        public async Task<bool> IsValidReviewRequest(string orderId, string customerEmail)
         {
-            var order = this.dbContext.Orders.Find(orderId);
+            var order = await this.dbContext.Orders.FindAsync(orderId);
 
             return order.User.Email.ToLower() == customerEmail;
         }
 
-        public bool MakeOrder(string customer, int carId, string startLocation, string returnLocation, decimal price,
+        public async Task<bool> MakeOrder(string customer, int carId, string startLocation, string returnLocation, decimal price,
                                             DateTime startRent, DateTime endRent, string voucherCode)
         {
             var userId = this.usersService.GetUserIdByEmail(customer);
@@ -157,7 +158,7 @@ namespace CarRental.Services
 
             if (voucherCode != "none")
             {
-                var result = this.vouchersService.UseVoucher(voucherCode);
+                var result = this.vouchersService.UseVoucher(voucherCode).GetAwaiter().GetResult();
                 if (!result)
                 {
                     return false;
@@ -177,7 +178,7 @@ namespace CarRental.Services
             };
 
             this.dbContext.Orders.Add(order);
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
             var rentCar = this.carsService.RentCar(startRent, endRent, carId);
             return true;
         }

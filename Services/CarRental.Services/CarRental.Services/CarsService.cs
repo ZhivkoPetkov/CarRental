@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarRental.Services
 {
@@ -25,14 +26,14 @@ namespace CarRental.Services
             this.cloudinary = cloudinary;
             this.mapper = mapper;
         }
-        public bool AddCar(Car car)
+        public async Task<bool> AddCar(Car car)
         {         
             this.dbContext.Cars.Add(car);
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
             return true;
         }
 
-        public bool ChangeLocation(int id, int returnLocationId)
+        public async Task<bool> ChangeLocation(int id, int returnLocationId)
         {
             var car = this.dbContext.Cars.Find(id);
             if (car is null)
@@ -40,11 +41,11 @@ namespace CarRental.Services
                 return false;
             }
             car.LocationId = returnLocationId;
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
             return true;
         }
 
-        public bool EditCar(Car car)
+        public async Task<bool> EditCar(Car car)
         {
             var oldCar = this.dbContext.Cars.Find(car.Id);
 
@@ -53,7 +54,7 @@ namespace CarRental.Services
             oldCar.Year = car.Year;
             oldCar.PricePerDay = car.PricePerDay;
             oldCar.Image = car.Image;
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
             return true;
 
         }
@@ -152,7 +153,7 @@ namespace CarRental.Services
             return result;
         }
 
-        public bool RentCar(DateTime start, DateTime end, int cardId)
+        public async Task<bool> RentCar(DateTime start, DateTime end, int cardId)
         {
             var dates = new List<CarRentDays>();
             for (var dt = start; dt <= end; dt = dt.AddDays(1))
@@ -165,7 +166,7 @@ namespace CarRental.Services
             }
 
             this.dbContext.CarRentDays.AddRange(dates);
-            this.dbContext.SaveChanges();
+            await this.dbContext.SaveChangesAsync();
             return true;
         }
     }

@@ -2,23 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CarRental.Services.Contracts
 {
    public interface IOrdersService
     {
-        bool MakeOrder(string userId, int carId, string startLocation, string returnLocation, 
+        Task<bool> MakeOrder(string userId, int carId, string startLocation, string returnLocation, 
                                     decimal price, DateTime startRent, DateTime endRent, string voucherCode);
 
         ICollection<OrderDto> GetAllOrdersForUser(string email);
-        bool DeleteReviewFromOrder(int reviewId);
+        Task<bool> DeleteReviewFromOrder(int reviewId);
         ICollection<OrderDto> All();
         OrderDto GetOrderById(string id);
         bool UserFinishedOrders(string name);
-        bool Delete(string id);
-        bool Cancel(string id);
-        bool Finish(string id);
-        bool EditOrder(string id, string firstName, string lastName, string email, decimal price);
-        bool IsValidReviewRequest(string orderId, string customerEmail);
+        Task<bool> Delete(string id);
+        Task<bool> Cancel(string id);
+        Task<bool> Finish(string id);
+        Task<bool> EditOrder(string id, string firstName, string lastName, string email, decimal price);
+        Task<bool> IsValidReviewRequest(string orderId, string customerEmail);
     }
 }

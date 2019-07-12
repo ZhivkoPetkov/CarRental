@@ -41,7 +41,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
             }
 
             var location = mapper.Map<Location>(inputModel);
-            var result = this.locationsService.CreateLocation(location);
+            var result = this.locationsService.CreateLocation(location).GetAwaiter().GetResult();
 
             if (!result)
             {

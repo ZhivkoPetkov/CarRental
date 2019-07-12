@@ -33,7 +33,7 @@ namespace CarRental.Web.Controllers
         [Authorize]
         public IActionResult Create(string orderId)
         {
-            bool isValidRequest = this.ordersService.IsValidReviewRequest(orderId, this.User.Identity.Name.ToLower());
+            bool isValidRequest = this.ordersService.IsValidReviewRequest(orderId, this.User.Identity.Name.ToLower()).GetAwaiter().GetResult();
 
             if (!isValidRequest)
             {
