@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using CarRental.Services.Contracts;
 using CarRental.Web.ViewModels.Orders;
 using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
 
 namespace CarRental.Web.Areas.Administration.Controllers
 {

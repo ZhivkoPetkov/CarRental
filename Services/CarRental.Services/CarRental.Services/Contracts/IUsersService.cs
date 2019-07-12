@@ -1,8 +1,6 @@
 ﻿using CarRental.DTOs.Users;
 using CarRental.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CarRental.Services.Contracts
 {

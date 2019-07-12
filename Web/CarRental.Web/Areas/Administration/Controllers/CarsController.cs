@@ -5,7 +5,6 @@ using CarRental.Web.Areas.Administration.ViewModels.Cars;
 using CarRental.Web.ViewModels.Cars;
 using CloudinaryDotNet;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CarRental.Web.Areas.Administration.Controllers

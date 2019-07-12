@@ -1,11 +1,5 @@
 ﻿namespace CarRental.Services.Data.Tests
 {
-    using CarRental.Data;
-    using CarRental.Models;
-    using Microsoft.EntityFrameworkCore;
-    using System.Threading.Tasks;
-    using Xunit;
-
     public class SettingsServiceTests
     {   
         //[Fact]

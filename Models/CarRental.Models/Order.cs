@@ -1,5 +1,4 @@
-﻿using CarRental.Models;
-using CarRental.Models.Enums;
+﻿using CarRental.Models.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 

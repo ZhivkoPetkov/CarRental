@@ -2,7 +2,6 @@
 using CarRental.DTOs.Locations;
 using CarRental.DTOs.Reviews;
 using CarRental.DTOs.Users;
-using CarRental.Models;
 using CarRental.Models.Enums;
 using System;
 

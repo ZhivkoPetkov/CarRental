@@ -1,13 +1,9 @@
-﻿using CarRental.Data;
-using CarRental.DTOs.Users;
+﻿using CarRental.DTOs.Users;
 using CarRental.Models;
 using CarRental.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CarRental.Services
 {

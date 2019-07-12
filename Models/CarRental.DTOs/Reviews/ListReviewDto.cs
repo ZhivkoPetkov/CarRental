@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarRental.DTOs.Reviews
+﻿namespace CarRental.DTOs.Reviews
 {
   public class ListReviewDto
     {    
