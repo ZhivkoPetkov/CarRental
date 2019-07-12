@@ -1,7 +1,8 @@
-﻿namespace CarRental.Web.Controllers
+﻿using CarRental.Web.ViewModels.Home;
+
+namespace CarRental.Web.Controllers
 {
     using CarRental.Services.Contracts;
-    using CarRental.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController

@@ -1,9 +1,9 @@
 ﻿using CarRental.Web.ModelBinders;
-using CarRental.Web.ViewModels.Vouchers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CarRental.Web.ViewModels.Vouchers;
 
 namespace CarRental.Web.InputModels.Orders
 {

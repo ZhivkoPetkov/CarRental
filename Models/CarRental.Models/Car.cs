@@ -1,6 +1,7 @@
-﻿using CarRental.Models.Enums;
+﻿
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CarRental.Models.Enums;
 
 namespace CarRental.Models
 {

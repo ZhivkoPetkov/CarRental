@@ -1,11 +1,7 @@
-﻿using CarRental.DTOs.Reviews;
+﻿using System.Collections.Generic;
 using CarRental.Models;
 using CarRental.Models.Enums;
 using CarRental.Web.ViewModels.Reviews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CarRental.Web.ViewModels.Cars
 {

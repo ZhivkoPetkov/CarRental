@@ -1,5 +1,5 @@
-﻿using CarRental.Models.Enums;
-using System;
+﻿using System;
+using CarRental.Models.Enums;
 
 namespace CarRental.Web.ViewModels.Orders
 {

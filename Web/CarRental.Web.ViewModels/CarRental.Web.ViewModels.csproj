@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
@@ -19,7 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Models\CarRental.DTOs\CarRental.DTOs.csproj" />
     <ProjectReference Include="..\..\Models\CarRental.Models\CarRental.Models.csproj" />
+    <ProjectReference Include="..\..\Services\CarRental.Services\CarRental.Services\CarRental.Services.csproj" />
   </ItemGroup>
 
 </Project>

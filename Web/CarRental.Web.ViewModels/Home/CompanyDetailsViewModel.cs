@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CarRental.Web.ViewModels.Home
+﻿namespace CarRental.Web.ViewModels.Home
 {
     public class CompanyDetailsViewModel
     {

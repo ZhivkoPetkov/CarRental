@@ -11,10 +11,10 @@ using CarRental.Web.Areas.Administration.ViewModels.Locations;
 using CarRental.Web.Areas.Administration.ViewModels.Rewiews;
 using CarRental.Web.Areas.Administration.ViewModels.Vouchers;
 using CarRental.Web.ViewModels.Cars;
+using System.Linq;
 using CarRental.Web.ViewModels.Orders;
 using CarRental.Web.ViewModels.Reviews;
 using CarRental.Web.ViewModels.Vouchers;
-using System.Linq;
 
 namespace CarRental.Web.MappingConfiguration
 {

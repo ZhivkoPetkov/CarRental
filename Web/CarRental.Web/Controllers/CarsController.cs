@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using CarRental.Services.Contracts;
 using CarRental.Web.ViewModels.Cars;
-using CarRental.Web.ViewModels.Home;
-using CarRental.Web.ViewModels.Reviews;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using CarRental.Web.ViewModels.Home;
+using CarRental.Web.ViewModels.Reviews;
 
 namespace CarRental.Web.Controllers
 {

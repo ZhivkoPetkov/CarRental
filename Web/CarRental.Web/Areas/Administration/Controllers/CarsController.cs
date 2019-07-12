@@ -3,7 +3,6 @@ using CarRental.Models;
 using CarRental.Services.Contracts;
 using CarRental.Web.Areas.Administration.ViewModels.Cars;
 using CarRental.Web.ViewModels.Cars;
-using CarRental.Web.ViewModels.Reviews;
 using CloudinaryDotNet;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;

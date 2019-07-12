@@ -1,8 +1,8 @@
 ﻿using CarRental.Data;
-using CarRental.Web.ViewModels.Home;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using CarRental.Web.ViewModels.Home;
 
 namespace CarRental.Web.ViewComponents.Home
 {

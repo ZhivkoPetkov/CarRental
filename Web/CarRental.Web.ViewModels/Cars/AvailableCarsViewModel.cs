@@ -1,6 +1,6 @@
-﻿using CarRental.DTOs.Cars;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using CarRental.DTOs.Cars;
 
 namespace CarRental.Web.ViewModels.Cars
 {
