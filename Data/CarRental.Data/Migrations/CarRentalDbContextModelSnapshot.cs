@@ -43,8 +43,6 @@ namespace CarRental.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IsDeleted");
-
                     b.HasIndex("NormalizedName")
                         .IsUnique()
                         .HasName("RoleNameIndex")
@@ -120,19 +118,24 @@ namespace CarRental.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
                     b.Property<int>("GearType");
 
-                    b.Property<string>("Image");
+                    b.Property<string>("Image")
+                        .IsRequired();
 
                     b.Property<int>("LocationId");
 
-                    b.Property<string>("Model");
+                    b.Property<string>("Model")
+                        .IsRequired();
 
                     b.Property<decimal>("PricePerDay");
 
                     b.Property<int>("Year");
+
+                    b.Property<bool>("inUse");
 
                     b.HasKey("Id");
 
@@ -150,7 +153,8 @@ namespace CarRental.Data.Migrations
                             LocationId = 1,
                             Model = "Mazda 6",
                             PricePerDay = 65m,
-                            Year = 2019
+                            Year = 2019,
+                            inUse = true
                         },
                         new
                         {
@@ -161,7 +165,8 @@ namespace CarRental.Data.Migrations
                             LocationId = 1,
                             Model = "Mazda 3",
                             PricePerDay = 39m,
-                            Year = 2019
+                            Year = 2019,
+                            inUse = true
                         },
                         new
                         {
@@ -172,7 +177,8 @@ namespace CarRental.Data.Migrations
                             LocationId = 1,
                             Model = "BMW X7",
                             PricePerDay = 80m,
-                            Year = 2019
+                            Year = 2019,
+                            inUse = true
                         },
                         new
                         {
@@ -183,7 +189,8 @@ namespace CarRental.Data.Migrations
                             LocationId = 1,
                             Model = "Tesla Model X",
                             PricePerDay = 80m,
-                            Year = 2019
+                            Year = 2019,
+                            inUse = true
                         },
                         new
                         {
@@ -194,7 +201,8 @@ namespace CarRental.Data.Migrations
                             LocationId = 1,
                             Model = "Toyota Yaris iA",
                             PricePerDay = 42m,
-                            Year = 2017
+                            Year = 2017,
+                            inUse = true
                         },
                         new
                         {
@@ -205,7 +213,8 @@ namespace CarRental.Data.Migrations
                             LocationId = 2,
                             Model = "Kia Optima",
                             PricePerDay = 36m,
-                            Year = 2017
+                            Year = 2017,
+                            inUse = true
                         },
                         new
                         {
@@ -216,7 +225,8 @@ namespace CarRental.Data.Migrations
                             LocationId = 3,
                             Model = "Subaru Forester",
                             PricePerDay = 50m,
-                            Year = 2017
+                            Year = 2017,
+                            inUse = true
                         },
                         new
                         {
@@ -227,7 +237,8 @@ namespace CarRental.Data.Migrations
                             LocationId = 4,
                             Model = "Honda RidgeLine",
                             PricePerDay = 20m,
-                            Year = 2017
+                            Year = 2017,
+                            inUse = true
                         },
                         new
                         {
@@ -238,7 +249,8 @@ namespace CarRental.Data.Migrations
                             LocationId = 5,
                             Model = "Opel Insignia",
                             PricePerDay = 10m,
-                            Year = 2013
+                            Year = 2013,
+                            inUse = true
                         },
                         new
                         {
@@ -249,7 +261,8 @@ namespace CarRental.Data.Migrations
                             LocationId = 6,
                             Model = "Chevrolet Impala",
                             PricePerDay = 10m,
-                            Year = 2017
+                            Year = 2017,
+                            inUse = true
                         },
                         new
                         {
@@ -260,7 +273,8 @@ namespace CarRental.Data.Migrations
                             LocationId = 7,
                             Model = "Toyota Prius",
                             PricePerDay = 39m,
-                            Year = 2017
+                            Year = 2017,
+                            inUse = true
                         });
                 });
 
@@ -287,7 +301,8 @@ namespace CarRental.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -351,7 +366,8 @@ namespace CarRental.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId");
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired();
 
                     b.Property<int>("CarId");
 
@@ -394,11 +410,13 @@ namespace CarRental.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId");
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired();
 
                     b.Property<int>("CarId");
 
-                    b.Property<string>("Comment");
+                    b.Property<string>("Comment")
+                        .IsRequired();
 
                     b.Property<int>("Rating");
 
@@ -411,44 +429,21 @@ namespace CarRental.Data.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("CarRental.Models.Setting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<DateTime?>("DeletedOn");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("ModifiedOn");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Value");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Settings");
-                });
-
             modelBuilder.Entity("CarRental.Models.Voucher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId");
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired();
 
                     b.Property<int>("Discount");
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("VoucherCode");
+                    b.Property<string>("VoucherCode")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -598,7 +593,8 @@ namespace CarRental.Data.Migrations
                 {
                     b.HasOne("CarRental.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("CarRental.Models.Car", "Car")
                         .WithMany("Reviews")
@@ -610,7 +606,8 @@ namespace CarRental.Data.Migrations
                 {
                     b.HasOne("CarRental.Models.ApplicationUser", "User")
                         .WithMany("Vouchers")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

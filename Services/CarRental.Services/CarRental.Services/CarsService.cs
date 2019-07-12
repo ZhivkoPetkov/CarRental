@@ -66,8 +66,7 @@ namespace CarRental.Services
             {
                 return false;
             }
-
-            this.dbContext.Cars.Remove(car);
+            car.inUse = false;
             var result = await this.dbContext.SaveChangesAsync();
             return true;
         }
@@ -75,6 +74,10 @@ namespace CarRental.Services
         public CarDetailsDto FindCar(int id)
         {
                 var car = this.dbContext.Cars.Find(id);
+                if (!car.inUse)
+                {
+                    return null;
+                }
                 var result = this.mapper.Map<CarDetailsDto>(car);
                 result.Reviews = this.mapper.Map<List<ReviewDto>>(car.Reviews);
                 return result;
@@ -84,6 +87,7 @@ namespace CarRental.Services
         {
             var cars = this.dbContext.
                 Cars.
+                Where(x => x.inUse == true).
                 Include(x => x.Location).
                 Select(x => new ListCarDto
                 {
@@ -140,6 +144,7 @@ namespace CarRental.Services
                 Cars.
                 Where(x => x.RentDays.Any(d => dates.Contains(d.RentDate)) == false).
                 Where(l => l.Location.Name == location).
+                Where(x => x.inUse == true).
                 Include(x => x.Location).
                 Select(x => new ListCarDto
                 {
@@ -162,6 +167,10 @@ namespace CarRental.Services
         public CarDetailsDto FindCarForEdit(int id)
         {
             var car = this.dbContext.Cars.Find(id);
+            if (!car.inUse)
+            {
+                return null;
+            }
             var result = this.mapper.Map<CarDetailsDto>(car);
             return result;
         }

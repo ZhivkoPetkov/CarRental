@@ -11,9 +11,12 @@ namespace CarRental.Models
         {
             this.Reviews = new HashSet<Review>();
             this.RentDays = new HashSet<CarRentDays>();
+            this.inUse = true;
         }
 
         public int Id { get; set; }
+
+        public bool inUse { get; set; }
 
         [Required]
         [MinLength(5)]
