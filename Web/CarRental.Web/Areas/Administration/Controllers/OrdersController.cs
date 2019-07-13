@@ -20,27 +20,44 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Cancel(string id)
         {
-           await this.ordersService.Cancel(id);
+            var isCanceled = this.ordersService.Cancel(id).GetAwaiter().GetResult();
+
+            if (!isCanceled)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             return RedirectToAction(nameof(All));
         }
 
         public async Task<IActionResult> Finish(string id)
         {
-           await this.ordersService.Finish(id);
+            var isFinished = await this.ordersService.Finish(id);
 
             return RedirectToAction(nameof(All));
         }
 
         public async Task<IActionResult> Delete(string id)
         {
-            await this.ordersService.Delete(id);
+            var isDeleted = await this.ordersService.Delete(id);
+
+            if (!isDeleted)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return RedirectToAction(nameof(All));
         }
 
         public IActionResult Edit(string id)
         {
             var order = this.ordersService.GetOrderById(id);
+
+            if (order is null)
+            {
+                return RedirectToAction("All", "Orders");
+            }
+
             var viewModel = this.mapper.Map<OrderEditViewModel>(order);
             return this.View(viewModel);
         }
@@ -53,8 +70,8 @@ namespace CarRental.Web.Areas.Administration.Controllers
                 return RedirectToAction("All", "Orders");
             }
 
-           await this.ordersService.EditOrder(inputModel.Id, inputModel.Firstname, inputModel.Lastname, 
-                                                                        inputModel.Email, inputModel.Price);
+            await this.ordersService.EditOrder(inputModel.Id, inputModel.Firstname, inputModel.Lastname,
+                                                                         inputModel.Email, inputModel.Price);
             return RedirectToAction("All", "Orders");
         }
 

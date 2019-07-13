@@ -59,7 +59,7 @@ namespace CarRental.Services
             return true;
         }
 
-        private void ChangeLocationOfOrder(List<Order> orders)
+        private void ChangeLocationOfOrder(ICollection<Order> orders)
         {
             foreach (var order in orders)
             {
@@ -67,7 +67,7 @@ namespace CarRental.Services
             }
         }
 
-        private void ChangeLocationOfCar(List<Car> cars)
+        private void ChangeLocationOfCar(ICollection<Car> cars)
         {
             foreach (var car in cars)
             {
@@ -84,9 +84,16 @@ namespace CarRental.Services
 
         public int GetIdByName(string name)
         {
-            return this.dbContext.
+            var location = this.dbContext.
                 Locations.
-                FirstOrDefault(x => x.Name == name).Id;
+                FirstOrDefault(x => x.Name == name);
+
+            if(location is null)
+            {
+                return 0;
+            }
+
+            return location.Id;
         }
 
         private Location GetDefaultLocation()

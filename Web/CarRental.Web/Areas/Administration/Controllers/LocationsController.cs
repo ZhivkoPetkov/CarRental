@@ -3,6 +3,7 @@ using AutoMapper;
 using CarRental.Models;
 using CarRental.Services.Contracts;
 using CarRental.Web.Areas.Administration.ViewModels.Locations;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.Web.Areas.Administration.Controllers
@@ -43,11 +44,6 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
             var location = mapper.Map<Location>(inputModel);
             var result = this.locationsService.CreateLocation(location).GetAwaiter().GetResult();
-
-            if (!result)
-            {
-                return Content("Invalid data, duplicate name");
-            }
 
             return RedirectToAction(nameof(Manage));
         }

@@ -75,6 +75,12 @@ namespace CarRental.Web.Controllers
         public IActionResult Details(string id)
         {
             var order = this.ordersService.GetOrderById(id);
+
+            if (order is null)
+            {
+                return RedirectToAction(nameof(MyOrders));
+            }
+
             var viewModel = this.mapper.Map<OrderDetailsViewModel>(order);
             return this.View(viewModel);
         }

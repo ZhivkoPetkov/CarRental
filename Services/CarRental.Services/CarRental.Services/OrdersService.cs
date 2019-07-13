@@ -44,6 +44,7 @@ namespace CarRental.Services
         public async Task<bool> Cancel(string id)
         {
             var order = this.dbContext.Orders.Find(id);
+
             if (order is null)
             {
                 return false;
@@ -64,6 +65,7 @@ namespace CarRental.Services
             {
                 return false;
             }
+
             if (order.Status != Models.Enums.OrderStatus.Canceled)
             {
                 this.CancelRentDays(order);
@@ -117,10 +119,15 @@ namespace CarRental.Services
                 return false;
             }
 
-            order.Status = Models.Enums.OrderStatus.Finished;
-            await this.carsService.ChangeLocation(order.CarId, order.ReturnLocationId);
+            var changedLocation = await this.carsService.ChangeLocation(order.CarId, order.ReturnLocationId);
 
-           this.dbContext.SaveChanges();
+            if (!changedLocation)
+            {
+                return false;
+            }
+
+            order.Status = Models.Enums.OrderStatus.Finished;
+            this.dbContext.SaveChanges();
 
             return true;
         }
@@ -128,6 +135,11 @@ namespace CarRental.Services
         public ICollection<OrderDto> GetAllOrdersForUser(string email)
         {
             var user = this.usersService.GetUserByEmail(email);
+
+            if (user is null)
+            {
+                return new List<OrderDto>();
+            }
 
             var orders = user.Orders.ToList();
 
@@ -146,6 +158,11 @@ namespace CarRental.Services
         {
             var order = await this.dbContext.Orders.FindAsync(orderId);
 
+            if (order is null)
+            {
+                return false;
+            }
+
             return order.User.Email.ToLower() == customerEmail;
         }
 
@@ -156,6 +173,12 @@ namespace CarRental.Services
             var pikcupLocationId = this.locationsService.GetIdByName(startLocation);
             var returnLocationId = this.locationsService.GetIdByName(returnLocation);
 
+            if (userId is null || pikcupLocationId == 0 || returnLocationId == 0)
+            {
+                return false;
+            }
+
+            //If the voucher is different from none, discount will be generated and the vaucher will be with status Used
             if (voucherCode != "none")
             {
                 var result = this.vouchersService.UseVoucher(voucherCode).GetAwaiter().GetResult();
@@ -177,9 +200,15 @@ namespace CarRental.Services
                 Status = Models.Enums.OrderStatus.Active
             };
 
+            var rentTheCar = await this.carsService.RentCar(startRent, endRent, carId);
+            if (!rentTheCar)
+            {
+                return false;
+            }
+
             this.dbContext.Orders.Add(order);
-            var rentCar = await this.carsService.RentCar(startRent, endRent, carId);
             this.dbContext.SaveChanges();
+
             return true;
         }
 
