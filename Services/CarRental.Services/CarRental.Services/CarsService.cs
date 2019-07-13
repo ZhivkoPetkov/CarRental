@@ -28,7 +28,11 @@ namespace CarRental.Services
         }
         public async Task<bool> AddCar(Car car)
         {         
-           var result = this.dbContext.Cars.Add(car);
+            var result = this.dbContext.Cars.Add(car);
+            if (result.State != EntityState.Added)
+            {
+                return false;
+            }
             await this.dbContext.SaveChangesAsync();
             return true;
         }
@@ -48,7 +52,10 @@ namespace CarRental.Services
         public async Task<bool> EditCar(Car car)
         {
             var oldCar = this.dbContext.Cars.Find(car.Id);
-
+            if (oldCar is null)
+            {
+                return false;
+            }
             oldCar.Model = car.Model;
             oldCar.Description = car.Description;
             oldCar.Year = car.Year;
@@ -74,7 +81,7 @@ namespace CarRental.Services
         public CarDetailsDto FindCar(int id)
         {
                 var car = this.dbContext.Cars.Find(id);
-                if (!car.inUse)
+                if (car is null || !car.inUse)
                 {
                     return null;
                 }

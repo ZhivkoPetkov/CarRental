@@ -44,19 +44,31 @@ namespace CarRental.Web.Areas.Administration.Controllers
             car.Image = await this.imagesService.UploadImage(this.cloudinary, inputModel.ImageFile, inputModel.Model);
             await this.carsService.AddCar(car);
 
-            return Redirect("/");
+            return RedirectToAction("All", "Cars");
         }
 
         public IActionResult Edit(int id)
         {
-                var car = this.carsService.FindCar(id);
-                var viewModel = this.mapper.Map<CarEditViewModel>(car);
-                return this.View(viewModel);
+            var car = this.carsService.FindCar(id);
+
+            if (car is null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var viewModel = this.mapper.Map<CarEditViewModel>(car);
+            return this.View(viewModel);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            await this.carsService.DeleteCar(id);
+            var result = await this.carsService.DeleteCar(id);
+
+            if (!result)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return RedirectToAction("All", "Cars");
         }
 
@@ -72,7 +84,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
             if (inputModel.ImageFile != null)
             {
-            car.Image = await this.imagesService.UploadImage(this.cloudinary, inputModel.ImageFile, inputModel.Model);
+                car.Image = await this.imagesService.UploadImage(this.cloudinary, inputModel.ImageFile, inputModel.Model);
             }
             else
             {

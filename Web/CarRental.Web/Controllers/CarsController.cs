@@ -10,6 +10,8 @@ namespace CarRental.Web.Controllers
 {
     public class CarsController : BaseController
     {
+        private const string TimeAdded = "TimeAdded";
+
         private readonly ICarsService carsService;
         private readonly IMapper mapper;
 
@@ -24,7 +26,7 @@ namespace CarRental.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home", model);
+                return RedirectToAction("Index", "Home");
             }
 
             var cars = this.carsService.GetAvailableCars(model.Pickup, model.Return, model.PickupPlace);
@@ -42,7 +44,7 @@ namespace CarRental.Web.Controllers
             return this.View(viewModel);
         }
 
-        public IActionResult All(string orderBy = "timeAdded")
+        public IActionResult All(string orderBy = TimeAdded)
         {
             var cars = this.carsService.GetAllCars(orderBy);
             return this.View(cars);
@@ -50,17 +52,16 @@ namespace CarRental.Web.Controllers
  
         public IActionResult Details(int id)
         {
-            try
+            var car = this.carsService.FindCar(id);
+
+            if (car is null)
             {
-                var car = this.carsService.FindCar(id);
-                var viewModel = this.mapper.Map<CarDetailsViewModel>(car);
-                viewModel.Reviews = this.mapper.Map<List<ReviewViewModel>>(car.Reviews);
-                return this.View(viewModel);
+                return RedirectToAction("Index", "Home");
             }
-            catch (System.Exception)
-            {
-                throw new System.Exception("Invalid Car Id");
-            }
+
+            var viewModel = this.mapper.Map<CarDetailsViewModel>(car);
+            viewModel.Reviews = this.mapper.Map<List<ReviewViewModel>>(car.Reviews);
+            return this.View(viewModel);
 
         }
     }
