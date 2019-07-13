@@ -28,7 +28,7 @@ namespace CarRental.Services
         }
         public async Task<bool> AddCar(Car car)
         {         
-            this.dbContext.Cars.Add(car);
+           var result = this.dbContext.Cars.Add(car);
             await this.dbContext.SaveChangesAsync();
             return true;
         }
