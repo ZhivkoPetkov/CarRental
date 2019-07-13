@@ -35,11 +35,11 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
         public IActionResult Delete(int id)
         {
-            var result = this.vouchersService.DeleteVoucher(id);
+            var isDeleted = this.vouchersService.DeleteVoucher(id);
 
-            if (!result)
+            if (!isDeleted)
             {
-                return BadRequest("Invalid ID for deletion");
+                return RedirectToAction("Index", "Home");
             }
 
             return RedirectToAction(nameof(All));
@@ -53,11 +53,11 @@ namespace CarRental.Web.Areas.Administration.Controllers
                 return RedirectToAction(nameof(Generate));
             }
 
-            var result = this.vouchersService.CreateForUserCustom(inputModel.Email, inputModel.Discount);
+            var isGenerated = this.vouchersService.CreateForUserCustom(inputModel.Email, inputModel.Discount);
 
-            if (!result)
+            if (!isGenerated)
             {
-                return RedirectToAction(nameof(Generate));
+                return RedirectToAction("Index", "Home");
             }
 
             return RedirectToAction(nameof(Generate));

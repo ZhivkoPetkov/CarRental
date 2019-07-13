@@ -23,7 +23,7 @@ namespace CarRental.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Create), new { orderId = inputModel.OrderId });
             }
 
             await this.reviewsService.CreateReview(inputModel.OrderId, inputModel.Rating, inputModel.Comment);
@@ -38,7 +38,7 @@ namespace CarRental.Web.Controllers
 
             if (!isValidRequest)
             {
-                return BadRequest();
+                return RedirectToAction("Index", "Home");
             }
 
             ViewData["Order"] = orderId;

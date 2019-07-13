@@ -81,6 +81,5 @@ namespace CarRental.Web.Areas.Administration.Controllers
             var viewModels = this.mapper.Map<List<MyOrdersViewModel>>(orders);
             return this.View(viewModels);
         }
-
     }
 }

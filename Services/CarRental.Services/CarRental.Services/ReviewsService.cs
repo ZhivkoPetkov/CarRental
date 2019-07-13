@@ -28,6 +28,12 @@ namespace CarRental.Services
         public async Task<bool> CreateReview(string orderId, int rating, string comment)
         {
             var order = this.dbContext.Orders.Find(orderId);
+
+            if (order is null)
+            {
+                return false;
+            }
+
             order.Review = new Review
             {
                 ApplicationUserId = order.ApplicationUserId,
@@ -35,7 +41,14 @@ namespace CarRental.Services
                 Comment = comment,
                 Rating = rating
             };
-            await this.vouchersService.CreateForUser(order.User.UserName);
+
+            var isCreatedVoucher = await this.vouchersService.CreateForUser(order.User.UserName);
+
+            if (!isCreatedVoucher)
+            {
+                return false;
+            }
+
             this.dbContext.SaveChanges();
             return true;
         }

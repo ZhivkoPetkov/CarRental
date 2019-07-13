@@ -28,7 +28,13 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            await this.reviewsService.DeleteReview(id);
+            var isDeleted = await this.reviewsService.DeleteReview(id);
+
+            if (!isDeleted)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return RedirectToAction(nameof(All));
         }
     }
