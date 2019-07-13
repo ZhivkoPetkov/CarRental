@@ -54,21 +54,27 @@
         <td name="location">@order.ReturnLocation</td>
         <td>@order.RentEnd.ToShortDateString()</td>
         <td>$@order.Price</td>
-        <td>@order.Status.ToString()</td>
         <td>
-
-            @if (order.Status.ToString() != "Canceled" && order.Status.ToString() != "Finished")
-            {
-                <a class="btn btn-info" asp-controller="Orders" asp-action="Cancel" asp-route-id="@order.Id" data-confirm="You will cancel order with ID: @order.Id">Cancel</a>
-            }
-            <a class="btn btn-danger" asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id" data-confirm="You will delete order with ID: @order.Id">Delete</a>
-            @if (order.Status.ToString() != "Canceled" && order.Status.ToString() != "Finished")
-            {
-                <a class="btn btn-success" asp-controller="Orders" asp-action="Finish" asp-route-id="@order.Id" data-confirm="You will finish order with ID: @order.Id">Finish</a>
-            }
+            @order.Status.ToString()
+        @if (order.ReviewId > 0)
+        {
+            <img src="/Images/feedback-given.jpg.png" width="25px" heigth ="25px" title="Feedback is given"/>
+        }
         </td>
-        @Html.Raw("</tr>")
-    }
+    <td>
+
+        @if (order.Status.ToString() != "Canceled" && order.Status.ToString() != "Finished")
+        {
+            <a class="btn btn-info" asp-controller="Orders" asp-action="Cancel" asp-route-id="@order.Id" data-confirm="You will cancel order with ID: @order.Id">Cancel</a>
+        }
+        <a class="btn btn-danger" asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id" data-confirm="You will delete order with ID: @order.Id">Delete</a>
+        @if (order.Status.ToString() != "Canceled" && order.Status.ToString() != "Finished")
+        {
+            <a class="btn btn-success" asp-controller="Orders" asp-action="Finish" asp-route-id="@order.Id" data-confirm="You will finish order with ID: @order.Id">Finish</a>
+        }
+    </td>
+    @Html.Raw("</tr>")
+}
         </tbody>
     </table>
     @section Scripts {

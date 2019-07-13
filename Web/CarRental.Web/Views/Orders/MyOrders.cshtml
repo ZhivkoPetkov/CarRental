@@ -58,7 +58,13 @@
         <td>@order.RentStart.ToShortDateString()</td>
         <td>@order.RentEnd.ToShortDateString()</td>
         <td>$@order.Price</td>
-        <td>@order.Status.ToString()</td>
+        <td>
+            @order.Status.ToString()
+            @if (order.ReviewId > 0)
+            {
+                <img src="/Images/feedback-given.jpg.png" width="25px" heigth ="25px" title="Feedback is given"/>
+            }
+        </td>
         @Html.Raw(" </tr>")
     }
         </tbody>

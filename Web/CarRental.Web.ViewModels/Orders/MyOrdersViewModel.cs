@@ -17,5 +17,7 @@ namespace CarRental.Web.ViewModels.Orders
 
         public OrderStatus Status { get; set; }
 
+        public int ReviewId { get; set; }
+
     }
 }
