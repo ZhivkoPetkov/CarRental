@@ -3,9 +3,9 @@
     ViewData["Title"] = "Available cars";
 }
 
-<h1>Available cars for the period @Model.Start.Date.ToShortDateString() - @Model.End.Date.ToShortDateString()</h1>
+    <h1 style="margin-top:2%">Available cars for the period @Model.Start.Date.ToShortDateString() - @Model.End.Date.ToShortDateString()</h1>
 
-<hr class="border-warning" />
+<hr class="border-info" />
 
 @if (Model.Cars.Count == 0)
 {

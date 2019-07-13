@@ -5,13 +5,15 @@
 }
 
 <center>
-    <h1>Add car to database</h1>
+    <h1 style="margin-top: 2%">
+        Add car to database
+    </h1>
 </center>
+<hr class="border-info" />
 
 <div class="row col-md-12 justify-content-center">
     <div class="col-md-10 border rounded">
         <form asp-controller="Cars" asp-action="Add" method="POST" enctype="multipart/form-data">
-            <hr />
             <div class="form-group">
                 <label  class="col-form-label" asp-for="Model"></label>
                 <input asp-for="Model" class="form-control" />

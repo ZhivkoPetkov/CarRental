@@ -6,9 +6,10 @@
 }
 
     <div class="container">
-        <h1 class="my-4">
-            @Model.Model Details
-        </h1>
+    <h1 style="margin-top:2%" class="my-4">
+        @Model.Model Details
+    </h1>
+    <hr class="border-info"/>
         @if (User.IsInRole("Administrator"))
         {
             <a class="btn btn-info" asp-controller="Cars" asp-area="Administration" asp-action="Edit" asp-route-id="@Model.Id">Edit Car</a>
