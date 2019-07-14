@@ -6,8 +6,8 @@ namespace CarRental.Services.Contracts
 {
    public interface IVouchersService
     {
-        Task<bool> CreateForUser(string username);
-        bool CreateForUserCustom(string username, int discount);
+        Task<bool> CreateForUser(string email);
+        bool CreateForUserCustom(string email, int discount);
         bool DeleteVoucher(int id);
         ICollection<VoucherDto> GetAllVouchers();
         ICollection<VoucherDto> GetAllForUser(string username);

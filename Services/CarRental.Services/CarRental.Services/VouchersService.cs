@@ -23,9 +23,9 @@ namespace CarRental.Services
             this.mapper = mapper;
         }
 
-        public async Task<bool> CreateForUser(string username)
+        public async Task<bool> CreateForUser(string email)
         {
-            var userId = this.usersService.GetUserIdByEmail(username);
+            var userId = this.usersService.GetUserIdByEmail(email);
             if (userId is null)
             {
                 return false;
@@ -42,9 +42,9 @@ namespace CarRental.Services
             return true;
         }
 
-        public bool CreateForUserCustom(string username, int discount)
+        public bool CreateForUserCustom(string email, int discount)
         {
-            var userId = this.usersService.GetUserIdByEmail(username);
+            var userId = this.usersService.GetUserIdByEmail(email);
             if (userId is null)
             {
                 return false;
@@ -109,11 +109,14 @@ namespace CarRental.Services
                 return 0;
             }
 
-            var discount = this.dbCotenxt.Vouchers.
-                 FirstOrDefault(x => x.VoucherCode == voucherCode).
-                 Discount;
+            var voucher = this.dbCotenxt.Vouchers.FirstOrDefault(x => x.VoucherCode == voucherCode);
 
-            return discount == null ? 0 : discount;
+            if (voucher is null)
+            {
+                return 0;
+            }
+
+            return voucher.Discount;
         }
 
         public async Task<bool> UseVoucher(string voucherCode)
