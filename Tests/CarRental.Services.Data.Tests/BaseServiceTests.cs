@@ -28,13 +28,11 @@ namespace CarRental.Services.Tests
     public abstract class BaseServiceTests
     {
         protected readonly IMapper mapper;
-        protected readonly CarRentalDbContext dbContext;
         protected readonly Cloudinary cloudinary;
 
         public BaseServiceTests()
         {
             this.mapper = InitializeMapper();
-            this.dbContext = InitializeDbContext();
             this.cloudinary = InitializeCloudinary();
         }
 
@@ -42,14 +40,6 @@ namespace CarRental.Services.Tests
         {
             var cloudinaryAccount = new CloudinaryDotNet.Account(GlobalConstants.CloudifyName, GlobalConstants.CloudifyAPI, GlobalConstants.CloudifyKey);
             return new Cloudinary(cloudinaryAccount);
-        }
-
-        private CarRentalDbContext InitializeDbContext()
-        {
-            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
-                .UseInMemoryDatabase(databaseName: "CarRental_Test_Database")
-                .Options;
-            return new CarRentalDbContext(options);
         }
 
         private IMapper InitializeMapper()

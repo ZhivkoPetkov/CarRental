@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CarRental.Data;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
@@ -32,7 +34,10 @@ namespace CarRental.Services.Tests
         [Fact]
         public void AddCar_ShouldInsertValidCar()
         {
-            this.dbContext.Database.EnsureDeleted();
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_Insert")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
 
             var car = new Car
             {
@@ -46,20 +51,22 @@ namespace CarRental.Services.Tests
                 Year = DateTime.UtcNow.Year
             };
 
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
             carsService.AddCar(car);
 
             var expected = 1;
             var result = dbContext.Cars.Count();
 
             Assert.Equal(expected, result);
-
         }
 
         [Fact]
         public void Delete_Should_ReturnFalseIfInvalidId()
         {
-            this.dbContext.Database.EnsureDeleted();
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_DeleteCar")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
 
             var car = new Car
             {
@@ -73,7 +80,7 @@ namespace CarRental.Services.Tests
                 Year = DateTime.UtcNow.Year
             };
 
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
             carsService.AddCar(car);
 
 
@@ -85,9 +92,12 @@ namespace CarRental.Services.Tests
         [Fact]
         public void FindCar_ShouldReturnRightCar()
         {
-            this.dbContext.Database.EnsureDeleted();
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_FindCar")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
 
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             var insertCars = new List<Car>
             {
@@ -118,7 +128,7 @@ namespace CarRental.Services.Tests
 
             insertCars.ForEach(x => carsService.AddCar(x).GetAwaiter().GetResult());
 
-            var actualCountOfCars = this.dbContext.Cars.Count();
+            var actualCountOfCars = dbContext.Cars.Count();
             Assert.Equal(2, actualCountOfCars);
 
             var result = carsService.FindCar(2);
@@ -128,8 +138,12 @@ namespace CarRental.Services.Tests
         [Fact]
         public void EditCarShould_SuccessfullyUpdateCarModel()
         {
-            this.dbContext.Database.EnsureDeleted();
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_EditCar")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             var car = new Car
             {
@@ -146,10 +160,10 @@ namespace CarRental.Services.Tests
             carsService.AddCar(car);
 
             var expectedDescription = CarModelDescriptionOne;
-            var actualResultDescription = this.dbContext.Cars.FirstOrDefault().Description;
+            var actualResultDescription = dbContext.Cars.FirstOrDefault().Description;
             Assert.Equal(expectedDescription, actualResultDescription);
 
-            var insertedCar = this.dbContext.Cars.FirstOrDefault();
+            var insertedCar = dbContext.Cars.FirstOrDefault();
             insertedCar.PricePerDay = CarPricePerDayTwo;
             insertedCar.Description = CarModelDescriptionTwo;
 
@@ -163,8 +177,12 @@ namespace CarRental.Services.Tests
         [Fact]
         public void ChangeLocationShould_SuccessfullyChangeLocation()
         {
-            this.dbContext.Database.EnsureDeleted();
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_CarChangeLocation")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             var car = new Car
             {
@@ -181,7 +199,7 @@ namespace CarRental.Services.Tests
             carsService.AddCar(car);
 
             var expectedLocation = locationIdOne;
-            var actualResultLocation = this.dbContext.Cars.FirstOrDefault().LocationId;
+            var actualResultLocation = dbContext.Cars.FirstOrDefault().LocationId;
             Assert.Equal(expectedLocation, actualResultLocation);
 
             carsService.ChangeLocation(car.Id, locationIdTwo);
@@ -193,8 +211,12 @@ namespace CarRental.Services.Tests
         [Fact]
         public void RentCarShould_CreateRentDaysForCar()
         {
-            this.dbContext.Database.EnsureDeleted();
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_RentCarDays")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             var car = new Car
             {
@@ -231,9 +253,12 @@ namespace CarRental.Services.Tests
         [Fact]
         public void GetAllCarsShould_OrderByPriceDescending()
         {
-            this.dbContext.Database.EnsureDeleted();
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_OrderPriceDSC")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
 
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             dbContext.Locations.Add(new Location
             {
@@ -287,7 +312,7 @@ namespace CarRental.Services.Tests
 
             insertCars.ForEach(x => carsService.AddCar(x).GetAwaiter().GetResult());
 
-            var expectedResultIds = new List<int> {2, 1, 3};
+            var expectedResultIds = new List<int> { 2, 1, 3 };
             var actualResultIds = carsService.GetAllCars(OrderCarsByPriceDescending).Select(p => p.Id);
 
             Assert.Equal(expectedResultIds, actualResultIds);
@@ -296,9 +321,12 @@ namespace CarRental.Services.Tests
         [Fact]
         public void GetAllCarsShould_OrderByLastAdded()
         {
-            this.dbContext.Database.EnsureDeleted();
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_OrderAdded")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
 
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             dbContext.Locations.Add(new Location
             {
@@ -361,9 +389,12 @@ namespace CarRental.Services.Tests
         [Fact]
         public void GetAllCarsShould_OrderByPriceAscending()
         {
-            this.dbContext.Database.EnsureDeleted();
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_OrderPriceASC")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
 
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             dbContext.Locations.Add(new Location
             {
@@ -427,9 +458,12 @@ namespace CarRental.Services.Tests
         [Fact]
         public void GetAllCarsShould_OrderByTimesRentedAscending()
         {
-            this.dbContext.Database.EnsureDeleted();
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_OrderTimesRentedASC")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
 
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             dbContext.Locations.Add(new Location
             {
@@ -525,9 +559,12 @@ namespace CarRental.Services.Tests
         [Fact]
         public void GetAllCarsShould_OrderByTimesRentedDescending()
         {
-            this.dbContext.Database.EnsureDeleted();
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_OrderTimesRentedDSC")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
 
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             dbContext.Locations.Add(new Location
             {
@@ -623,9 +660,12 @@ namespace CarRental.Services.Tests
         [Fact]
         public void GetAllCarsShould_OrderByRatingDescending()
         {
-            this.dbContext.Database.EnsureDeleted();
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_OrderRatingDSC")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
 
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             dbContext.Locations.Add(new Location
             {
@@ -727,9 +767,12 @@ namespace CarRental.Services.Tests
         [Fact]
         public void GetAvailableCarsShould_ReturnOnlyCarsWithoutRentsForLocationAndDatePeriod()
         {
-            this.dbContext.Database.EnsureDeleted();
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_OnlyNotRented")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
 
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             dbContext.Locations.Add(new Location
             {
@@ -743,8 +786,7 @@ namespace CarRental.Services.Tests
                 {
                     Id = 1,
                     Model = CarModelTestOne,
-                    Description =
-                        CarModelDescriptionOne,
+                    Description = CarModelDescriptionOne,
                     GearType = Models.Enums.GearType.Automatic,
                     LocationId = locationIdTwo,
                     PricePerDay = locationIdOne,
@@ -804,13 +846,19 @@ namespace CarRental.Services.Tests
                     CarId = 2,
                     RentDate = DateTime.UtcNow.Date.AddDays(2)
                 },
+                new CarRentDays
+                {
+                    CarId = 3,
+                    RentDate = DateTime.UtcNow.Date.AddDays(10)
+                },
             };
 
             dbContext.CarRentDays.AddRange(insertRents);
             dbContext.SaveChanges();
 
             var expectedResultIds = new List<int> { 3 };
-            var actualResultIds = carsService.GetAvailableCars(DateTime.UtcNow.Date, DateTime.UtcNow.Date.AddDays(3), LocationNameTwo).Select(p => p.Id);
+            var actualResultIds = carsService.GetAvailableCars(DateTime.UtcNow.Date, DateTime.UtcNow.Date.AddDays(3), LocationNameTwo).
+                                                Select(p => p.Id).ToList();
 
             Assert.Equal(expectedResultIds, actualResultIds);
         }
@@ -819,9 +867,12 @@ namespace CarRental.Services.Tests
         [Fact]
         public void GetAvailableCarsShould_ReturnEmptyCollectionIfAllCarsAreRented()
         {
-            this.dbContext.Database.EnsureDeleted();
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_NoAvailableCars")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
 
-            var carsService = new CarsService(this.dbContext, this.cloudinary, this.mapper);
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             dbContext.Locations.Add(new Location
             {
