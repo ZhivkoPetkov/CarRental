@@ -149,10 +149,10 @@ namespace CarRental.Services
 
             var cars = this.dbContext.
                 Cars.
+                Include(x => x.Location).
                 Where(x => x.RentDays.Any(d => dates.Contains(d.RentDate)) == false).
                 Where(l => l.Location.Name == location).
                 Where(x => x.inUse == true).
-                Include(x => x.Location).
                 Select(x => new ListCarDto
                 {
                     Id = x.Id,
