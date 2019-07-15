@@ -5,13 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CarRental.Web.ViewModels.Home;
 using CarRental.Web.ViewModels.Reviews;
+using X.PagedList;
 
 namespace CarRental.Web.Controllers
 {
     public class CarsController : BaseController
     {
         private const string TimeAdded = "TimeAdded";
-
+        private const int DefaultPageIndex = 1;
+        private const int DefaultCarsPerPage = 9;
         private readonly ICarsService carsService;
         private readonly IMapper mapper;
 
@@ -44,10 +46,17 @@ namespace CarRental.Web.Controllers
             return this.View(viewModel);
         }
 
-        public IActionResult All(string orderBy = TimeAdded)
+        public IActionResult All(int? pageNumber, int? pageSize, string orderBy = TimeAdded)
         {
             var cars = this.carsService.GetAllCars(orderBy);
-            return this.View(cars);
+
+
+            pageNumber = pageNumber ?? DefaultPageIndex;
+            pageSize = pageSize ?? DefaultCarsPerPage;
+            var pageProductsViewMode = cars.ToPagedList(pageNumber.Value, pageSize.Value);
+
+            this.TempData["order"] = orderBy;
+            return this.View(pageProductsViewMode);
         }
  
         public IActionResult Details(int id)

@@ -381,7 +381,7 @@ namespace CarRental.Services.Tests
         public void UserVoucherShould_ReturnFalseIfInvalidCode()
         {
             var options = new DbContextOptionsBuilder<CarRentalDbContext>()
-                .UseInMemoryDatabase(databaseName: "CarRental_Database_UseVoucher")
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_UseInvalidVoucher")
                 .Options;
             var dbContext = new CarRentalDbContext(options);
 

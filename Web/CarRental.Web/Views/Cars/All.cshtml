@@ -1,84 +1,106 @@
-﻿@model ICollection<ListCarDto>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Common
+@using X.PagedList.Mvc.Core
+@model  X.PagedList.IPagedList<ListCarDto>
 
-@{
-    ViewData["Title"] = "All Cars";
-}
-<center>
-    <h1 style="margin-top: 2%">
-        You can choose the right car to satisfy your needs
-    </h1>
-</center>
-<hr class="border-info" />
-
-@if (Model.Count == 0)
-{
-    <h1>Sorry, we dont have any car in our fleet.</h1>
-}
-else
-{
-    var counter = 0;
-
-    <button onclick="topFunction()" id="myBtn" title="Go to top" class="btn-primary">Go Top</button>
-
+    @{
+        ViewData["Title"] = "All Cars";
+    }
     <center>
-        <div>
-            <h4 class="text-primary">Sort by:</h4>
-            <div class="mx-2 mb-2 justify-content-around d-flex">
-                <a class="btn btn-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentDescending">Times rented DSC</a>
-                <a class="btn btn-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="RatingDescending">Rating DSC</a>
-                <a class="btn btn-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentAscending">Times rented ASC</a>
-                <a class="btn btn-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="PriceAscending">Price ASC</a>
-                <a class="btn btn-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="PriceDescending">Price DSC</a>
-                <a class="btn btn-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="LastAdded">Last added</a>
-            </div>
-        </div>
+        <h1 style="margin-top: 2%">
+            You can choose the right car to satisfy your needs
+        </h1>
     </center>
-    @: <div class="row justify-content-around">
-        @foreach (var item in Model)
-        {
-            counter++;
+    <hr class="border-info" />
 
-            <div class="card mb-2 col-md-3 border-info ">
-                <span class="badge badge-warning">@item.Year</span>
-                <h4 class="card-header" style="background-color:transparent">@item.Model</h4>
-                <div class="img_class">
-                    <img style="height: 195px; width: 250px; display: block;" src="@item.Image" alt="@item.Model">
-                </div>
+    @if (Model.Count == 0)
+    {
+        <h1>Sorry, we dont have any car in our fleet.</h1>
+    }
+    else
+    {
+        var counter = 0;
 
-                <div class="card-body">
-                    <p class="card-text">@item.Description.Substring(0, 165) ...</p>
+        <button onclick="topFunction()" id="myBtn" title="Go to top" class="btn-primary">Go Top</button>
+
+        <center>
+            <div>
+                <h4 class="text-primary">Sort by:</h4>
+                <div class="mx-2 mb-2 justify-content-around d-flex">
+                    <a class="btn btn-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentDescending">Times rented DSC</a>
+                    <a class="btn btn-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="RatingDescending">Rating DSC</a>
+                    <a class="btn btn-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="TimesRentAscending">Times rented ASC</a>
+                    <a class="btn btn-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="PriceAscending">Price ASC</a>
+                    <a class="btn btn-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="PriceDescending">Price DSC</a>
+                    <a class="btn btn-primary" asp-controller="Cars" asp-action="All" asp-route-orderBy="LastAdded">Last added</a>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Gear Type: @item.GearType.ToString()</li>
-                    <li class="list-group-item">Price pey day: $@item.PricePerDay</li>
-                    <li class="list-group-item">
-                        <a href="/Cars/Details/@item.Id">Details Page</a>
-                    </li>
-                </ul>
+            </div>
+        </center>
+        @: <div class="row justify-content-around">
+    @foreach (var item in Model)
+    {
+        counter++;
+
+        <div class="card mb-2 col-md-3 border-info ">
+            <span class="badge badge-warning">@item.Year</span>
+            <h4 class="card-header" style="background-color:transparent">@item.Model</h4>
+            <div class="img_class">
+                <img style="height: 195px; width: 250px; display: block;" src="@item.Image" alt="@item.Model">
             </div>
 
-            if (counter % 3 == 0)
-            {
-                @Html.Raw("</div>")
-                @Html.Raw("<div class=\"row justify-content-around\">")
-            }
+            <div class="card-body">
+                <p class="card-text">@item.Description.Substring(0, 165) ...</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Gear Type: @item.GearType.ToString()</li>
+                <li class="list-group-item">Price pey day: $@item.PricePerDay</li>
+                <li class="list-group-item">
+                    <a href="/Cars/Details/@item.Id">Details Page</a>
+                </li>
+            </ul>
+        </div>
+
+        if (counter % 3 == 0)
+        {
+            @Html.Raw("</div>")
+            @Html.Raw("<div class=\"row justify-content-around\">")
         }
     }
-<script>
+}
+
+@Html.Raw("</div>")
+<div class="row justify-content-around">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("All", "Cars",
+        new
+        {
+            OrderBy = this.TempData["order"],
+            PageNumber = page
+        }),
+        new PagedListRenderOptions
+        {
+            MaximumPageNumbersToDisplay = 5,
+            LiElementClasses = new string[] { "page-item" },
+            PageClasses = new string[] { "page-link" }
+        })
+</div>
+
+    <script>
         // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function() {scrollFunction()};
+        window.onscroll = function () { scrollFunction() };
 
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            document.getElementById("myBtn").style.display = "block";
-        } else {
-            document.getElementById("myBtn").style.display = "none";
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtn").style.display = "block";
+            } else {
+                document.getElementById("myBtn").style.display = "none";
+            }
         }
-      }
 
-      // When the user clicks on the button, scroll to the top of the document
-function topFunction() {
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
             document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-      }
-</script>
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+    </script>
+
+
