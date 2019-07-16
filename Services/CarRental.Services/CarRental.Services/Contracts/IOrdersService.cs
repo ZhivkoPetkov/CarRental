@@ -7,7 +7,7 @@ namespace CarRental.Services.Contracts
 {
    public interface IOrdersService
     {
-        Task<bool> MakeOrder(string userId, int carId, string startLocation, string returnLocation, 
+        Task<bool> MakeOrder(string email, int carId, string startLocation, string returnLocation, 
                                     decimal price, DateTime startRent, DateTime endRent, string voucherCode);
 
         ICollection<OrderDto> GetAllOrdersForUser(string email);

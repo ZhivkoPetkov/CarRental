@@ -14,19 +14,17 @@ namespace CarRental.Services
     public class OrdersService : IOrdersService
     {
         private readonly CarRentalDbContext dbContext;
-        private readonly UserManager<ApplicationUser> userManager;
+
         private readonly IUsersService usersService;
         private readonly IMapper mapper;
         private readonly ILocationsService locationsService;
         private readonly ICarsService carsService;
         private readonly IVouchersService vouchersService;
 
-        public OrdersService(CarRentalDbContext dbContext, UserManager<ApplicationUser> userManager,
-                        IUsersService usersService, IMapper mapper,
+        public OrdersService(CarRentalDbContext dbContext, IUsersService usersService, IMapper mapper,
                         ILocationsService locationsService, ICarsService carsService, IVouchersService vouchersService)
         {
             this.dbContext = dbContext;
-            this.userManager = userManager;
             this.usersService = usersService;
             this.mapper = mapper;
             this.locationsService = locationsService;
@@ -114,7 +112,7 @@ namespace CarRental.Services
         {
             var order = this.dbContext.Orders.Find(id);
 
-            if (order is null || order.RentEnd > DateTime.UtcNow.Date)
+            if (order is null)
             {
                 return false;
             }
@@ -166,10 +164,10 @@ namespace CarRental.Services
             return order.User.Email.ToLower() == customerEmail;
         }
 
-        public async Task<bool> MakeOrder(string customer, int carId, string startLocation, string returnLocation, decimal price,
+        public async Task<bool> MakeOrder(string email, int carId, string startLocation, string returnLocation, decimal price,
                                             DateTime startRent, DateTime endRent, string voucherCode)
         {
-            var userId = this.usersService.GetUserIdByEmail(customer);
+            var userId = this.usersService.GetUserIdByEmail(email);
             var pikcupLocationId = this.locationsService.GetIdByName(startLocation);
             var returnLocationId = this.locationsService.GetIdByName(returnLocation);
 
