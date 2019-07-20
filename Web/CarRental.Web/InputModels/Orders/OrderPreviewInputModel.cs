@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CarRental.Common;
 using CarRental.Web.ViewModels.Vouchers;
 
 namespace CarRental.Web.InputModels.Orders
@@ -26,7 +27,7 @@ namespace CarRental.Web.InputModels.Orders
         [Required]
         public string ReturnPlace { get; set; }
 
-        public string DiscountCode { get; set; } = "none";
+        public string DiscountCode { get; set; } = GlobalConstants.DefaultVoucherCode;
 
         public int DiscountPercent { get; set; }
 

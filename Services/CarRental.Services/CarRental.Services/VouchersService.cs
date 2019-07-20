@@ -105,7 +105,7 @@ namespace CarRental.Services
 
         public int GetDiscountForCode(string voucherCode)
         {
-            if (String.IsNullOrEmpty(voucherCode) ||voucherCode == "none")
+            if (String.IsNullOrEmpty(voucherCode) ||voucherCode == GlobalConstants.DefaultVoucherCode)
             {
                 return 0;
             }
