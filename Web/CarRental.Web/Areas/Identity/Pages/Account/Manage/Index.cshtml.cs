@@ -82,6 +82,7 @@
             if (this.Input.Email != email)
             {
                 var setEmailResult = await this.userManager.SetEmailAsync(user, this.Input.Email);
+                var setUsernameResult = await this.userManager.SetUserNameAsync(user, this.Input.Email);
                 if (!setEmailResult.Succeeded)
                 {
                     var userId = await this.userManager.GetUserIdAsync(user);
