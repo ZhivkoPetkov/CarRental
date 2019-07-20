@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CarRental.Common;
 using CarRental.Data;
 using CarRental.DTOs.Vouchers;
 using CarRental.Models;
@@ -138,7 +139,7 @@ namespace CarRental.Services
         private int GenerateDiscount()
         {
             var random = new Random();
-            var value = random.Next(1, 5);
+            var value = random.Next(GlobalConstants.MinimumVoucherDiscount, GlobalConstants.MaximumVoucherDiscount);
             return value;
         }
     }

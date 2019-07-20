@@ -255,8 +255,7 @@ namespace CarRental.Services.Tests
 
             Assert.False(resultInvalidReturnLocation);
         }
-
-
+        
         [Fact]
         public void CancelOrderShould_ChangeOrderStatusToCanceled()
         {
