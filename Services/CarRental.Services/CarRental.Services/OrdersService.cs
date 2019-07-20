@@ -34,7 +34,8 @@ namespace CarRental.Services
 
         public ICollection<OrderDto> All()
         {
-            var orders = this.dbContext.Orders.ToList();
+            var orders = this.dbContext.Orders.OrderByDescending(x => x.CreatedOn).
+                                                ToList();
 
             return mapper.Map<List<OrderDto>>(orders);
         }
@@ -139,7 +140,8 @@ namespace CarRental.Services
                 return new List<OrderDto>();
             }
 
-            var orders = user.Orders.ToList();
+            var orders = user.Orders.OrderByDescending(x => x.CreatedOn).
+                                        ToList();
 
             return mapper.Map<List<OrderDto>>(orders);
 

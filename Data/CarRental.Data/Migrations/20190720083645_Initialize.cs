@@ -292,7 +292,8 @@ namespace CarRental.Data.Migrations
                     VoucherId = table.Column<int>(nullable: true),
                     PickUpLocationId = table.Column<int>(nullable: false),
                     ReturnLocationId = table.Column<int>(nullable: false),
-                    ReviewId = table.Column<int>(nullable: true)
+                    ReviewId = table.Column<int>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

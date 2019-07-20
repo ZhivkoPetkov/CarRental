@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRental.Data.Migrations
 {
     [DbContext(typeof(CarRentalDbContext))]
-    [Migration("20190712202819_Initialize")]
+    [Migration("20190720083645_Initialize")]
     partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -372,6 +372,8 @@ namespace CarRental.Data.Migrations
                         .IsRequired();
 
                     b.Property<int>("CarId");
+
+                    b.Property<DateTime>("CreatedOn");
 
                     b.Property<int>("PickUpLocationId");
 

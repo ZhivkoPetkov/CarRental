@@ -10,6 +10,7 @@ namespace CarRental.Models
         public Order()
         {
             Id = Guid.NewGuid().ToString().GetHashCode().ToString("x");
+            this.CreatedOn = DateTime.UtcNow;
         }
 
         [Key]
@@ -48,5 +49,7 @@ namespace CarRental.Models
         public int? ReviewId { get; set; }
 
         public virtual Review Review { get; set; }
+
+        public DateTime CreatedOn { get; set; }
     }
 }

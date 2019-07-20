@@ -35,5 +35,6 @@ namespace CarRental.DTOs.Orders
 
         public int? ReviewId { get; set; }
         public ReviewDto Review { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }
