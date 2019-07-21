@@ -13,6 +13,7 @@
     </div>
 }
 
+
 @if (User.IsInRole("Administrator"))
 {
     <a class="btn btn-info" asp-controller="Orders" asp-area="Administration" asp-action="Edit" asp-route-id="@Model.Id">Edit Order</a>
@@ -95,5 +96,4 @@ else
 <script>
     function myFunction() {
         window.print();
-    }
-</script>
+        </script>

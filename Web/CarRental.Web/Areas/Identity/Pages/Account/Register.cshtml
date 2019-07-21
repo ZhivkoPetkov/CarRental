@@ -5,42 +5,45 @@
 }
 
 
-    <center>
-        <h1>@ViewData["Title"]</h1>
-        <div class="col-md-8 rounded table-bordered">
-            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <h4>Create a new account.</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Input.Firstname"></label>
-                        <input asp-for="Input.Firstname" class="form-control" />
-                        <span asp-validation-for="Input.Firstname" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Input.Lastname"></label>
-                        <input asp-for="Input.Lastname" class="form-control" />
-                        <span asp-validation-for="Input.Lastname" class="text-danger"></span>
-                    </div>
+<center>
+    <h1>@ViewData["Title"]</h1>
+    <div class="col-md-8 rounded table-bordered">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h4>Create a new account.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <i class="fas fa-address-card"></i> <label asp-for="Input.Firstname"></label>
+                    <input asp-for="Input.Firstname" class="form-control" />
+                    <span asp-validation-for="Input.Firstname" class="text-danger"></span>
                 </div>
+                <div class="col-md-6 mb-3">
+                    <i class="far fa-address-card"></i> <label asp-for="Input.Lastname"></label>
+                    <input asp-for="Input.Lastname" class="form-control" />
+                    <span asp-validation-for="Input.Lastname" class="text-danger"></span>
+                </div>
+            </div>
 
-                    <div class="form-group">
-                        <label asp-for="Input.Email"></label>
-                        <input asp-for="Input.Email" class="form-control" />
-                        <span asp-validation-for="Input.Email" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Input.Password"></label>
-                        <input asp-for="Input.Password" class="form-control" />
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Input.ConfirmPassword"></label>
-                        <input asp-for="Input.ConfirmPassword" class="form-control" />
-                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                    </div>
-                    <button type="submit" class="btn btn-warning mb-2">Register</button>
-            </form>
-        </div>
-    </center>
+            <div class="form-group">
+                <i class="fas fa-at"></i> <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-key"></i> <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-key"></i> <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-warning mb-2">Register</button>
+        </form>
+    </div>
+</center>
+@section Scripts {
+    <partial name="~/Views/Shared/Partials/_FontAwesomeIcons.cshtml" />
+}

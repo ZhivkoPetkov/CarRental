@@ -51,13 +51,13 @@
             <div class="form-row">
                 <div class="form-group col-md-6 mb-3">
                     <label asp-for="RentStart">Start Date</label>
-                    <input class="form-control" disabled value="@Model.RentStart" />
+                    <input class="form-control" disabled value="@Model.RentStart.ToString("D")" />
                     <span asp-validation-for="RentStart" class="text-danger"></span>
                 </div>
 
                 <div class="form-group col-md-6 mb-3">
                     <label asp-for="RentEnd" class="control-label">End Date</label>
-                    <input class="form-control" disabled value="@Model.RentEnd" />
+                    <input class="form-control" disabled value="@Model.RentEnd.ToString("D")" />
                     <span asp-validation-for="RentEnd" class="text-danger"></span>
                 </div>
             </div>
