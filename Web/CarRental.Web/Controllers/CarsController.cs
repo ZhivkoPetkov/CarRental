@@ -26,6 +26,11 @@ namespace CarRental.Web.Controllers
         [HttpPost]
         public IActionResult Available(SearchCarsViewModel model)
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Index", "Home");
