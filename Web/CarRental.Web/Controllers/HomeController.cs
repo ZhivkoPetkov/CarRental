@@ -1,4 +1,8 @@
-﻿using CarRental.Web.ViewModels.Home;
+﻿using System;
+using System.Diagnostics;
+using CarRental.Web.ViewModels;
+using CarRental.Web.ViewModels.Home;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarRental.Web.Controllers
 {
@@ -26,7 +30,11 @@ namespace CarRental.Web.Controllers
         }
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error() => this.View();
+        [AllowAnonymous]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel
+                { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }
