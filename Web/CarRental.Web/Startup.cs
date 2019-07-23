@@ -1,4 +1,6 @@
-﻿namespace CarRental.Web
+﻿using CarRental.Web.Hubs;
+
+namespace CarRental.Web
 {
     using AutoMapper;
     using AutoMapper.EquivalencyExpression;
@@ -119,6 +121,7 @@
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -135,12 +138,13 @@
                 app.UseHsts();
             }
 
+          
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseMiddleware<SeedAdminRolesMiddleware>();
-
+            app.UseSignalR(x => x.MapHub<NotifyHub>("/notify"));
             app.UseMvc(routes =>
             {
                 routes.MapRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");

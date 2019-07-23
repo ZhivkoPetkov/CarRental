@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using CarRental.Web.Hubs;
 using CarRental.Web.ViewModels;
 using CarRental.Web.ViewModels.Home;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 
 namespace CarRental.Web.Controllers
 {
@@ -13,11 +15,13 @@ namespace CarRental.Web.Controllers
     {
         private readonly ILocationsService locationsService;
         private readonly IOrdersService ordersService;
+        private readonly IHubContext<NotifyHub> notifyHub;
 
-        public HomeController(ILocationsService locationsService, IOrdersService ordersService)
+        public HomeController(ILocationsService locationsService, IOrdersService ordersService, IHubContext<NotifyHub> notifyHub)
         {
             this.locationsService = locationsService;
             this.ordersService = ordersService;
+            this.notifyHub = notifyHub;
         }
 
         public IActionResult Index()
