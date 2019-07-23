@@ -198,5 +198,24 @@ namespace CarRental.Services
             await this.dbContext.SaveChangesAsync();
             return true;
         }
+
+
+        public async Task<bool> IsAlreadyRented(DateTime start, DateTime end, int cardId)
+        {
+            var dates = new List<DateTime>();
+            for (var dt = start; dt <= end; dt = dt.AddDays(1))
+            {
+                dates.Add(dt);
+            }
+
+            foreach (var date in dates)
+            {
+                if (dbContext.CarRentDays.Any(x => x.CarId == cardId && x.RentDate == date))
+                {
+                    return true;
+                }
+            }            
+            return false;
+        }
     }
 }

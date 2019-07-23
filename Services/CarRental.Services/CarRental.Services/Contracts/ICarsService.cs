@@ -21,6 +21,8 @@ namespace CarRental.Services.Contracts
         CarDetailsDto FindCar(int id);
         CarDetailsDto FindCarForEdit(int id);
 
+        Task<bool> IsAlreadyRented(DateTime start, DateTime end, int cardId);
+
         Task<bool> ChangeLocation(int id, int returnLocationId);
     }
 }

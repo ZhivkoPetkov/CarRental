@@ -178,6 +178,11 @@ namespace CarRental.Services
                 return false;
             }
 
+            if (carsService.IsAlreadyRented(startRent,endRent, carId).GetAwaiter().GetResult())
+            {
+                return false;
+            }
+
             //If the voucher is different from none, discount will be generated and the vaucher will be with status Used
             if (voucherCode != "none")
             {

@@ -66,8 +66,9 @@ namespace CarRental.Web.Controllers
 
             if (!result)
             {
-                return Redirect("/");
+                return RedirectToAction(nameof(Invalid));
             }
+
             return RedirectToAction(nameof(MyOrders));
         }
 
@@ -83,6 +84,12 @@ namespace CarRental.Web.Controllers
 
             var viewModel = this.mapper.Map<OrderDetailsViewModel>(order);
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult Invalid()
+        {
+            return this.View();
         }
     }
 }

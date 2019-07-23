@@ -13,7 +13,7 @@
     <hr class="border-primary" />
     <div class="row justify-content-around">
         <div style="white-space:nowrap;">
-            <label for="one">Rating: 1</label>
+            <i class="far fa-thumbs-down"></i> <label for="one">Rating: 1</label>
             <input type="radio" id="one" name="Rating" value="1" checked="" />
         </div>
 
@@ -34,9 +34,11 @@
         <div style="white-space:nowrap;">
             <label for="one">Rating: 5</label>
             <input type="radio" id="one" name="Rating" value="5" />
+            <i class="far fa-thumbs-up"></i>
         </div>
     </div>
 
+    <br />
     <div class="form-group">
         <label asp-for="Comment"><h3>Your Comment</h3></label>
         <textarea asp-for="Comment" class="form-control" rows="5" cols="10" placeholder="Your comment ..." /></textarea>
@@ -45,4 +47,7 @@
     <button type="submit" class="btn btn-primary">Give Feedback</button>
 </form>
 
+@section Scripts {
+    <partial name="~/Views/Shared/Partials/_FontAwesomeIcons.cshtml" />
+}
 
