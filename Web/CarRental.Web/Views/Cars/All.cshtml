@@ -68,21 +68,21 @@
     }
 }
 
-@Html.Raw("</div>")
-<div class="row justify-content-around">
-    @Html.PagedListPager((IPagedList)Model, page => Url.Action("All", "Cars",
-        new
-        {
-            OrderBy = this.TempData["order"],
-            PageNumber = page
-        }),
-        new PagedListRenderOptions
-        {
-            MaximumPageNumbersToDisplay = 5,
-            LiElementClasses = new string[] { "page-item" },
-            PageClasses = new string[] { "page-link" }
-        })
-</div>
+    @Html.Raw("</div>")
+    <div class="row justify-content-around">
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("All", "Cars",
+            new
+            {
+                OrderBy = this.TempData["order"],
+                PageNumber = page
+            }),
+            new PagedListRenderOptions
+            {
+                MaximumPageNumbersToDisplay = 5,
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" }
+            })
+    </div>
 
     <script>
         // When the user scrolls down 20px from the top of the document, show the button
@@ -102,5 +102,7 @@
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         }
     </script>
+    <script src="/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script src="/js/notify.js"></script>
 
 

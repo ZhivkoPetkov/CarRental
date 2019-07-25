@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CarRental.Web.ViewModels.Orders;
 using CarRental.Web.ViewModels.Vouchers;
+using CarRental.Web.Hubs;
+using Microsoft.AspNetCore.SignalR;
+using CarRental.Common;
 
 namespace CarRental.Web.Controllers
 {
@@ -15,12 +18,17 @@ namespace CarRental.Web.Controllers
         private readonly IOrdersService ordersService;
         private readonly IMapper mapper;
         private readonly IVouchersService vouchersService;
+        private readonly IHubContext<NotifyHub> notifyHub;
+        private readonly ICarsService carsService;
 
-        public OrdersController(IOrdersService ordersService, IMapper mapper, IVouchersService vouchersService)
+        public OrdersController(IOrdersService ordersService, IMapper mapper, 
+                                    IVouchersService vouchersService, IHubContext<NotifyHub> notifyHub, ICarsService carsService)
         {
             this.ordersService = ordersService;
             this.mapper = mapper;
             this.vouchersService = vouchersService;
+            this.notifyHub = notifyHub;
+            this.carsService = carsService;
         }
        
         [Authorize]
@@ -68,6 +76,11 @@ namespace CarRental.Web.Controllers
             {
                 return RedirectToAction(nameof(Invalid));
             }
+
+            var carModel = this.carsService.GetCarModelById(inputModel.Id);
+            var days = (inputModel.Return - inputModel.PickUp).Days;
+            var message = string.Format(GlobalConstants.SignlaRMessageForNewORder, carModel, days);
+            await this.notifyHub.Clients.All.SendAsync("NotifyOrders", message);
 
             return RedirectToAction(nameof(MyOrders));
         }

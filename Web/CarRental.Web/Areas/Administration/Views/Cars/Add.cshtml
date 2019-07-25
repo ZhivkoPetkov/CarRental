@@ -15,7 +15,7 @@
     <div class="col-md-10 border rounded">
         <form asp-controller="Cars" asp-action="Add" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label  class="col-form-label" asp-for="Model"></label>
+                <label class="col-form-label" asp-for="Model"></label>
                 <input asp-for="Model" class="form-control" />
                 <span asp-validation-for="Model" class="text-danger"></span>
             </div>
@@ -62,7 +62,7 @@
                 <span asp-validation-for="LocationId" class="text-danger"></span>
             </div>
             <center><button type="submit" style="margin-bottom:2%" class="btn btn-primary">Add Car</button></center>
-            
+
         </form>
     </div>
 </div>
@@ -73,3 +73,5 @@
 </script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js">
 </script>
+<script src="/lib/signalr/dist/browser/signalr.min.js"></script>
+<script src="/js/notify.js"></script>

@@ -10,7 +10,7 @@
         All Orders: @Model.ToList().Count
     </h1>
 </tr>
-<hr class="border-info"/>
+<hr class="border-info" />
 
 <div class="d-flex justify-content-between mx-2 mb-2">
     <input class="form-control col-md-2 border-primary" type="text" id="myInput" onkeyup="byId()" placeholder="Search by Id">
@@ -58,31 +58,30 @@
         <td>$@order.Price</td>
         <td>
             @order.Status.ToString()
-        @if (order.ReviewId > 0)
-        {
-            <img src="/Images/feedback-given.jpg.png" width="25px" heigth ="25px" title="Feedback is given"/>
-        }
+            @if (order.ReviewId > 0)
+            {
+                <img src="/Images/feedback-given.jpg.png" width="25px" heigth="25px" title="Feedback is given" />
+            }
         </td>
-    <td>
+        <td>
 
-        @if (order.Status.ToString() != "Canceled" && order.Status.ToString() != "Finished")
-        {
-            <a class="btn btn-info" asp-controller="Orders" asp-action="Cancel" asp-route-id="@order.Id" data-confirm="You will cancel order with ID: @order.Id">Cancel</a>
-        }
-        <a class="btn btn-danger" asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id" data-confirm="You will delete order with ID: @order.Id">Delete</a>
-        @if (order.Status.ToString() != "Canceled" && order.Status.ToString() != "Finished")
-        {
-            <a class="btn btn-success" asp-controller="Orders" asp-action="Finish" asp-route-id="@order.Id" data-confirm="You will finish order with ID: @order.Id">Finish</a>
-        }
-    </td>
-    @Html.Raw("</tr>")
-}
+            @if (order.Status.ToString() != "Canceled" && order.Status.ToString() != "Finished")
+            {
+                <a class="btn btn-info" asp-controller="Orders" asp-action="Cancel" asp-route-id="@order.Id" data-confirm="You will cancel order with ID: @order.Id">Cancel</a>
+            }
+            <a class="btn btn-danger" asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id" data-confirm="You will delete order with ID: @order.Id">Delete</a>
+            @if (order.Status.ToString() != "Canceled" && order.Status.ToString() != "Finished")
+            {
+                <a class="btn btn-success" asp-controller="Orders" asp-action="Finish" asp-route-id="@order.Id" data-confirm="You will finish order with ID: @order.Id">Finish</a>
+            }
+        </td>
+        @Html.Raw("</tr>")
+    }
         </tbody>
     </table>
     @section Scripts {
         <partial name="~/Views/Shared/Partials/_SearchAndTable_Admin_Scripts.cshtml" />
         <partial name="~/Views/Shared/Partials/_DataValidationAndConfirmScripts.cshtml" />
     }
-
-
-
+    <script src="/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script src="/js/notify.js"></script>

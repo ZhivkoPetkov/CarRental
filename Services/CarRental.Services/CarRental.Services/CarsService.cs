@@ -65,7 +65,6 @@ namespace CarRental.Services
             return true;
 
         }
-
         public async Task<bool> DeleteCar(int id)
         {
             var car = this.dbContext.Cars.Find(id);
@@ -138,7 +137,6 @@ namespace CarRental.Services
 
             return cars;
         }
-
         public ICollection<ListCarDto> GetAvailableCars(DateTime start, DateTime end, string location)
         {
             var dates = new List<DateTime>();
@@ -150,8 +148,8 @@ namespace CarRental.Services
             var cars = this.dbContext.
                 Cars.
                 Include(x => x.Location).
-                Where(x => x.RentDays.Any(d => dates.Contains(d.RentDate)) == false).
                 Where(l => l.Location.Name == location).
+                Where(x => x.RentDays.Any(d => dates.Contains(d.RentDate)) == false).
                 Where(x => x.inUse == true).
                 Select(x => new ListCarDto
                 {
@@ -170,7 +168,6 @@ namespace CarRental.Services
                 ToList();
             return cars;
         }
-
         public CarDetailsDto FindCarForEdit(int id)
         {
             var car = this.dbContext.Cars.Find(id);
@@ -181,7 +178,6 @@ namespace CarRental.Services
             var result = this.mapper.Map<CarDetailsDto>(car);
             return result;
         }
-
         public async Task<bool> RentCar(DateTime start, DateTime end, int cardId)
         {
             var dates = new List<CarRentDays>();
@@ -198,8 +194,6 @@ namespace CarRental.Services
             await this.dbContext.SaveChangesAsync();
             return true;
         }
-
-
         public async Task<bool> IsAlreadyRented(DateTime start, DateTime end, int cardId)
         {
             var dates = new List<DateTime>();
@@ -216,6 +210,17 @@ namespace CarRental.Services
                 }
             }            
             return false;
+        }
+        public string GetCarModelById(int id)
+        {
+            var car = dbContext.Cars.Find(id);
+
+            if (car is null)
+            {
+                return String.Empty;
+            }
+
+            return car.Model;
         }
     }
 }

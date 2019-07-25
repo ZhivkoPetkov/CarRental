@@ -16,19 +16,5 @@ namespace CarRental.Web.Hubs
         {
             this.dbContext = dbContext;
         }
-
-        public async Task GetHello()
-        {
-            while (true)
-            {
-                var lastOrder = dbContext.Orders.First();
-                var timeNow = DateTime.UtcNow;
-
-                if ((timeNow - lastOrder.CreatedOn).TotalSeconds <= 2)
-                {
-                    await this.Clients.All.SendAsync("NotifyOrders", $"{lastOrder.Car.Model} was just ordered");
-                }
-            }
-        }
     }
 }

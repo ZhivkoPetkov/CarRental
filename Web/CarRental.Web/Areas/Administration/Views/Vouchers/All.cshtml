@@ -9,7 +9,7 @@
         All Vouchers: @Model.Count
     </h1>
 </tr>
-<hr class="border-info"/>
+<hr class="border-info" />
 
 <div class="d-flex justify-content-between mx-2 mb-2">
     <input class="form-control col-md-2 border-primary" type="text" id="myInput" onkeyup="byId()" placeholder="Search by Email">
@@ -65,5 +65,6 @@
     @section Scripts {
         <partial name="~/Views/Shared/Partials/_SearchAndTableVouchers_Admin_Scripts.cshtml" />
     }
-
+    <script src="/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script src="/js/notify.js"></script>
 
