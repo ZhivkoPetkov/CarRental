@@ -20,7 +20,10 @@ namespace CarRental.Services.Tests
         private const int CarPricePerDayTwo = 11;
         private const string CarImageTest = "image.png";
         private const string CarModelDescriptionOne = "Toyota Prius";
-        private const string CarModelDescriptionTwo = "The car that pioneered the hybrid movement and has defined fuel-efficiency for four model generations still stands tall as an innovative green machine. Its fuel economy in our tests was a staggering 52 mpg overall—the highest we’ve ever recorded in a car that doesn’t plug in.";
+
+        private const string CarModelDescriptionTwo =
+            "The car that pioneered the hybrid movement and has defined fuel-efficiency for four model generations still stands tall as an innovative green machine. Its fuel economy in our tests was a staggering 52 mpg overall—the highest we’ve ever recorded in a car that doesn’t plug in.";
+
         public const string OrderCarsByRentsAscending = "TimesRentAscending";
         public const string OrderCarsByRentsDescending = "TimesRentDescending";
         public const string OrderCarsByRatingDescending = "RatingDescending";
@@ -243,9 +246,8 @@ namespace CarRental.Services.Tests
                 expectedDates.Add(dt);
             }
 
-            var actualDatesCount = dbContext.CarRentDays.
-                                        Where(x => x.CarId == car.Id && x.RentDate >= startDate).
-                                        Count();
+            var actualDatesCount =
+                dbContext.CarRentDays.Where(x => x.CarId == car.Id && x.RentDate >= startDate).Count();
 
             Assert.Equal(expectedDates.Count, actualDatesCount);
         }
@@ -312,7 +314,7 @@ namespace CarRental.Services.Tests
 
             insertCars.ForEach(x => carsService.AddCar(x).GetAwaiter().GetResult());
 
-            var expectedResultIds = new List<int> { 2, 1, 3 };
+            var expectedResultIds = new List<int> {2, 1, 3};
             var actualResultIds = carsService.GetAllCars(OrderCarsByPriceDescending).Select(p => p.Id);
 
             Assert.Equal(expectedResultIds, actualResultIds);
@@ -380,7 +382,7 @@ namespace CarRental.Services.Tests
 
             insertCars.ForEach(x => carsService.AddCar(x).GetAwaiter().GetResult());
 
-            var expectedResultIds = new List<int> { 3, 2, 1 };
+            var expectedResultIds = new List<int> {3, 2, 1};
             var actualResultIds = carsService.GetAllCars(OrderCarsByLastAdded).Select(p => p.Id);
 
             Assert.Equal(expectedResultIds, actualResultIds);
@@ -448,7 +450,7 @@ namespace CarRental.Services.Tests
 
             insertCars.ForEach(x => carsService.AddCar(x).GetAwaiter().GetResult());
 
-            var expectedResultIds = new List<int> { 3, 1, 2 };
+            var expectedResultIds = new List<int> {3, 1, 2};
             var actualResultIds = carsService.GetAllCars(OrderCarsByPriceAscending).Select(p => p.Id);
 
             Assert.Equal(expectedResultIds, actualResultIds);
@@ -549,7 +551,7 @@ namespace CarRental.Services.Tests
             dbContext.CarRentDays.AddRange(insertRents);
             dbContext.SaveChanges();
 
-            var expectedResultIds = new List<int> { 3, 2, 1 };
+            var expectedResultIds = new List<int> {3, 2, 1};
             var actualResultIds = carsService.GetAllCars(OrderCarsByRentsAscending).Select(p => p.Id);
 
             Assert.Equal(expectedResultIds, actualResultIds);
@@ -650,7 +652,7 @@ namespace CarRental.Services.Tests
             dbContext.CarRentDays.AddRange(insertRents);
             dbContext.SaveChanges();
 
-            var expectedResultIds = new List<int> { 1, 3, 2 };
+            var expectedResultIds = new List<int> {1, 3, 2};
             var actualResultIds = carsService.GetAllCars(OrderCarsByRentsDescending).Select(p => p.Id);
 
             Assert.Equal(expectedResultIds, actualResultIds);
@@ -758,7 +760,7 @@ namespace CarRental.Services.Tests
             dbContext.Reviews.AddRange(insertReviews);
             dbContext.SaveChanges();
 
-            var expectedResultIds = new List<int> { 2, 3, 1 };
+            var expectedResultIds = new List<int> {2, 3, 1};
             var actualResultIds = carsService.GetAllCars(OrderCarsByRatingDescending).Select(p => p.Id);
 
             Assert.Equal(expectedResultIds, actualResultIds);
@@ -856,9 +858,10 @@ namespace CarRental.Services.Tests
             dbContext.CarRentDays.AddRange(insertRents);
             dbContext.SaveChanges();
 
-            var expectedResultIds = new List<int> { 3 };
-            var actualResultIds = carsService.GetAvailableCars(DateTime.UtcNow.Date, DateTime.UtcNow.Date.AddDays(3), LocationNameTwo).
-                                                Select(p => p.Id).ToList();
+            var expectedResultIds = new List<int> {3};
+            var actualResultIds = carsService
+                .GetAvailableCars(DateTime.UtcNow.Date, DateTime.UtcNow.Date.AddDays(3), LocationNameTwo)
+                .Select(p => p.Id).ToList();
 
             Assert.Equal(expectedResultIds, actualResultIds);
         }
@@ -957,9 +960,214 @@ namespace CarRental.Services.Tests
             dbContext.CarRentDays.AddRange(insertRents);
             dbContext.SaveChanges();
 
-            var actualResultIds = carsService.GetAvailableCars(DateTime.UtcNow.Date, DateTime.UtcNow.Date.AddDays(1), LocationNameTwo).Select(p => p.Id);
+            var actualResultIds = carsService
+                .GetAvailableCars(DateTime.UtcNow.Date, DateTime.UtcNow.Date.AddDays(1), LocationNameTwo)
+                .Select(p => p.Id);
 
             Assert.Empty(actualResultIds);
+        }
+
+        [Fact]
+        public void GetCarModelByIdShould_ReturnTheRightCarModel()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_CarModel")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
+
+            dbContext.Locations.Add(new Location
+            {
+                Id = 2,
+                Name = LocationNameTwo
+            });
+
+            var insertCars = new List<Car>
+            {
+                new Car
+                {
+                    Id = 1,
+                    Model = CarModelTestOne,
+                    Description =
+                        CarModelDescriptionOne,
+                    GearType = Models.Enums.GearType.Automatic,
+                    LocationId = locationIdTwo,
+                    PricePerDay = locationIdOne,
+                    Image = CarImageTest,
+                    Year = DateTime.UtcNow.Year
+                },
+                new Car
+                {
+                    Id = 2,
+                    Model = CarModelTestTwo,
+                    Description = CarModelDescriptionTwo,
+                    GearType = Models.Enums.GearType.Automatic,
+                    LocationId = locationIdTwo,
+                    PricePerDay = CarPricePerDayTwo,
+                    Image = CarImageTest,
+                    Year = DateTime.UtcNow.Year
+                },
+            };
+
+            insertCars.ForEach(x => carsService.AddCar(x).GetAwaiter().GetResult());
+            dbContext.SaveChanges();
+
+            var expected = CarModelTestTwo;
+            var result = carsService.GetCarModelById(insertCars[1].Id);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetCarModelByIdShould_ReturnEmptyString()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_InvalidCarModel")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
+
+            var expected = String.Empty;
+            var result = carsService.GetCarModelById(1);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void IsAlreadyRentedShould_ReturnТrueIfCarIsRented()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_IsRentedCar")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
+
+            dbContext.Locations.Add(new Location
+            {
+                Id = 2,
+                Name = LocationNameTwo
+            });
+
+            var insertCars = new List<Car>
+            {
+                new Car
+                {
+                    Id = 1,
+                    Model = CarModelTestOne,
+                    Description =
+                        CarModelDescriptionOne,
+                    GearType = Models.Enums.GearType.Automatic,
+                    LocationId = locationIdTwo,
+                    PricePerDay = locationIdOne,
+                    Image = CarImageTest,
+                    Year = DateTime.UtcNow.Year
+                },
+                new Car
+                {
+                    Id = 2,
+                    Model = CarModelTestTwo,
+                    Description = CarModelDescriptionTwo,
+                    GearType = Models.Enums.GearType.Automatic,
+                    LocationId = locationIdTwo,
+                    PricePerDay = CarPricePerDayTwo,
+                    Image = CarImageTest,
+                    Year = DateTime.UtcNow.Year
+                },
+            };
+
+            insertCars.ForEach(x => carsService.AddCar(x).GetAwaiter().GetResult());
+
+            var insertRents = new List<CarRentDays>
+            {
+                new CarRentDays
+                {
+                    CarId = 1,
+                    RentDate = DateTime.UtcNow.Date.AddDays(1)
+                },
+                new CarRentDays
+                {
+                    CarId = 1,
+                    RentDate = DateTime.UtcNow.Date.AddDays(2)
+                },
+                new CarRentDays
+                {
+                    CarId = 2,
+                    RentDate = DateTime.UtcNow.Date
+                },
+                new CarRentDays
+                {
+                    CarId = 2,
+                    RentDate = DateTime.UtcNow.Date.AddDays(1)
+                },
+                new CarRentDays
+                {
+                    CarId = 2,
+                    RentDate = DateTime.UtcNow.Date.AddDays(2)
+                },
+            };
+
+            dbContext.CarRentDays.AddRange(insertRents);
+            dbContext.SaveChanges();
+
+            var result = carsService.IsAlreadyRented(DateTime.UtcNow.Date, DateTime.UtcNow.Date.AddDays(2), insertCars[1].Id)
+                .GetAwaiter().GetResult();
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void IsAlreadyRentedShould_ReturnFalseIfCarIsNotRented()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_IsRentedCarFalse")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
+
+            dbContext.Locations.Add(new Location
+            {
+                Id = 2,
+                Name = LocationNameTwo
+            });
+
+            var insertCars = new List<Car>
+            {
+                new Car
+                {
+                    Id = 1,
+                    Model = CarModelTestOne,
+                    Description =
+                        CarModelDescriptionOne,
+                    GearType = Models.Enums.GearType.Automatic,
+                    LocationId = locationIdTwo,
+                    PricePerDay = locationIdOne,
+                    Image = CarImageTest,
+                    Year = DateTime.UtcNow.Year
+                },
+                new Car
+                {
+                    Id = 2,
+                    Model = CarModelTestTwo,
+                    Description = CarModelDescriptionTwo,
+                    GearType = Models.Enums.GearType.Automatic,
+                    LocationId = locationIdTwo,
+                    PricePerDay = CarPricePerDayTwo,
+                    Image = CarImageTest,
+                    Year = DateTime.UtcNow.Year
+                },
+            };
+
+            insertCars.ForEach(x => carsService.AddCar(x).GetAwaiter().GetResult());
+            dbContext.SaveChanges();
+
+            var result = carsService.IsAlreadyRented(DateTime.UtcNow, DateTime.UtcNow.AddDays(2), insertCars[0].Id)
+                .GetAwaiter().GetResult();
+
+            Assert.False(result);
         }
     }
 }
