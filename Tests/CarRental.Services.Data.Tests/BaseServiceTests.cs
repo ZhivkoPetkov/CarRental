@@ -30,6 +30,10 @@ namespace CarRental.Services.Tests
         protected readonly IMapper mapper;
         protected readonly Cloudinary cloudinary;
 
+        private const string cloudName = "dis59vn8s";
+        private const string cloudApi = "843947874516971";
+        private const string cloudKey = "Kn7P9mTbpt2pflIJCxUs7lFsC_Y";
+
         public BaseServiceTests()
         {
             this.mapper = InitializeMapper();
@@ -38,7 +42,8 @@ namespace CarRental.Services.Tests
 
         private Cloudinary InitializeCloudinary()
         {
-            var cloudinaryAccount = new CloudinaryDotNet.Account(GlobalConstants.CloudifyName, GlobalConstants.CloudifyAPI, GlobalConstants.CloudifyKey);
+         
+            var cloudinaryAccount = new CloudinaryDotNet.Account(cloudName, cloudApi, cloudKey);
             return new Cloudinary(cloudinaryAccount);
         }
 

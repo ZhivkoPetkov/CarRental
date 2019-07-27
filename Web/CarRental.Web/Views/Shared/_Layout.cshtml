@@ -16,7 +16,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-collapse bg-warning stroke">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-warning б border-bottom box-shadow mb-3 stroke">
             <div class="container">
                 <img src="~/Images/logo.png" style="margin-right: 1%; height: 60px " />
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -24,7 +24,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
+                    <partial name="_LoginPartial"/>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" style="font-size: 140%" asp-area="" asp-controller="Home" asp-action="Index"><b>Home</b></a>
@@ -34,12 +34,12 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" style="font-size: 140%" asp-area="" asp-controller="Orders" asp-action="MyOrders"><b>My Orders</b></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" style="font-size: 140%" asp-area="" asp-controller="Vouchers" asp-action="MyVouchers"><b>My Vouchers</b></a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" style="font-size: 140%" asp-area="" asp-controller="Orders" asp-action="MyOrders"><b>My Orders</b></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" style="font-size: 140%" asp-area="" asp-controller="Vouchers" asp-action="MyVouchers"><b>My Vouchers</b></a>
+                            </li>
                         }
                     </ul>
                 </div>
