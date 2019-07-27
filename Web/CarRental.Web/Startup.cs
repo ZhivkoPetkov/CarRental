@@ -9,7 +9,6 @@ namespace CarRental.Web
     using CarRental.Models;
     using CarRental.Services;
     using CarRental.Services.Contracts;
-    using CarRental.Services.Messaging;
     using CarRental.Web.MappingConfiguration;
     using CarRental.Web.Middlewares;
     using CloudinaryDotNet;
@@ -86,11 +85,12 @@ namespace CarRental.Web
                 });
 
             //Config Cloud Storage
-            var cloudinaryAccount = new CloudinaryDotNet.Account(GlobalConstants.CloudifyName, GlobalConstants.CloudifyAPI, GlobalConstants.CloudifyKey);
+            var cloudinaryAccount = new CloudinaryDotNet.Account(this.configuration.GetSection("Cloudinary")["CloudifyName"],
+                this.configuration.GetSection("Cloudinary")["CloudifyAPI"], this.configuration.GetSection("Cloudinary")["CloudifyKey"]);
             var cloudinary = new Cloudinary(cloudinaryAccount);
             services.AddSingleton(cloudinary);
 
-            //Config AutoMapper
+            // Config AutoMapper
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<CarRentalConfiguration>();
@@ -109,11 +109,6 @@ namespace CarRental.Web
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IReviewsService, ReviewsService>();
             services.AddTransient<IVouchersService, VouchersService>();
-
-            // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISmsSender, NullMessageSender>();
-
 
             //Anti-forgery key
             services.AddMvc(options =>
