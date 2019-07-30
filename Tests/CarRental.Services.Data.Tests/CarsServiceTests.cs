@@ -212,6 +212,21 @@ namespace CarRental.Services.Tests
         }
 
         [Fact]
+        public void ChangeLocationShould_ReturnFalseIfInvalidCarId()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_CarChangeLocation_InvalidCarId")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
+
+            var result = carsService.ChangeLocation(1, locationIdOne).GetAwaiter().GetResult();
+
+            Assert.False(result);
+        }
+
+        [Fact]
         public void RentCarShould_CreateRentDaysForCar()
         {
             var options = new DbContextOptionsBuilder<CarRentalDbContext>()
@@ -1166,6 +1181,130 @@ namespace CarRental.Services.Tests
 
             var result = carsService.IsAlreadyRented(DateTime.UtcNow, DateTime.UtcNow.AddDays(2), insertCars[0].Id)
                 .GetAwaiter().GetResult();
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void FindCarForEditShould_ReturnRightCar()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_ForEditCar")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
+
+            var insertCars = new List<Car>
+            {
+                new Car
+                {
+                    Id = 1,
+                    Model = CarModelTestOne,
+                    Description =
+                        CarModelDescriptionOne,
+                    GearType = Models.Enums.GearType.Automatic,
+                    LocationId = locationIdOne,
+                    PricePerDay = locationIdOne,
+                    Image = CarImageTest,
+                    Year = DateTime.UtcNow.Year
+                },
+                new Car
+                {
+                    Id = 2,
+                    Model = CarModelTestTwo,
+                    Description = CarModelDescriptionTwo,
+                    GearType = Models.Enums.GearType.Automatic,
+                    LocationId = locationIdTwo,
+                    PricePerDay = CarPricePerDayTwo,
+                    Image = CarImageTest,
+                    Year = DateTime.UtcNow.Year
+                },
+            };
+
+            insertCars.ForEach(x => carsService.AddCar(x).GetAwaiter().GetResult());
+
+            var actualCountOfCars = dbContext.Cars.Count();
+            Assert.Equal(2, actualCountOfCars);
+
+            var result = carsService.FindCarForEdit(2);
+            Assert.Equal(insertCars[1].Model, result.Model);
+        }
+
+        [Fact]
+        public void FindCarForEditShould_ReturnNullIfCarNotInUse()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_ForEditCar_notInUse")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
+
+            var insertCars = new List<Car>
+            {
+                new Car
+                {
+                    Id = 1,
+                    Model = CarModelTestOne,
+                    Description =
+                        CarModelDescriptionOne,
+                    GearType = Models.Enums.GearType.Automatic,
+                    LocationId = locationIdOne,
+                    PricePerDay = locationIdOne,
+                    Image = CarImageTest,
+                    Year = DateTime.UtcNow.Year
+                    
+                },
+                new Car
+                {
+                    Id = 2,
+                    Model = CarModelTestTwo,
+                    Description = CarModelDescriptionTwo,
+                    GearType = Models.Enums.GearType.Automatic,
+                    LocationId = locationIdTwo,
+                    PricePerDay = CarPricePerDayTwo,
+                    Image = CarImageTest,
+                    Year = DateTime.UtcNow.Year,
+                    inUse = false
+                },
+            };
+
+            insertCars.ForEach(x => carsService.AddCar(x).GetAwaiter().GetResult());
+
+            var actualCountOfCars = dbContext.Cars.Count();
+            Assert.Equal(2, actualCountOfCars);
+
+            var result = carsService.FindCarForEdit(2);
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void Delete_Should_ReturnTrueIfCorrectId()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_DeleteValidCar")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var car = new Car
+            {
+                Id = 1,
+                Model = CarModelTestOne,
+                Description = CarModelDescriptionTwo,
+                GearType = Models.Enums.GearType.Automatic,
+                LocationId = locationIdOne,
+                PricePerDay = CarPricePerDayOne,
+                Image = CarImageTest,
+                Year = DateTime.UtcNow.Year
+            };
+            dbContext.Cars.Add(car);
+            dbContext.SaveChanges();
+
+            var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
+            carsService.DeleteCar(car.Id);
+
+            var result = dbContext.Cars.Find(car.Id).inUse;
 
             Assert.False(result);
         }

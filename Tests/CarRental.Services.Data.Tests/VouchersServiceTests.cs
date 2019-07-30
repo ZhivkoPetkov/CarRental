@@ -331,6 +331,35 @@ namespace CarRental.Services.Tests
         }
 
         [Fact]
+        public void GetDiscountForCodeShould_0IfEmptyString()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_DiscountInvalid_EmptyString")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var user = new ApplicationUser()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = "test@test.bg",
+                FirstName = "Admin",
+                LastName = "LastAdmin"
+            };
+
+            dbContext.Users.Add(user);
+
+            var usersServiceMock = new Mock<IUsersService>();
+            usersServiceMock.Setup(p => p.GetUserIdByEmail(user.Email)).
+                Returns(user.Id);
+
+            var vouchersService = new VouchersService(dbContext, usersServiceMock.Object, this.mapper);
+
+            var result = vouchersService.GetDiscountForCode(String.Empty);
+
+            Assert.Equal(0, result);
+        }
+
+        [Fact]
         public void UserVoucherShould_MakeTheVoucherUsed()
         {
             var options = new DbContextOptionsBuilder<CarRentalDbContext>()
@@ -404,6 +433,81 @@ namespace CarRental.Services.Tests
             var result = vouchersService.UseVoucher(Guid.NewGuid().ToString()).GetAwaiter().GetResult();
 
             Assert.False(result);
+        }
+
+        [Fact]
+        public void GetAllForUserShould_ReturnAllVouchersForUser()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_AllForUser")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var user = new ApplicationUser()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = "test@test.bg",
+                FirstName = "Admin",
+                LastName = "LastAdmin"
+            };
+
+            dbContext.Users.Add(user);
+
+            var usersServiceMock = new Mock<IUsersService>();
+            var vouchersService = new VouchersService(dbContext, usersServiceMock.Object, this.mapper);
+
+            var expectedVouchersCount = 5;
+            for (int i = 0; i < expectedVouchersCount; i++)
+            {
+                vouchersService.CreateForUser(user.Email);
+            }
+
+            var expected = dbContext.Vouchers.
+                Where(x => x.User.Email == user.Email).
+                Count();
+
+            var result = vouchersService.GetAllForUser(user.Email).Count;
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetAllVouchersShould_ReturnAllVouchers()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_GetAllVouchers")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var user = new ApplicationUser()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = "test@test.bg",
+                FirstName = "Admin",
+                LastName = "LastAdmin"
+            };
+
+            var user2 = new ApplicationUser()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = "test2@test.bg",
+                FirstName = "Admin2",
+                LastName = "LastAdmin2"
+            };
+
+            dbContext.Users.Add(user);
+            dbContext.Users.Add(user2);
+
+            var usersServiceMock = new Mock<IUsersService>();
+            var vouchersService = new VouchersService(dbContext, usersServiceMock.Object, this.mapper);
+
+            vouchersService.CreateForUser(user.Email);
+            vouchersService.CreateForUser(user2.Email);
+
+            var expected = dbContext.Vouchers.Count();
+            var result = vouchersService.GetAllVouchers().Count;
+
+            Assert.Equal(expected, result);
         }
     }
 }

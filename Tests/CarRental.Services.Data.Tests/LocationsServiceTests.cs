@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CarRental.Common;
+﻿using CarRental.Common;
 using CarRental.Data;
 using CarRental.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace CarRental.Services.Tests
@@ -39,9 +38,31 @@ namespace CarRental.Services.Tests
             Assert.Equal(expected, result);
         }
 
+        [Fact]
+        public void AddLocationShould_ReturnFalseIfAlreadyInsertedName()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_AddDuplicateLocation")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var locationsService = new LocationsService(dbContext);
+
+            var location = new Location
+            {
+                Name = locationNameOne
+            };
+
+            locationsService.CreateLocation(location);
+
+
+            var result = locationsService.CreateLocation(location).GetAwaiter().GetResult();
+
+            Assert.False(result);
+        }
 
         [Fact]
-        public void DeleteLocationShould_DeleteEmplyLocation()
+        public void DeleteLocationShould_DeleteEmptyLocation()
         {
             var options = new DbContextOptionsBuilder<CarRentalDbContext>()
                 .UseInMemoryDatabase(databaseName: "CarRental_Database_DeleteLocation")
@@ -197,6 +218,5 @@ namespace CarRental.Services.Tests
 
             Assert.Equal(0, result);
         }
-
     }
 }

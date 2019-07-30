@@ -4,13 +4,14 @@ using CarRental.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Linq;
+using CarRental.Data;
 
 namespace CarRental.Services
 {
     public class UsersService : IUsersService
     {
         private readonly UserManager<ApplicationUser> userManager;
-
+    
         public UsersService(UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
@@ -23,7 +24,8 @@ namespace CarRental.Services
 
         public string GetUserIdByName(string email)
         {
-            return this.userManager.FindByNameAsync(email).GetAwaiter().GetResult().Id;
+            var user = this.userManager.FindByNameAsync(email).GetAwaiter().GetResult();
+            return user.Id;
         }
 
         public string GetUserIdByEmail(string email)

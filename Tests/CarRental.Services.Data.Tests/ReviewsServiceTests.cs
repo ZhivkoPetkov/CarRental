@@ -62,6 +62,40 @@ namespace CarRental.Services.Tests
             Assert.True(order.Review != null);
         }
 
+        [Fact]
+        public void CreateReviewShould_ReturnFalseIfCantCreateVoucher()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_CreateReview_NoVoucher")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var user = new ApplicationUser()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = "test@test.bg",
+                FirstName = "Admin",
+                LastName = "LastAdmin"
+            };
+
+            var vouchersServiceMock = new Mock<IVouchersService>();
+            vouchersServiceMock.Setup(x => x.CreateForUser(user.Email)).
+                ReturnsAsync(false);
+
+            var ordersServiceMock = new Mock<IOrdersService>();
+            ordersServiceMock.Setup(x => x.DeleteReviewFromOrder(It.IsAny<int>())).
+                ReturnsAsync(true);
+
+            var reviewsService = new ReviewsService(dbContext, vouchersServiceMock.Object, this.mapper, ordersServiceMock.Object);
+
+            var random = new Random();
+            var reviewRating = random.Next(1, 5);
+            var reviewComment = Guid.NewGuid().ToString();
+
+            var result = reviewsService.CreateReview(Guid.NewGuid().ToString(), reviewRating, reviewComment).GetAwaiter().GetResult();
+
+            Assert.False(result);
+        }
 
         [Fact]
         public void CreateReviewShould_ReturnFalseIfInvalidOrderId()

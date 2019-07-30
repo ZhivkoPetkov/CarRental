@@ -426,7 +426,7 @@ namespace CarRental.Services.Tests
 
 
         [Fact]
-        public void DeleteAndCancelOrderShould_ReturnFalseIfInvalidOrderId()
+        public void DeleteShould_ReturnFalseIfInvalidOrderId()
         {
             var options = new DbContextOptionsBuilder<CarRentalDbContext>()
                 .UseInMemoryDatabase(databaseName: "CarRental_Database_DeleteInvalidOrder")
@@ -490,11 +490,8 @@ namespace CarRental.Services.Tests
             var ordersService = new OrdersService(dbContext, usersServiceMock.Object, this.mapper,
                                                     locationsServiceMock.Object, carsServiceMock.Object, vouchersServiceMock.Object);
 
-            var resultDelete = ordersService.Delete(Guid.NewGuid().ToString()).GetAwaiter().GetResult();
-            Assert.False(resultDelete);
-
-            var resultCancel = ordersService.Cancel(Guid.NewGuid().ToString()).GetAwaiter().GetResult();
-            Assert.False(resultCancel);
+            var result = ordersService.Delete(Guid.NewGuid().ToString()).GetAwaiter().GetResult();
+            Assert.False(result);
         }
 
 
@@ -1439,6 +1436,112 @@ namespace CarRental.Services.Tests
             var result = ordersService.GetOrderById(expected.Id);
 
             Assert.Equal(expected.Id, result.Id);
+        }
+
+        [Fact]
+        public void CancelOrderShould_ReturnFalseIfInvalidId()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_CancelOrderInvalidId")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+            var usersServiceMock = new Mock<IUsersService>();
+            var locationsServiceMock = new Mock<ILocationsService>();
+            var carsServiceMock = new Mock<ICarsService>();
+            var vouchersServiceMock = new Mock<IVouchersService>();
+           
+            var ordersService = new OrdersService(dbContext, usersServiceMock.Object, this.mapper,
+                                                    locationsServiceMock.Object, carsServiceMock.Object, vouchersServiceMock.Object);
+
+            var result = ordersService.Cancel(Guid.NewGuid().ToString()).GetAwaiter().GetResult();
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void AllOrdersShould_ReturnAllOrdersForUsers()
+        {
+            var options = new DbContextOptionsBuilder<CarRentalDbContext>()
+                .UseInMemoryDatabase(databaseName: "CarRental_Database_GetAllOrders")
+                .Options;
+            var dbContext = new CarRentalDbContext(options);
+
+            var user = new ApplicationUser()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = "test@test.bg",
+                FirstName = "Admin",
+                LastName = "LastAdmin",
+                UserName = "test@test.bg"
+            };
+
+            var location = new Location()
+            {
+                Id = 1,
+                Name = locationName
+            };
+
+            var car = new Car
+            {
+                Id = 1,
+                Model = CarModelTestOne,
+                Description = CarModelDescriptionTwo,
+                GearType = Models.Enums.GearType.Automatic,
+                LocationId = locationIdOne,
+                PricePerDay = CarPricePerDayOne,
+                Image = CarImageTest,
+                Year = DateTime.UtcNow.Year
+            };
+
+            var car2 = new Car
+            {
+                Id = 2,
+                Model = CarModelTestOne,
+                Description = CarModelDescriptionTwo,
+                GearType = Models.Enums.GearType.Automatic,
+                LocationId = locationIdOne,
+                PricePerDay = CarPricePerDayOne,
+                Image = CarImageTest,
+                Year = DateTime.UtcNow.Year
+            };
+
+            dbContext.Users.Add(user);
+            dbContext.Locations.Add(location);
+            dbContext.Cars.Add(car);
+            dbContext.Cars.Add(car2);
+            dbContext.SaveChanges();
+
+            var usersServiceMock = new Mock<IUsersService>();
+            usersServiceMock.Setup(p => p.GetUserIdByEmail(user.Email)).
+                                    Returns(user.Id);
+            usersServiceMock.Setup(p => p.GetUserByEmail(user.Email)).
+                                    Returns(user);
+
+            var locationsServiceMock = new Mock<ILocationsService>();
+            locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
+                                    Returns(location.Id);
+
+            var carsServiceMock = new Mock<ICarsService>();
+            carsServiceMock.Setup(x => x.RentCar(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<int>())).
+                                    ReturnsAsync(true);
+
+            var vouchersServiceMock = new Mock<IVouchersService>();
+            vouchersServiceMock.Setup(x => x.UseVoucher("none")).
+                                    ReturnsAsync(false);
+
+            var ordersService = new OrdersService(dbContext, usersServiceMock.Object, this.mapper,
+                                                    locationsServiceMock.Object, carsServiceMock.Object, vouchersServiceMock.Object);
+
+
+            var order1 = ordersService.MakeOrder(user.Email, car.Id, locationName, locationName, OrderPrice, RentStart, RentEnd,
+                "none").GetAwaiter().GetResult();
+            var order2 = ordersService.MakeOrder(user.Email, car2.Id, locationName, locationName, OrderPrice, RentStart, RentEnd,
+                "none").GetAwaiter().GetResult();
+
+            var expected = dbContext.Orders.Count();
+            var result = ordersService.All().Count();
+
+            Assert.Equal(expected,result);
         }
     }
 }
