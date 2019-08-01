@@ -18,7 +18,7 @@ namespace CarRental.Web.ModelBinders
             var locationName = bindingContext.ValueProvider.GetValue(bindingContext.ModelName).ToString();
             var locationId = this.locationsService.GetIdByName(locationName);
 
-            if (locationId != null)
+            if (locationId > 0)
             {
                 bindingContext.Result = ModelBindingResult.Success(locationId);
             }
