@@ -49,7 +49,7 @@ else
                 </div>
 
                 <div class="card-body">
-                    <p class="card-text">@item.Description.Substring(0, 165) ...</p>
+                    <p class="card-text">@item.Description.Substring(0, Math.Min(165, @item.Description.Length)) ...</p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Gear Type: @item.GearType.ToString()</li>

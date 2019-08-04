@@ -1,13 +1,13 @@
-﻿using CarRental.Web.ModelBinders;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CarRental.Web.ModelBinders;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
-namespace CarRental.Web.Areas.Administration.ViewModels.Cars
+namespace CarRental.Web.Areas.Administration.InputModels.Cars
 {
-    public class AddCarViewModel
+    public class AddCarInputModel
     {
 
         private const string PriceRangeError = "The price for the car should be between {1}$ and {2}$";
@@ -24,7 +24,7 @@ namespace CarRental.Web.Areas.Administration.ViewModels.Cars
         private const int MaximumDescriptionlLenght = 150;
         private const string MaximumDescriptionlLenghtError = "The Description should be atleast {1} symbols";
 
-        public AddCarViewModel()
+        public AddCarInputModel()
         {
             this.Year = DateTime.UtcNow.Year;
         }

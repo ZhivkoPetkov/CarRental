@@ -6,15 +6,15 @@ using CarRental.DTOs.Reviews;
 using CarRental.DTOs.Users;
 using CarRental.DTOs.Vouchers;
 using CarRental.Models;
-using CarRental.Web.Areas.Administration.ViewModels.Cars;
+using CarRental.Web.Areas.Administration.InputModels.Cars;
 using CarRental.Web.Areas.Administration.ViewModels.Locations;
-using CarRental.Web.Areas.Administration.ViewModels.Rewiews;
+using CarRental.Web.Areas.Administration.ViewModels.Reviews;
 using CarRental.Web.Areas.Administration.ViewModels.Vouchers;
 using CarRental.Web.ViewModels.Cars;
-using System.Linq;
 using CarRental.Web.ViewModels.Orders;
 using CarRental.Web.ViewModels.Reviews;
 using CarRental.Web.ViewModels.Vouchers;
+using System.Linq;
 
 namespace CarRental.Web.MappingConfiguration
 {
@@ -49,7 +49,7 @@ namespace CarRental.Web.MappingConfiguration
                   .ForMember(dest => dest.Lastname, src => src.MapFrom(x => x.User.LastName))
                   .ForMember(dest => dest.ReturnLocation, src => src.MapFrom(x => x.ReturnLocation.Name))
                   .ForMember(dest => dest.PickUpLocation, src => src.MapFrom(x => x.PickUpLocation.Name));
-            this.CreateMap<AddCarViewModel, Car>();
+            this.CreateMap<AddCarInputModel, Car>();
             this.CreateMap<CarEditViewModel, CarDetailsDto>().ReverseMap();
             this.CreateMap<ListCarDto, Car>();
             this.CreateMap<ApplicationUser, UserDto>();

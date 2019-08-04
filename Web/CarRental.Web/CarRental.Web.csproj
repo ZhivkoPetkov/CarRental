@@ -16,9 +16,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Administration\ViewModels\Home\**" />
     <Compile Remove="Views\Locations\**" />
+    <Content Remove="Areas\Administration\ViewModels\Home\**" />
     <Content Remove="Views\Locations\**" />
+    <EmbeddedResource Remove="Areas\Administration\ViewModels\Home\**" />
     <EmbeddedResource Remove="Views\Locations\**" />
+    <None Remove="Areas\Administration\ViewModels\Home\**" />
     <None Remove="Views\Locations\**" />
   </ItemGroup>
   <ItemGroup>
@@ -45,10 +49,6 @@
     <ProjectReference Include="..\..\Data\CarRental.Data\CarRental.Data.csproj" />
     <ProjectReference Include="..\..\Services\CarRental.Services\CarRental.Services\CarRental.Services.csproj" />
     <ProjectReference Include="..\CarRental.Web.ViewModels\CarRental.Web.ViewModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Administration\ViewModels\Home\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,7 +12,7 @@ using CarRental.DTOs.Reviews;
 using CarRental.DTOs.Users;
 using CarRental.DTOs.Vouchers;
 using CarRental.Models;
-using CarRental.Web.Areas.Administration.ViewModels.Cars;
+using CarRental.Web.Areas.Administration.InputModels.Cars;
 using CarRental.Web.Areas.Administration.ViewModels.Locations;
 using CarRental.Web.Areas.Administration.ViewModels.Rewiews;
 using CarRental.Web.Areas.Administration.ViewModels.Vouchers;

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using CarRental.Models;
 using CarRental.Services.Contracts;
-using CarRental.Web.Areas.Administration.ViewModels.Cars;
 using CarRental.Web.ViewModels.Cars;
 using CloudinaryDotNet;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using CarRental.Web.Areas.Administration.InputModels.Cars;
 
 namespace CarRental.Web.Areas.Administration.Controllers
 {
@@ -29,11 +29,11 @@ namespace CarRental.Web.Areas.Administration.Controllers
         public IActionResult Add()
         {
             var locationsList = this.locationsService.GetAllLocationNames();
-            return this.View(new AddCarViewModel { Locations = locationsList });
+            return this.View(new AddCarInputModel { Locations = locationsList });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddCarViewModel inputModel)
+        public async Task<IActionResult> Add(AddCarInputModel inputModel)
         {
             if (!ModelState.IsValid)
             {

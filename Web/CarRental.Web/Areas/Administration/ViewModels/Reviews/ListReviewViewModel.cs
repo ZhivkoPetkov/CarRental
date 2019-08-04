@@ -1,4 +1,4 @@
-﻿namespace CarRental.Web.Areas.Administration.ViewModels.Rewiews
+﻿namespace CarRental.Web.Areas.Administration.ViewModels.Reviews
 {
     public class ListReviewViewModel
     {

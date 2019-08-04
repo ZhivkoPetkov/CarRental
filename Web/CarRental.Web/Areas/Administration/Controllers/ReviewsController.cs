@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CarRental.Services.Contracts;
-using CarRental.Web.Areas.Administration.ViewModels.Rewiews;
+using CarRental.Web.Areas.Administration.ViewModels.Reviews;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
