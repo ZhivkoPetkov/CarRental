@@ -6,8 +6,11 @@ using CarRental.Models;
 using CarRental.Services.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Extensions.Internal;
 
 namespace CarRental.Services
 {
@@ -103,21 +106,17 @@ namespace CarRental.Services
             return this.mapper.Map<List<VoucherDto>>(vouchers);
         }
 
-        public int GetDiscountForCode(string voucherCode)
+        public async Task<int> GetDiscountForCode(string voucherCode)
         {
             if (String.IsNullOrEmpty(voucherCode) ||voucherCode == GlobalConstants.DefaultVoucherCode)
             {
                 return 0;
             }
 
-            var voucher = this.dbCotenxt.Vouchers.FirstOrDefault(x => x.VoucherCode == voucherCode);
-
-            if (voucher is null)
-            {
-                return 0;
-            }
-
-            return voucher.Discount;
+            var voucher = await this.dbCotenxt.Vouchers.AsAsyncEnumerable()
+                .FirstOrDefault(x => x.VoucherCode == voucherCode);
+            ;
+            return voucher == null ? 0 : voucher.Discount;
         }
 
         public async Task<bool> UseVoucher(string voucherCode)

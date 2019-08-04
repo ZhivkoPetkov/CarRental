@@ -13,6 +13,6 @@ namespace CarRental.Services.Contracts
         ICollection<VoucherDto> GetAllForUser(string username);
         ICollection<VoucherDto> GetAllActiveForUser(string username);
         Task<bool> UseVoucher(string voucherCode);
-        int GetDiscountForCode(string voucherCode);
+        Task<int> GetDiscountForCode(string voucherCode);
     }
 }

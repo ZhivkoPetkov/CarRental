@@ -295,7 +295,7 @@ namespace CarRental.Services.Tests
             dbContext.SaveChanges();
 
             var expected = discount;
-            var result = vouchersService.GetDiscountForCode(voucher.VoucherCode);
+            var result = vouchersService.GetDiscountForCode(voucher.VoucherCode).GetAwaiter().GetResult();
 
             Assert.Equal(expected, result);
         }
@@ -325,7 +325,7 @@ namespace CarRental.Services.Tests
 
             var vouchersService = new VouchersService(dbContext, usersServiceMock.Object, this.mapper);
 
-            var result = vouchersService.GetDiscountForCode(Guid.NewGuid().ToString());
+            var result = vouchersService.GetDiscountForCode(Guid.NewGuid().ToString()).GetAwaiter().GetResult();
 
             Assert.Equal(0, result);
         }
@@ -354,7 +354,7 @@ namespace CarRental.Services.Tests
 
             var vouchersService = new VouchersService(dbContext, usersServiceMock.Object, this.mapper);
 
-            var result = vouchersService.GetDiscountForCode(String.Empty);
+            var result = vouchersService.GetDiscountForCode(String.Empty).GetAwaiter().GetResult();
 
             Assert.Equal(0, result);
         }

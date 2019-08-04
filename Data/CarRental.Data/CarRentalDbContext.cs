@@ -198,8 +198,6 @@
                 Year = 2017
             });
 
-            ConfigureUserIdentityRelations(builder);
-
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 
 
@@ -210,11 +208,6 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
-        }
-
-        private static void ConfigureUserIdentityRelations(ModelBuilder builder)
-        {
-
         }
     }
 }
