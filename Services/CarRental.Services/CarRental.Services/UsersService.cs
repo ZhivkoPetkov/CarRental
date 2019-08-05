@@ -11,21 +11,17 @@ namespace CarRental.Services
     public class UsersService : IUsersService
     {
         private readonly UserManager<ApplicationUser> userManager;
-    
-        public UsersService(UserManager<ApplicationUser> userManager)
+        private readonly CarRentalDbContext dbContext;
+
+        public UsersService(UserManager<ApplicationUser> userManager, CarRentalDbContext dbContext)
         {
             this.userManager = userManager;
+            this.dbContext = dbContext;
         }
 
         public ApplicationUser GetUserByEmail(string email)
         {
             return this.userManager.FindByNameAsync(email).GetAwaiter().GetResult();
-        }
-
-        public string GetUserIdByName(string email)
-        {
-            var user = this.userManager.FindByNameAsync(email).GetAwaiter().GetResult();
-            return user.Id;
         }
 
         public string GetUserIdByEmail(string email)
@@ -36,7 +32,7 @@ namespace CarRental.Services
 
         public ICollection<UserVouchersDto> GetAllUsers()
         {
-            var users = this.userManager.Users.Select(x => new UserVouchersDto
+            var users = this.dbContext.Users.Select(x => new UserVouchersDto
             {
                 Email = x.Email,
                 MoneySpent = x.Orders.Sum(m => m.Price),

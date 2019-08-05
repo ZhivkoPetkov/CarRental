@@ -14,7 +14,7 @@ using CarRental.DTOs.Vouchers;
 using CarRental.Models;
 using CarRental.Web.Areas.Administration.InputModels.Cars;
 using CarRental.Web.Areas.Administration.ViewModels.Locations;
-using CarRental.Web.Areas.Administration.ViewModels.Rewiews;
+using CarRental.Web.Areas.Administration.ViewModels.Reviews;
 using CarRental.Web.Areas.Administration.ViewModels.Vouchers;
 using CarRental.Web.ViewModels.Cars;
 using CarRental.Web.ViewModels.Orders;
@@ -77,7 +77,7 @@ namespace CarRental.Services.Tests
                       .ForMember(dest => dest.Email, src => src.MapFrom(x => x.User.Email))
                       .ForMember(dest => dest.Firstname, src => src.MapFrom(x => x.User.FirstName))
                       .ForMember(dest => dest.Lastname, src => src.MapFrom(x => x.User.LastName));
-                cfg.CreateMap<AddCarViewModel, Car>();
+                cfg.CreateMap<AddCarInputModel, Car>();
                 cfg.CreateMap<CarEditViewModel, CarDetailsDto>().ReverseMap();
                 cfg.CreateMap<ListCarDto, Car>();
                 cfg.CreateMap<ApplicationUser, UserDto>();
