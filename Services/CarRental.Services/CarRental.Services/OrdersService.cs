@@ -79,9 +79,9 @@ namespace CarRental.Services
         public async Task<bool> DeleteReviewFromOrder(int reviewId)
         {
             var order = this.dbContext.
-                Orders.
-                Where(x => x.ReviewId == reviewId).
-                FirstOrDefault();
+                                 Orders.
+                                 Where(x => x.ReviewId == reviewId).
+                                 FirstOrDefault();
 
             if (order is null)
             {
@@ -170,10 +170,10 @@ namespace CarRental.Services
                                             DateTime startRent, DateTime endRent, string voucherCode)
         {
             var userId = this.usersService.GetUserIdByEmail(email);
-            var pikcupLocationId = this.locationsService.GetIdByName(startLocation);
+            var pickupLocationId = this.locationsService.GetIdByName(startLocation);
             var returnLocationId = this.locationsService.GetIdByName(returnLocation);
 
-            if (userId is null || pikcupLocationId == 0 || returnLocationId == 0)
+            if (userId is null || pickupLocationId == 0 || returnLocationId == 0)
             {
                 return false;
             }
@@ -183,7 +183,7 @@ namespace CarRental.Services
                 return false;
             }
 
-            //If the voucher is different from none, discount will be generated and the vaucher will be with status Used
+            //If the voucher is different from none, discount will be generated and the voucher will be with status Used
             if (voucherCode != "none")
             {
                 var result = this.vouchersService.UseVoucher(voucherCode).GetAwaiter().GetResult();
@@ -200,7 +200,7 @@ namespace CarRental.Services
                 RentEnd = endRent,
                 RentStart = startRent,
                 Price = price,
-                PickUpLocationId = pikcupLocationId,
+                PickUpLocationId = pickupLocationId,
                 ReturnLocationId = returnLocationId,
                 Status = Models.Enums.OrderStatus.Active
             };
@@ -227,8 +227,8 @@ namespace CarRental.Services
         {
             for (var dt = order.RentStart; dt <= order.RentEnd; dt = dt.AddDays(1))
             {
-                var rentday = order.Car.RentDays.FirstOrDefault(x => x.RentDate.Date == dt);
-                dbContext.CarRentDays.Remove(rentday);
+                var rentDay = order.Car.RentDays.FirstOrDefault(x => x.RentDate.Date == dt);
+                dbContext.CarRentDays.Remove(rentDay);
             }
         }
     }

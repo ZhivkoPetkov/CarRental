@@ -133,10 +133,10 @@ namespace CarRental.Services
 
             return cars;
         }
-        public ICollection<ListCarDto> GetAvailableCars(DateTime start, DateTime end, string location)
+        public ICollection<ListCarDto> GetAvailableCars(DateTime startRent, DateTime endRent, string location)
         {
             var dates = new List<DateTime>();
-            for (var dt = start; dt <= end; dt = dt.AddDays(1))
+            for (var dt = startRent; dt <= endRent; dt = dt.AddDays(1))
             {
                 dates.Add(dt);
             }
@@ -157,10 +157,11 @@ namespace CarRental.Services
                     Model = x.Model,
                     Year = x.Year,
                     Days = dates.Count(),
-                    StartRent = start,
-                    End = end
+                    StartRent = startRent,
+                    End = endRent
                 }).
                 ToList();
+
             return cars;
         }
         public CarDetailsDto FindCarForEdit(int id)
@@ -173,10 +174,10 @@ namespace CarRental.Services
             var result = this.mapper.Map<CarDetailsDto>(car);
             return result;
         }
-        public async Task<bool> RentCar(DateTime start, DateTime end, int cardId)
+        public async Task<bool> RentCar(DateTime startRent, DateTime endRent, int cardId)
         {
             var dates = new List<CarRentDays>();
-            for (var dt = start; dt <= end; dt = dt.AddDays(1))
+            for (var dt = startRent; dt <= endRent; dt = dt.AddDays(1))
             {
                 dates.Add(new CarRentDays
                 {
@@ -189,10 +190,10 @@ namespace CarRental.Services
             await this.dbContext.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> IsAlreadyRented(DateTime start, DateTime end, int cardId)
+        public async Task<bool> IsAlreadyRented(DateTime startRent, DateTime endRent, int cardId)
         {
             var dates = new List<DateTime>();
-            for (var dt = start; dt <= end; dt = dt.AddDays(1))
+            for (var dt = startRent; dt <= endRent; dt = dt.AddDays(1))
             {
                 dates.Add(dt);
             }

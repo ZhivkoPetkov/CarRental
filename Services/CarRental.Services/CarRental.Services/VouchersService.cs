@@ -115,15 +115,15 @@ namespace CarRental.Services
 
             var voucher = await this.dbCotenxt.Vouchers.AsAsyncEnumerable()
                 .FirstOrDefault(x => x.VoucherCode == voucherCode);
-            ;
+
             return voucher == null ? 0 : voucher.Discount;
         }
 
         public async Task<bool> UseVoucher(string voucherCode)
         {
             var voucher = this.dbCotenxt.Vouchers.
-                Where(x => x.VoucherCode == voucherCode).
-                FirstOrDefault();
+                                Where(x => x.VoucherCode == voucherCode).
+                                FirstOrDefault();
 
             if (voucher is null)
             {
