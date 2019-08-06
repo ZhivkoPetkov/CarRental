@@ -19,6 +19,9 @@
         public const string DefaultLocationName = "Sofia, Airport Terminal 1";
 
         public const string DefaultVoucherCode = "none";
-        public const string SignlaRMessageForNewORder = "Someone just rented a car {0} for {1} day/s.";
+
+        public const string SignalRMessageForNewOrder = "Someone just rented a car {0} for {1} day/s.";
+        public const string SignalRMethodNewOrder = "NotifyOrders";
+
     }
 }

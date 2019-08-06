@@ -1,10 +1,9 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace CarRental.Web.Areas.Administration.ViewModels.Locations
+namespace CarRental.Web.Areas.Administration.InputModels.Locations
 {
-    public class AddLocationViewModel
+    public class AddLocationInputModel
     {
 
         private const string ErrorLength = "The name of the location should be between {2} and {1} symbols";

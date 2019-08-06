@@ -36,12 +36,8 @@ namespace CarRental.Web.Controllers
         {
             var userEmail = this.User.Identity.Name;
             var orders = this.ordersService.GetAllOrdersForUser(userEmail);
-            if (orders.Count == 0)
-            {
-                this.View();
-            }
-
             var viewModels = this.mapper.Map<List<MyOrdersViewModel>>(orders);
+
             return this.View(viewModels);
         }
 
@@ -57,6 +53,7 @@ namespace CarRental.Web.Controllers
             inputModel.DiscountPercent = await this.vouchersService.GetDiscountForCode(inputModel.DiscountCode);
             var vouchers = this.mapper.Map<List<VoucherViewModel>>(this.vouchersService.GetAllActiveForUser(this.User.Identity.Name));
             inputModel.Vouchers = vouchers;
+
             return this.View(inputModel);
         }
 
@@ -79,8 +76,9 @@ namespace CarRental.Web.Controllers
 
             var carModel = this.carsService.GetCarModelById(inputModel.Id);
             var days = (inputModel.Return - inputModel.PickUp).Days;
-            var message = string.Format(GlobalConstants.SignlaRMessageForNewORder, carModel, days);
-            await this.notifyHub.Clients.All.SendAsync("NotifyOrders", message);
+
+            var message = string.Format(GlobalConstants.SignalRMessageForNewOrder, carModel, days);
+            await this.notifyHub.Clients.All.SendAsync(GlobalConstants.SignalRMethodNewOrder, message);
 
             return RedirectToAction(nameof(MyOrders));
         }

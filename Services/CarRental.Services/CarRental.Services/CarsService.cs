@@ -27,7 +27,7 @@ namespace CarRental.Services
             this.mapper = mapper;
         }
         public async Task<bool> AddCar(Car car)
-        {         
+        {
             var result = this.dbContext.Cars.Add(car);
             await this.dbContext.SaveChangesAsync();
             return true;
@@ -75,14 +75,14 @@ namespace CarRental.Services
 
         public CarDetailsDto FindCar(int id)
         {
-                var car = this.dbContext.Cars.Find(id);
-                if (car is null || !car.inUse)
-                {
-                    return null;
-                }
-                var result = this.mapper.Map<CarDetailsDto>(car);
-                result.Reviews = this.mapper.Map<List<ReviewDto>>(car.Reviews);
-                return result;
+            var car = this.dbContext.Cars.Find(id);
+            if (car is null || !car.inUse)
+            {
+                return null;
+            }
+            var result = this.mapper.Map<CarDetailsDto>(car);
+            result.Reviews = this.mapper.Map<List<ReviewDto>>(car.Reviews);
+            return result;
         }
 
         public ICollection<ListCarDto> GetAllCars(string orderby)
@@ -143,7 +143,6 @@ namespace CarRental.Services
 
             var cars = this.dbContext.
                 Cars.
-                Include(x => x.Location).
                 Where(l => l.Location.Name == location).
                 Where(x => x.RentDays.Any(d => dates.Contains(d.RentDate)) == false).
                 Where(x => x.inUse == true).
@@ -204,7 +203,7 @@ namespace CarRental.Services
                 {
                     return true;
                 }
-            }            
+            }
             return false;
         }
         public string GetCarModelById(int id)

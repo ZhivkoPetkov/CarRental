@@ -2,7 +2,7 @@
 using AutoMapper;
 using CarRental.Models;
 using CarRental.Services.Contracts;
-using CarRental.Web.Areas.Administration.ViewModels.Locations;
+using CarRental.Web.Areas.Administration.InputModels.Locations;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +23,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
         {
             var locations = this.locationsService.GetAllLocationNames();
 
-            return View(new AddLocationViewModel { Locations = locations });
+            return View(new AddLocationInputModel { Locations = locations });
         }
 
         public async Task<IActionResult> Delete(string name)
@@ -35,7 +35,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
 
         [HttpPost]
-        public IActionResult Manage(AddLocationViewModel inputModel)
+        public IActionResult Manage(AddLocationInputModel inputModel)
         {
             if (!ModelState.IsValid)
             {
