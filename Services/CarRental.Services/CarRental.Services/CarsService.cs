@@ -57,7 +57,9 @@ namespace CarRental.Services
             oldCar.Year = car.Year;
             oldCar.PricePerDay = car.PricePerDay;
             oldCar.Image = car.Image;
+            oldCar.GearType = car.GearType;
             var result = await this.dbContext.SaveChangesAsync();
+
             return true;
 
         }
@@ -73,9 +75,9 @@ namespace CarRental.Services
             return true;
         }
 
-        public CarDetailsDto FindCar(int id)
+        public async Task<CarDetailsDto> FindCar(int id)
         {
-            var car = this.dbContext.Cars.Find(id);
+            var car = await this.dbContext.Cars.FindAsync(id);
             if (car is null || !car.inUse)
             {
                 return null;

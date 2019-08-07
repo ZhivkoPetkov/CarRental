@@ -3,6 +3,7 @@ using CarRental.Services.Contracts;
 using CarRental.Web.ViewModels.Cars;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CarRental.Web.ViewModels.Home;
 using CarRental.Web.ViewModels.Reviews;
 using X.PagedList;
@@ -24,7 +25,7 @@ namespace CarRental.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Available(SearchCarsViewModel model)
+        public async Task<IActionResult> Available(SearchCarsViewModel model)
         {
             if (!this.User.Identity.IsAuthenticated)
             {
@@ -36,7 +37,7 @@ namespace CarRental.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var cars = this.carsService.GetAvailableCars(model.Pickup, model.Return, model.PickupPlace);
+            var cars = await this.carsService.GetAvailableCars(model.Pickup, model.Return, model.PickupPlace).ToListAsync();
 
             var viewModel = new AvailableCarsViewModel
             {
@@ -51,22 +52,22 @@ namespace CarRental.Web.Controllers
             return this.View(viewModel);
         }
 
-        public IActionResult All(int? pageNumber, int? pageSize, string orderBy = TimeAdded)
+        public async Task<IActionResult> All(int? pageNumber, int? pageSize, string orderBy = TimeAdded)
         {
             var cars = this.carsService.GetAllCars(orderBy);
 
 
             pageNumber = pageNumber ?? DefaultPageIndex;
             pageSize = pageSize ?? DefaultCarsPerPage;
-            var pageProductsViewMode = cars.ToPagedList(pageNumber.Value, pageSize.Value);
+            var pageProductsViewMode = await cars.ToPagedListAsync(pageNumber.Value, pageSize.Value);
 
             this.TempData["order"] = orderBy;
             return this.View(pageProductsViewMode);
         }
  
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var car = this.carsService.FindCar(id);
+            var car = await this.carsService.FindCar(id);
 
             if (car is null)
             {

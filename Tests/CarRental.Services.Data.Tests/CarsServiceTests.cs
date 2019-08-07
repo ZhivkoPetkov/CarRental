@@ -134,7 +134,7 @@ namespace CarRental.Services.Tests
             var actualCountOfCars = dbContext.Cars.Count();
             Assert.Equal(2, actualCountOfCars);
 
-            var result = carsService.FindCar(2);
+            var result = carsService.FindCar(2).GetAwaiter().GetResult();
             Assert.Equal(insertCars[1].Model, result.Model);
         }
 
@@ -171,7 +171,7 @@ namespace CarRental.Services.Tests
             insertedCar.Description = CarModelDescriptionTwo;
 
             carsService.EditCar(insertedCar);
-            var updatedCar = carsService.FindCar(insertedCar.Id);
+            var updatedCar = carsService.FindCar(insertedCar.Id).GetAwaiter().GetResult();
 
             Assert.Equal(CarPricePerDayTwo, updatedCar.PricePerDay);
             Assert.Equal(CarModelDescriptionTwo, updatedCar.Description);
@@ -206,7 +206,7 @@ namespace CarRental.Services.Tests
             Assert.Equal(expectedLocation, actualResultLocation);
 
             carsService.ChangeLocation(car.Id, locationIdTwo);
-            var updatedCar = carsService.FindCar(car.Id);
+            var updatedCar = carsService.FindCar(car.Id).GetAwaiter().GetResult();
 
             Assert.Equal(locationIdTwo, updatedCar.LocationId);
         }

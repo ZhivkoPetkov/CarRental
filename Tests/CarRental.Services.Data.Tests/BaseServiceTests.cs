@@ -52,7 +52,7 @@ namespace CarRental.Services.Tests
             var configuration = new MapperConfiguration(cfg =>
             {
 
-                cfg.CreateMap<AddLocationViewModel, Location>();
+                cfg.CreateMap<AddLocationInputModel, Location>();
                 cfg.CreateMap<Order, OrderDto>();
                 cfg.CreateMap<OrderDto, MyOrdersViewModel>()
                        .ForMember(dest => dest.PickUpLocation, src => src.MapFrom(x => x.PickUpLocation.Name))

@@ -47,9 +47,9 @@ namespace CarRental.Web.Areas.Administration.Controllers
             return RedirectToAction("All", "Cars");
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var car = this.carsService.FindCar(id);
+            var car = await this.carsService.FindCar(id);
 
             if (car is null)
             {

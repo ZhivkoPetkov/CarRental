@@ -18,7 +18,7 @@ namespace CarRental.Services.Contracts
 
         Task<bool> RentCar(DateTime start, DateTime end, int cardId);
 
-        CarDetailsDto FindCar(int id);
+        Task<CarDetailsDto> FindCar(int id);
         CarDetailsDto FindCarForEdit(int id);
 
         string GetCarModelById(int id);
