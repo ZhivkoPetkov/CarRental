@@ -4,6 +4,7 @@ using AutoMapper;
 using CarRental.Services.Contracts;
 using CarRental.Web.ViewModels.Orders;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace CarRental.Web.Areas.Administration.Controllers
 {
@@ -20,7 +21,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Cancel(string id)
         {
-            var isCanceled = this.ordersService.Cancel(id).GetAwaiter().GetResult();
+            var isCanceled = await this.ordersService.Cancel(id);
 
             if (!isCanceled)
             {
@@ -49,9 +50,9 @@ namespace CarRental.Web.Areas.Administration.Controllers
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult Edit(string id)
+        public async Task<IActionResult> Edit(string id)
         {
-            var order = this.ordersService.GetOrderById(id);
+            var order = await this.ordersService.GetOrderById(id);
 
             if (order is null)
             {
@@ -75,9 +76,9 @@ namespace CarRental.Web.Areas.Administration.Controllers
             return RedirectToAction("All", "Orders");
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            var orders = this.ordersService.All();
+            var orders = await this.ordersService.All().ToListAsync();
             var viewModels = this.mapper.Map<List<MyOrdersViewModel>>(orders);
             return this.View(viewModels);
         }

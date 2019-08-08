@@ -6,6 +6,7 @@ using CloudinaryDotNet;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using CarRental.Web.Areas.Administration.InputModels.Cars;
+using X.PagedList;
 
 namespace CarRental.Web.Areas.Administration.Controllers
 {
@@ -26,9 +27,9 @@ namespace CarRental.Web.Areas.Administration.Controllers
             this.imagesService = imagesService;
         }
 
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            var locationsList = this.locationsService.GetAllLocationNames();
+            var locationsList = await this.locationsService.GetAllLocationNames().ToListAsync();
             return this.View(new AddCarInputModel { Locations = locationsList });
         }
 

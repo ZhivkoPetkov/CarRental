@@ -81,7 +81,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(RentStart, RentEnd, car.Id)).
@@ -157,7 +157,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(RentStart, RentEnd, car.Id)).
@@ -230,7 +230,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(RentStart, RentEnd, car.Id)).
@@ -308,7 +308,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(RentStart, RentEnd, car.Id)).
@@ -401,7 +401,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(RentStart, RentEnd, car.Id)).
@@ -477,7 +477,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(RentStart, RentEnd, car.Id)).
@@ -547,7 +547,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(RentStart, RentEnd, car.Id)).
@@ -638,7 +638,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(RentStart, RentEnd, car.Id)).
@@ -708,7 +708,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(RentStart, RentEnd, car.Id)).
@@ -779,7 +779,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(RentStart, RentEnd, car.Id)).
@@ -867,7 +867,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var dayStart = RentStart.AddDays(-5);
 
@@ -949,7 +949,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(RentStart, RentEnd, car.Id)).
@@ -1040,7 +1040,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<int>())).
@@ -1113,7 +1113,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<int>())).
@@ -1192,7 +1192,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<int>())).
@@ -1269,7 +1269,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<int>())).
@@ -1342,7 +1342,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<int>())).
@@ -1415,7 +1415,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<int>())).
@@ -1433,7 +1433,7 @@ namespace CarRental.Services.Tests
                 "none").GetAwaiter().GetResult();
 
             var expected = dbContext.Orders.First();
-            var result = ordersService.GetOrderById(expected.Id);
+            var result = ordersService.GetOrderById(expected.Id).GetAwaiter().GetResult();
 
             Assert.Equal(expected.Id, result.Id);
         }
@@ -1519,7 +1519,7 @@ namespace CarRental.Services.Tests
 
             var locationsServiceMock = new Mock<ILocationsService>();
             locationsServiceMock.Setup(x => x.GetIdByName(location.Name)).
-                                    Returns(location.Id);
+                                    ReturnsAsync(location.Id);
 
             var carsServiceMock = new Mock<ICarsService>();
             carsServiceMock.Setup(x => x.RentCar(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<int>())).

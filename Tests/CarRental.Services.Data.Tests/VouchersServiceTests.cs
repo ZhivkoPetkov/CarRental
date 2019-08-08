@@ -169,7 +169,7 @@ namespace CarRental.Services.Tests
 
             var vouchersService = new VouchersService(dbContext, usersServiceMock.Object, this.mapper);
 
-            var result = vouchersService.DeleteVoucher(-1);
+            var result = vouchersService.DeleteVoucher(-1).GetAwaiter().GetResult();
 
             Assert.False(result);
         }

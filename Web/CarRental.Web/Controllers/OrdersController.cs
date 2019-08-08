@@ -84,9 +84,9 @@ namespace CarRental.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
-            var order = this.ordersService.GetOrderById(id);
+            var order = await this.ordersService.GetOrderById(id);
 
             if (order is null)
             {

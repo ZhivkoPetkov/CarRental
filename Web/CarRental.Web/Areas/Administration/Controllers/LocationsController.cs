@@ -5,6 +5,7 @@ using CarRental.Services.Contracts;
 using CarRental.Web.Areas.Administration.InputModels.Locations;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace CarRental.Web.Areas.Administration.Controllers
 {
@@ -19,9 +20,9 @@ namespace CarRental.Web.Areas.Administration.Controllers
             this.mapper = mapper;
         }
 
-        public IActionResult Manage()
+        public async Task<IActionResult> Manage()
         {
-            var locations = this.locationsService.GetAllLocationNames();
+            var locations = await this.locationsService.GetAllLocationNames().ToListAsync();
 
             return View(new AddLocationInputModel { Locations = locations });
         }
@@ -35,7 +36,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
 
 
         [HttpPost]
-        public IActionResult Manage(AddLocationInputModel inputModel)
+        public async Task<IActionResult> Manage(AddLocationInputModel inputModel)
         {
             if (!ModelState.IsValid)
             {
@@ -43,7 +44,7 @@ namespace CarRental.Web.Areas.Administration.Controllers
             }
 
             var location = mapper.Map<Location>(inputModel);
-            var result = this.locationsService.CreateLocation(location).GetAwaiter().GetResult();
+            var result = await this.locationsService.CreateLocation(location);
 
             return RedirectToAction(nameof(Manage));
         }

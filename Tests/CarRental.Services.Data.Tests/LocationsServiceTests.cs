@@ -191,7 +191,7 @@ namespace CarRental.Services.Tests
 
             locationsService.CreateLocation(location);
 
-            var result = locationsService.GetIdByName(locationNameOne);
+            var result = locationsService.GetIdByName(locationNameOne).GetAwaiter().GetResult();
 
             Assert.Equal(1, result);
         }
@@ -214,7 +214,7 @@ namespace CarRental.Services.Tests
 
             locationsService.CreateLocation(location);
 
-            var result = locationsService.GetIdByName(locationNameThree);
+            var result = locationsService.GetIdByName(locationNameThree).GetAwaiter().GetResult();
 
             Assert.Equal(0, result);
         }

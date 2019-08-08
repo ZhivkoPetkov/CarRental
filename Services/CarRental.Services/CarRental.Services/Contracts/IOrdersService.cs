@@ -13,7 +13,7 @@ namespace CarRental.Services.Contracts
         ICollection<OrderDto> GetAllOrdersForUser(string email);
         Task<bool> DeleteReviewFromOrder(int reviewId);
         ICollection<OrderDto> All();
-        OrderDto GetOrderById(string id);
+        Task<OrderDto> GetOrderById(string id);
         bool UserFinishedOrders(string name);
         Task<bool> Delete(string id);
         Task<bool> Cancel(string id);

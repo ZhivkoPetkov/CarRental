@@ -5,6 +5,7 @@ using CarRental.Services.Contracts;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.Services
 {
@@ -82,11 +83,11 @@ namespace CarRental.Services
                 ToList();
         }
 
-        public int GetIdByName(string name)
+        public async Task<int> GetIdByName(string name)
         {
-            var location = this.dbContext.
+            var location = await this.dbContext.
                 Locations.
-                FirstOrDefault(x => x.Name == name);
+                FirstOrDefaultAsync(x => x.Name == name);
 
             if(location is null)
             {

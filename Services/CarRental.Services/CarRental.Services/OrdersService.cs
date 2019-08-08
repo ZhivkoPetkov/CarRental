@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.Services
 {
@@ -147,9 +148,9 @@ namespace CarRental.Services
 
         }
 
-        public OrderDto GetOrderById(string id)
+        public async Task<OrderDto> GetOrderById(string id)
         {
-            var order = this.dbContext.Orders.Find(id);
+            var order = await this.dbContext.Orders.FindAsync(id);
 
             return mapper.Map<OrderDto>(order);
         }
@@ -170,15 +171,16 @@ namespace CarRental.Services
                                             DateTime startRent, DateTime endRent, string voucherCode)
         {
             var userId = this.usersService.GetUserIdByEmail(email);
-            var pickupLocationId = this.locationsService.GetIdByName(startLocation);
-            var returnLocationId = this.locationsService.GetIdByName(returnLocation);
+            var pickupLocationId = await this.locationsService.GetIdByName(startLocation);
+            var returnLocationId = await this.locationsService.GetIdByName(returnLocation);
 
             if (userId is null || pickupLocationId == 0 || returnLocationId == 0)
             {
                 return false;
             }
 
-            if (carsService.IsAlreadyRented(startRent,endRent, carId).GetAwaiter().GetResult())
+            var isAlreadyRented = await carsService.IsAlreadyRented(startRent, endRent, carId);
+            if (isAlreadyRented)
             {
                 return false;
             }
@@ -186,7 +188,7 @@ namespace CarRental.Services
             //If the voucher is different from none, discount will be generated and the voucher will be with status Used
             if (voucherCode != "none")
             {
-                var result = this.vouchersService.UseVoucher(voucherCode).GetAwaiter().GetResult();
+                var result = await this.vouchersService.UseVoucher(voucherCode);
                 if (!result)
                 {
                     return false;

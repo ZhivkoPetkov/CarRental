@@ -4,6 +4,7 @@ using CarRental.Web.Areas.Administration.ViewModels.Reviews;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace CarRental.Web.Areas.Administration.Controllers
 {
@@ -18,9 +19,9 @@ namespace CarRental.Web.Areas.Administration.Controllers
             this.mapper = mapper;
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            var reviews = this.reviewsService.GetAllReviews();
+            var reviews = await this.reviewsService.GetAllReviews().ToListAsync();
             var viewModels = this.mapper.Map<List<ListReviewViewModel>>(reviews);
 
             return this.View(viewModels);

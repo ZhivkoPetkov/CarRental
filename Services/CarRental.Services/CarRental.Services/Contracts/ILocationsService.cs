@@ -11,6 +11,6 @@ namespace CarRental.Services.Contracts
         Task<bool> DeleteLocation(string name);
         ICollection<string> GetAllLocationNames();
 
-        int GetIdByName(string name);
+        Task<int> GetIdByName(string name);
     }
 }

@@ -1029,7 +1029,7 @@ namespace CarRental.Services.Tests
             dbContext.SaveChanges();
 
             var expected = CarModelTestTwo;
-            var result = carsService.GetCarModelById(insertCars[1].Id);
+            var result = carsService.GetCarModelById(insertCars[1].Id).GetAwaiter().GetResult();
 
             Assert.Equal(expected, result);
         }
@@ -1045,7 +1045,7 @@ namespace CarRental.Services.Tests
             var carsService = new CarsService(dbContext, this.cloudinary, this.mapper);
 
             var expected = String.Empty;
-            var result = carsService.GetCarModelById(1);
+            var result = carsService.GetCarModelById(1).GetAwaiter().GetResult();
 
             Assert.Equal(expected, result);
         }
@@ -1227,7 +1227,7 @@ namespace CarRental.Services.Tests
             var actualCountOfCars = dbContext.Cars.Count();
             Assert.Equal(2, actualCountOfCars);
 
-            var result = carsService.FindCarForEdit(2);
+            var result = carsService.FindCarForEdit(2).GetAwaiter().GetResult();
             Assert.Equal(insertCars[1].Model, result.Model);
         }
 
@@ -1275,7 +1275,7 @@ namespace CarRental.Services.Tests
             var actualCountOfCars = dbContext.Cars.Count();
             Assert.Equal(2, actualCountOfCars);
 
-            var result = carsService.FindCarForEdit(2);
+            var result = carsService.FindCarForEdit(2).GetAwaiter().GetResult();
             Assert.Null(result);
         }
 

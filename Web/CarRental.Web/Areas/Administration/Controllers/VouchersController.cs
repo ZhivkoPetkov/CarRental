@@ -3,6 +3,8 @@ using CarRental.Services.Contracts;
 using CarRental.Web.Areas.Administration.ViewModels.Vouchers;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using X.PagedList;
 
 namespace CarRental.Web.Areas.Administration.Controllers
 {
@@ -19,23 +21,23 @@ namespace CarRental.Web.Areas.Administration.Controllers
             this.vouchersService = vouchersService;
         }
 
-        public IActionResult Generate()
+        public async Task<IActionResult> Generate()
         {
-            var users = this.usersService.GetAllUsers();
+            var users = await this.usersService.GetAllUsers().ToListAsync();
             var viewModels = this.mapper.Map<List<UserVoucherViewModel>>(users);
             return this.View(viewModels);
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            var vouchers = this.vouchersService.GetAllVouchers();
+            var vouchers = await this.vouchersService.GetAllVouchers().ToListAsync();
             var viewModels = this.mapper.Map<List<VoucherDetailsViewModel>>(vouchers);
             return this.View(viewModels);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var isDeleted = this.vouchersService.DeleteVoucher(id);
+            var isDeleted = await this.vouchersService.DeleteVoucher(id);
 
             if (!isDeleted)
             {
@@ -46,14 +48,14 @@ namespace CarRental.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public IActionResult Generate(UserVoucherViewModel inputModel)
+        public async Task<IActionResult> Generate(UserVoucherViewModel inputModel)
         {
             if (!ModelState.IsValid)
             {
                 return RedirectToAction(nameof(Generate));
             }
 
-            var isGenerated = this.vouchersService.CreateForUserCustom(inputModel.Email, inputModel.Discount);
+            var isGenerated = await this.vouchersService.CreateForUserCustom(inputModel.Email, inputModel.Discount);
 
             if (!isGenerated)
             {

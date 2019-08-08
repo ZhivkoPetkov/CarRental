@@ -46,7 +46,7 @@ namespace CarRental.Services
             return true;
         }
 
-        public bool CreateForUserCustom(string email, int discount)
+        public async Task<bool> CreateForUserCustom(string email, int discount)
         {
             var userId = this.usersService.GetUserIdByEmail(email);
             if (userId is null)
@@ -60,15 +60,15 @@ namespace CarRental.Services
                 VoucherCode = Guid.NewGuid().ToString(),
                 Discount = discount
             };
-            this.dbCotenxt.Vouchers.Add(voucher);
+            await this.dbCotenxt.Vouchers.AddAsync(voucher);
             this.dbCotenxt.SaveChanges();
             return true;
         }
 
-        public bool DeleteVoucher(int id)
+        public async Task<bool> DeleteVoucher(int id)
         {
-            var voucher = this.dbCotenxt.
-                             Vouchers.Find(id);
+            var voucher = await this.dbCotenxt.
+                             Vouchers.FindAsync(id);
 
             if (voucher is null)
             {

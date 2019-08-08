@@ -166,9 +166,9 @@ namespace CarRental.Services
 
             return cars;
         }
-        public CarDetailsDto FindCarForEdit(int id)
+        public async Task<CarDetailsDto> FindCarForEdit(int id)
         {
-            var car = this.dbContext.Cars.Find(id);
+            var car = await this.dbContext.Cars.FindAsync(id);
             if (!car.inUse)
             {
                 return null;
@@ -209,9 +209,9 @@ namespace CarRental.Services
             }
             return false;
         }
-        public string GetCarModelById(int id)
+        public async Task<string> GetCarModelById(int id)
         {
-            var car = dbContext.Cars.Find(id);
+            var car = await dbContext.Cars.FindAsync(id);
 
             if (car is null)
             {
