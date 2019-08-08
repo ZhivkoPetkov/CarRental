@@ -74,7 +74,7 @@ namespace CarRental.Web.Controllers
                 return RedirectToAction(nameof(Invalid));
             }
 
-            var carModel = this.carsService.GetCarModelById(inputModel.Id);
+            var carModel = await this.carsService.GetCarModelById(inputModel.Id);
             var days = (inputModel.Return - inputModel.PickUp).Days;
 
             var message = string.Format(GlobalConstants.SignalRMessageForNewOrder, carModel, days);
