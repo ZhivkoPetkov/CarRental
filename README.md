@@ -9,12 +9,9 @@ Admin Email: `admin@admin.bg`
 Admin Password: `123123`
 
 ### Used technology
-- ASP.Net Core MVC
+- ASP.Net Core MVC 2.2
+- MSSQL
 - JS
-
-The app uses SignalR to notify the looged in users when someone makes an order. Pop up windows appears on the bottom of the page and automatically closes after some seconds.
-
-![](https://i.imgur.com/y5mriEx.png)
 
 # Features
 
