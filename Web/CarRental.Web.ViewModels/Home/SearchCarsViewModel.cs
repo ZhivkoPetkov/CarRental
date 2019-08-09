@@ -6,14 +6,13 @@ namespace CarRental.Web.ViewModels.Home
 {
     public class SearchCarsViewModel : IValidatableObject
     {
-        private const string PickupError = "Pick Up date cannot be after the return date!";
-        private const string PastDate = "Pick Up date cannot be in the past!";
+        private const string PickupError = "Pick Up date is invalid!";
+        private const string ReturnError = "Return date is invalid!";
 
         public SearchCarsViewModel()
         {
             this.Pickup = DateTime.UtcNow;
-            this.Return = DateTime.UtcNow;
-            this.Return.AddDays(1);
+            this.Return = DateTime.UtcNow.AddDays(1);
         }
 
         [Required]
@@ -40,14 +39,14 @@ namespace CarRental.Web.ViewModels.Home
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (Pickup.Date >= Return.Date)
+            if (Pickup.Date >= Return.Date || Pickup.Date < DateTime.UtcNow.Date)
             {
                 yield return new ValidationResult(PickupError);
             }
 
-            if ((Pickup.Date.Month <= DateTime.UtcNow.Month) && Pickup.Date.Day < DateTime.UtcNow.Day)
+            if (Return.Date < DateTime.UtcNow.Date)
             {
-                yield return new ValidationResult(PastDate);
+                yield return new ValidationResult(ReturnError);
             }
         }
     }
