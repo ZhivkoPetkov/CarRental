@@ -10,11 +10,7 @@ namespace CarRental.Web.Hubs
 {
     public class NotifyHub : Hub
     {
-        private readonly CarRentalDbContext dbContext;
-
-        public NotifyHub(CarRentalDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
+        public NotifyHub()
+        {}
     }
 }

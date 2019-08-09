@@ -15,13 +15,11 @@ namespace CarRental.Web.Controllers
     {
         private readonly ILocationsService locationsService;
         private readonly IOrdersService ordersService;
-        private readonly IHubContext<NotifyHub> notifyHub;
 
-        public HomeController(ILocationsService locationsService, IOrdersService ordersService, IHubContext<NotifyHub> notifyHub)
+        public HomeController(ILocationsService locationsService, IOrdersService ordersService)
         {
             this.locationsService = locationsService;
             this.ordersService = ordersService;
-            this.notifyHub = notifyHub;
         }
 
         public IActionResult Index()
