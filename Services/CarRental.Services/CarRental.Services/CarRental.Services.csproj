@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Data\CarRental.Data\CarRental.Data.csproj" />
-    <ProjectReference Include="..\..\..\Models\CarRental.DTOs\CarRental.DTOs.csproj" />
+    <ProjectReference Include="..\..\CarRental.DTOs\CarRental.DTOs.csproj" />
   </ItemGroup>
 
   <ItemGroup>

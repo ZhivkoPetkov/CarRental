@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Models\CarRental.DTOs\CarRental.DTOs.csproj" />
     <ProjectReference Include="..\..\Models\CarRental.Models\CarRental.Models.csproj" />
     <ProjectReference Include="..\..\Services\CarRental.Services\CarRental.Services\CarRental.Services.csproj" />
   </ItemGroup>

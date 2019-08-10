@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\CarRental.Data\CarRental.Data.csproj" />
+    <ProjectReference Include="..\..\Services\CarRental.DTOs\CarRental.DTOs.csproj" />
     <ProjectReference Include="..\..\Web\CarRental.Web\CarRental.Web.csproj" />
   </ItemGroup>
 

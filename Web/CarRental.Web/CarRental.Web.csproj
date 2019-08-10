@@ -47,6 +47,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\CarRental.Data\CarRental.Data.csproj" />
+    <ProjectReference Include="..\..\Services\CarRental.DTOs\CarRental.DTOs.csproj" />
     <ProjectReference Include="..\..\Services\CarRental.Services\CarRental.Services\CarRental.Services.csproj" />
     <ProjectReference Include="..\CarRental.Web.ViewModels\CarRental.Web.ViewModels.csproj" />
   </ItemGroup>
