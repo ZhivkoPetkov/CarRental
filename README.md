@@ -10,8 +10,13 @@ Admin Password: `123123`
 
 ### Used technology
 - ASP.Net Core MVC 2.2
+- Entity Framework Core
 - MSSQL
 - JS
+
+The app uses SignalR to notify the logged in users when someone makes an order. Pop up windows appears on the bottom of the page and automatically closes after some seconds.
+
+![](https://i.imgur.com/9UKRI7H.png)
 
 # Features
 
@@ -29,7 +34,7 @@ Admin Password: `123123`
 - See details of every car
 - Give review
 - See his vouchers
-- Change password and phone
+- Change password, email and phone
 
 ### Administrator
 - Access index page for searching
@@ -41,7 +46,7 @@ Admin Password: `123123`
 - See details of every car
 - Give feedback
 - See his vouchers
-- Change password and phone
+- Change password, email and phone
 - #### Access admin area
 - See all orders
 - See all vouchers
