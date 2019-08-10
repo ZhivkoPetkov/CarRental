@@ -202,7 +202,7 @@ namespace CarRental.Services
 
             foreach (var date in dates)
             {
-                if (dbContext.CarRentDays.Any(x => x.CarId == cardId && x.RentDate == date))
+                if (await dbContext.CarRentDays.AnyAsync(x => x.CarId == cardId && x.RentDate == date))
                 {
                     return true;
                 }
