@@ -3,7 +3,7 @@ Car Rental is a web app where you can rent cars in various bulgarian locations (
 After every successfully finished order, the customer will receive a pop-up message to rate the service (from 1 to 5). After every successfully given feedback, the app will generate a voucher for future rents with discount from 1% to 5%.
 
 ### Demo
-http://carrentalpetkov.azurewebsites.net/
+http://carrental2020.azurewebsites.net/
 
 Admin Email: `admin@admin.bg`
 Admin Password: `123123`
